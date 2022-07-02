@@ -27,17 +27,17 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less" scoped>
 .home {
   width: 100%;
   display: flex;
   justify-content: space-between;
   height: 70px;
-}
-.home > div {
-  width: 100px;
-  height: 50px;
-  background-color: skyblue;
+  div {
+    width: 100px;
+    height: 50px;
+    background-color: skyblue;
+  }
 }
 .content {
   position: absolute;
