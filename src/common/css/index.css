@@ -13,8 +13,33 @@
 .mg-t-30{
     margin-top: 30px;
 }
+.mg-t-15{
+    margin-top: 15px;
+}
+.mg-l-10{
+    margin-left: 10px;
+}
 .pd-t-130{
     padding-top: 130px;
+}
+.mg-lr-10{
+    margin: 0px 10px;
+}
+/* flex */
+.flex-h{
+    display: flex;
+    flex-direction: row;
+   
+}
+.align-center{
+    align-items: center;
+}
+.justify-center{
+    justify-content: center;
+    
+}
+.justify-space-around{
+    justify-content: space-around;
 }
 /* font */
 .col-fff{
@@ -22,4 +47,10 @@
 }
 .text-center{
     text-align: center;
+}
+.text-bold{
+    font-weight: blod;
+}
+.text-lighter{
+    font-weight:lighter;
 }
