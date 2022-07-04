@@ -2,10 +2,16 @@
 <script setup>
 // getCurrentInstance获取实例上的内容
 import { ref, reactive, onMounted, onUnmounted } from "vue";
+import copyText from '../../common/util/copyText'
 // data
 const input = ref("请输入...");
 const motto = ref("有些路，只能一个人走...");
 const copythis = ref(null);
+const time = reactive({
+  hours: 0,
+  minutes: 0,
+  seconds: 0,
+});
 const iconList = reactive({
   wx: "hyl158191",
   qq: "3409575546",
@@ -13,32 +19,20 @@ const iconList = reactive({
   email: "3409575546@qq.com",
   github: "https://github.com/QinCongH",
 });
-async function copyText(text) {
-  try {
-    var copyInput = document.getElementById("COPY_INPUT");
-    if (!copyInput) {
-      copyInput = document.createElement("input");
-      copyInput.setAttribute("id", "COPY_INPUT");
-      copyInput.style.position = "fixed";
-      copyInput.style.left = "-100%";
-      copyInput.style.top = "0";
-      copyInput.style.zIndex = -100;
-      copyInput.style.opacity = 0;
-      document.body.appendChild(copyInput);
-    }
-    copyInput.value = text;
-    copyInput.focus();
-    copyInput.select();
-    // document.execCommand 可能会被废弃
-    if (document.execCommand("copy")) {
-       document.execCommand("copy");
-    }
-    copyInput.blur();
-  } catch (error) {
-    throw error;
-  }
-}
+
+const getTime = () => {
+  const date = new Date();
+  time.hours = date.getHours()<10?('0'+date.getHours()):date.getHours();
+  time.minutes = date.getMinutes()<10?('0'+date.getMinutes()):date.getMinutes();
+  time.seconds = date.getSeconds()<10?('0'+date.getSeconds()):date.getSeconds();
+};
+setInterval(() => {
+  getTime();
+}, 1000);
 onMounted(() => {
+  // setInterval(()=>{
+  //   getTime()
+  // },1000)
   console.log(copythis.value.title);
 });
 </script>
@@ -67,21 +61,21 @@ onMounted(() => {
         "
       >
         <div>
-          <p>21</p>
+          <p>{{ time.hours }}</p>
           <h5>hours</h5>
         </div>
         <div class="mg-lr-10">
           <p>:</p>
         </div>
         <div>
-          <p>23</p>
+          <p>{{ time.minutes }}</p>
           <h5>Minute</h5>
         </div>
         <div class="mg-lr-10">
           <p>:</p>
         </div>
         <div>
-          <p>23</p>
+          <p>{{ time.seconds }}</p>
           <h5>Seconds</h5>
         </div>
       </div>
