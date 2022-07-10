@@ -44,6 +44,10 @@
     margin-left: 10px;
 }
 
+.mg-b-30 {
+    margin-bottom: 30px;
+}
+
 .pd-t-130 {
     padding-top: 130px;
 }
@@ -51,6 +55,20 @@
 .mg-lr-10 {
     margin: 0px 10px;
 }
+.pd-15{
+    padding: 15px;
+}
+.pd-bt-15{
+    padding: 15px 0px;
+}
+.box-shadow-1 {
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+/* 边框 */
+.border-50{
+    border-radius: 50%;
+}
+
 
 /* 主题 */
 /* 黑夜 */
@@ -117,4 +135,32 @@
 
 .font-21 {
     font-size: 21px;
+}
+
+.font-line-1 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.font-line-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    /* //当p标签中有数字使多行显示失效时： */
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.lh-30 {
+    line-height: 30px;
+}
+
+.lh-35 {
+    line-height: 35px;
+}
+
+.lh-25 {
+    line-height: 25px;
 }

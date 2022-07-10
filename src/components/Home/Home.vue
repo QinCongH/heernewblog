@@ -11,7 +11,7 @@ const changeSwithTheme = (e) => {
 </script>
 <template>
   <Cover></Cover>
-  <div class="container" :class="!switchTheme ? 'bg-day' : 'bg-night'">
+  <div class="container w-100" :class="!switchTheme ? 'bg-day' : 'bg-night'">
     <HeerHeader
       :switchTheme="switchTheme"
       @changeSwithTheme="changeSwithTheme"
@@ -24,8 +24,7 @@ const changeSwithTheme = (e) => {
 
 <style lang="less" scoped>
 .container {
-  height: 800px;
-  width: 100%;
+  // width: 100%;
 }
 .bg-night {
   /deep/.active::after {

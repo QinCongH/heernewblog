@@ -17,7 +17,7 @@ const changeSwithTheme = (e) => {
 </script>
 <template>
   <header id="HomePage">
-    <div class="w-90 header flex-h justify-between">
+    <div class="header w-90 flex-h justify-between">
       <div class="left flex-1">
         <h1 class="font-21 text-lighter">禾耳</h1>
       </div>
@@ -213,9 +213,8 @@ const changeSwithTheme = (e) => {
 header {
   width: 100%;
   height: 50px;
-      box-shadow: 0px 2px 28px #eeeeeee8;
+  box-shadow: 0px 2px 28px #eeeeeee8;
   .header {
-
     .left {
       line-height: 50px;
     }
@@ -224,13 +223,15 @@ header {
       line-height: 50px;
       ul {
         li {
-          position: relative;
+          // position: relative;
           cursor: pointer;
-          padding: 0px 30px;
           a {
+            padding: 0px 10px;
             display: block;
             width: 100%;
             color: #514f4f;
+            position: relative;
+            text-align: center;
           }
 
           .active {
