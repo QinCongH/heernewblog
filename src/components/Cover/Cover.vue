@@ -1,7 +1,7 @@
 
 <script setup>
 // getCurrentInstance获取实例上的内容
-import { ref, reactive, onMounted} from "vue";
+import { ref, reactive, onMounted } from "vue";
 import copyText from "../../common/util/copyText";
 // data
 const input = ref("请输入...");
@@ -31,8 +31,7 @@ const getTime = () => {
 setInterval(() => {
   getTime();
 }, 1000);
-onMounted(() => {
-});
+onMounted(() => {});
 </script>
 
 <template>
@@ -198,7 +197,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="cover-down text-center mg-t-30">
-        <a href="#scrollHere">
+        <a href="#HomePage">
           <div>
             <svg
               t="1656835109611"
@@ -270,29 +269,31 @@ onMounted(() => {
       width: 20%;
     }
     .cover-down {
-      > div {
-        animation: down 2.5s cubic-bezier(0.03, 0.01, 1, 1) infinite;
-      }
-      @keyframes down {
-        0% {
-          opacity: 0.4;
-          transform: translateY(0px);
+      a {
+        > div {
+          animation: down 2.5s cubic-bezier(0.03, 0.01, 1, 1) infinite;
         }
-        25% {
-          opacity: 0.8;
-          transform: translateY(10px);
-        }
-        50% {
-          opacity: 1;
-          transform: translateY(20px);
-        }
-        75% {
-          opacity: 0.8;
-          transform: translateY(10px);
-        }
-        100% {
-          opacity: 0.4;
-          transform: translateY(0px);
+        @keyframes down {
+          0% {
+            opacity: 0.4;
+            transform: translateY(0px);
+          }
+          25% {
+            opacity: 0.8;
+            transform: translateY(10px);
+          }
+          50% {
+            opacity: 1;
+            transform: translateY(20px);
+          }
+          75% {
+            opacity: 0.8;
+            transform: translateY(10px);
+          }
+          100% {
+            opacity: 0.4;
+            transform: translateY(0px);
+          }
         }
       }
     }

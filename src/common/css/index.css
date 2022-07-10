@@ -1,75 +1,120 @@
-.w-100{
+.w-100 {
     width: 100%;
 }
-.h-100{
+
+.h-100 {
     height: 100%;
 }
 
-.w-95{
+.w-95 {
     width: 95%;
     margin: auto;
 }
-.w-90{
+
+.w-90 {
     width: 90%;
     margin: auto;
 }
-.max-w-1100{
+
+.w-15 {
+    width: 15%;
+}
+
+.max-w-1100 {
     max-width: 1100px;
 }
-.mg-auto{
+
+.mg-auto {
     margin: auto;
 }
-.mg-t-30{
+
+.mg-t-30 {
     margin-top: 30px;
 }
-.mg-t-15{
+
+.mg-t-15 {
     margin-top: 15px;
 }
-.mg-l-10{
+
+.mg-l-15 {
+    margin-left: 15px;
+}
+
+.mg-l-10 {
     margin-left: 10px;
 }
-.pd-t-130{
+
+.pd-t-130 {
     padding-top: 130px;
 }
-.mg-lr-10{
+
+.mg-lr-10 {
     margin: 0px 10px;
 }
+
+/* 主题 */
+/* 黑夜 */
+.bg-night {
+    background-color: #282c34;
+    color: #fff;
+}
+
+/* 白天 */
+.bg-day {
+    background-color: #fff;
+    color: #000;
+}
+
 /* flex */
-.flex-h{
+.flex-h {
     display: flex;
     flex-direction: row;
-   
+
 }
-.align-center{
+
+.align-center {
     align-items: center;
 }
-.justify-center{
+
+.justify-center {
     justify-content: center;
-    
+
 }
-.justify-space-around{
+
+.justify-space-around {
     justify-content: space-around;
 }
-.justify-between{
+
+.justify-between {
     justify-content: space-between;
 }
-.justify-space-evenly{
+
+.justify-space-evenly {
     justify-content: space-evenly;
 
 }
+
+.flex-1 {
+    flex: 1;
+}
+
 /* font */
-.col-fff{
+.col-fff {
     color: white;
 }
-.text-center{
+
+.text-center {
     text-align: center;
 }
-.text-bold{
+
+.text-bold {
     font-weight: blod;
 }
-.text-lighter{
-    font-weight:lighter;
+
+.text-lighter {
+    font-weight: lighter;
 }
-.font-21{
+
+.font-21 {
     font-size: 21px;
 }
