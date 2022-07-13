@@ -24,6 +24,7 @@ const changeSwithTheme = (e) => {
 
 <style lang="less" scoped>
 .container {
+  transition: background .6s ease;
   // width: 100%;
 }
 .bg-night {

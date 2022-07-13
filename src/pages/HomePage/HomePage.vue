@@ -1,9 +1,5 @@
 
-<script setup>
-import { ref } from "vue";
-const value = ref(new Date());
 
-</script>
 <template>
   <div class="HomePage w-90 mg-t-15">
     <el-row gutter="20">
@@ -81,6 +77,7 @@ const value = ref(new Date());
             <div class="text-center clalendar-main">
               <p>日历</p>
               <div>
+                 <el-calendar v-model="value" />
               </div>
             </div>
           </div>
@@ -90,7 +87,23 @@ const value = ref(new Date());
     </el-row>
   </div>
 </template>
-
+<script>
+// import { ElCalendar } from "element-plus";
+// import 'element-plus/es/components/form/style/css'
+import {defineComponent} from 'vue'
+import { ref } from "vue";
+export default defineComponent({
+  setup(){
+    const value = ref(new Date())
+    return {
+      value
+    }
+  },
+  // components:{
+  //   ElCalendar
+  // }
+})
+</script>
 
 <style lang="less" scoped>
 .note-main {

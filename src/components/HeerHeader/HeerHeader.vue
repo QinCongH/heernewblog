@@ -1,20 +1,4 @@
-<script setup>
-import { toRefs, defineProps, defineEmits, ref, onMounted } from "vue";
-import { useRoute } from "vue-router";
-//接收父组件
-const props = defineProps({
-  switchTheme: Boolean,
-});
-const { switchTheme } = toRefs(props);
-onMounted(() => {
-  console.log(switchTheme.value);
-});
-const emit = defineEmits(["changeSwithTheme"]); //注册emit
-const changeSwithTheme = (e) => {
-  //发送
-  emit("changeSwithTheme", e);
-};
-</script>
+
 <template>
   <header id="HomePage">
     <div class="header w-90 flex-h justify-between">
@@ -55,7 +39,7 @@ const changeSwithTheme = (e) => {
         </ul>
       </div>
       <div class="right flex-h align-center w-15">
-        <div @click="changeSwithTheme(!switchTheme)">
+        <div @click="$emit('changeSwithTheme',!switchTheme)">
           <div v-if="!switchTheme">
             <svg
               t="1657367921654"
@@ -208,7 +192,37 @@ const changeSwithTheme = (e) => {
     </div>
   </header>
 </template>
-
+<script>
+import {
+  toRefs,
+  defineProps,
+  defineEmits,
+  ref,
+  onMounted,
+  defineComponent,
+} from "vue";
+import { useRoute } from "vue-router";
+export default defineComponent({
+  props: {
+    switchTheme: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(props) {
+    //接收父组件
+    const { switchTheme } = toRefs(props);
+    onMounted(() => {
+      console.log(switchTheme.value);
+    });
+    const emit = defineEmits(["changeSwithTheme"]); //注册emit
+    return {
+      useRoute,
+      emit
+    };
+  },
+});
+</script>
 <style lang="less" scoped>
 header {
   width: 100%;

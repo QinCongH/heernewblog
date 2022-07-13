@@ -1,38 +1,5 @@
 
-<script setup>
-// getCurrentInstance获取实例上的内容
-import { ref, reactive, onMounted } from "vue";
-import copyText from "../../common/util/copyText";
-// data
-const input = ref("请输入...");
-const motto = ref("有些路，只能一个人走...");
-const copythis = ref(null);
-const time = reactive({
-  hours: 0,
-  minutes: 0,
-  seconds: 0,
-});
-const iconList = reactive({
-  wx: "hyl158191",
-  qq: "3409575546",
-  tel: "19145077425",
-  email: "3409575546@qq.com",
-  github: "https://github.com/QinCongH",
-});
 
-const getTime = () => {
-  const date = new Date();
-  time.hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-  time.minutes =
-    date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-  time.seconds =
-    date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-};
-setInterval(() => {
-  getTime();
-}, 1000);
-onMounted(() => {});
-</script>
 
 <template>
   <div class="cover flex-h w-100 h-100">
@@ -222,7 +189,55 @@ onMounted(() => {});
   </div>
 </template>
 
+<script>
+// getCurrentInstance获取实例上的内容
+import { ref, reactive, onMounted } from "vue";
+import { defineComponent } from "vue";
+import copyText from "../../common/util/copyText";
+// data
+export default defineComponent({
+  setup() {
+    const input = ref("请输入...");
+    const motto = ref("有些路，只能一个人走...");
+    const copythis = ref(null);
+    const time = reactive({
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+    });
+    const iconList = reactive({
+      wx: "hyl158191",
+      qq: "3409575546",
+      tel: "19145077425",
+      email: "3409575546@qq.com",
+      github: "https://github.com/QinCongH",
+    });
 
+    const getTime = () => {
+      const date = new Date();
+      time.hours =
+        date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+      time.minutes =
+        date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+      time.seconds =
+        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+    };
+    setInterval(() => {
+      getTime();
+    }, 1000);
+    onMounted(() => {});
+    return {
+      input,
+      motto,
+      copythis,
+      time,
+      iconList,
+      getTime,
+      copyText
+    };
+  },
+});
+</script>
 <style lang="less" scoped>
 .cover {
   background: url(/src/assets/image/bcg.png) no-repeat;
