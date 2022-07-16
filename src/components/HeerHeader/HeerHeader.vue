@@ -1,8 +1,8 @@
 
 <template>
-  <header id="HomePage">
+  <header class="scrollHere heer-header">
     <div class="header w-90 flex-h justify-between">
-      <div class="left flex-1">
+      <div @click="expandMenu" class="left flex-1">
         <h1 class="font-21 text-lighter">禾耳</h1>
       </div>
       <div class="center">
@@ -191,6 +191,14 @@
       </div>
     </div>
   </header>
+  <el-drawer
+    direction="ltr"
+    v-model="drawer"
+    title="I am the title"
+    :with-header="false"
+  >
+    <span>Hi there!</span>
+  </el-drawer>
 </template>
 <script>
 import {
@@ -212,13 +220,24 @@ export default defineComponent({
   setup(props) {
     //接收父组件
     const { switchTheme } = toRefs(props);
+    const emit = defineEmits(["changeSwithTheme"]); //注册emit
     onMounted(() => {
       console.log(switchTheme.value);
     });
-    const emit = defineEmits(["changeSwithTheme"]); //注册emit
+    // 打开抽屉
+    const drawer = ref(false);
+    const expandMenu = () => {
+      if (window.innerWidth > 767) {
+        //仅移动端生效
+        return;
+      }
+      drawer.value = true;
+    };
     return {
       useRoute,
       emit,
+      drawer,
+      expandMenu,
     };
   },
 });
@@ -230,7 +249,7 @@ header {
   box-shadow: 0px 2px 28px #eeeeeee8;
   position: sticky;
   top: 0;
-  z-index: 99999;
+  z-index: 9;
   .header {
     .left {
       line-height: 50px;

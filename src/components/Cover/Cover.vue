@@ -164,8 +164,8 @@
         </div>
       </div>
       <div class="cover-down text-center mg-t-30">
-        <a href="#HomePage">
-          <div>
+        <a>
+          <div @click="toHomePage">
             <svg
               t="1656835109611"
               class="icon"
@@ -191,7 +191,7 @@
 
 <script>
 // getCurrentInstance获取实例上的内容
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, getCurrentInstance } from "vue";
 import { defineComponent } from "vue";
 import copyText from "../../common/util/copyText";
 // data
@@ -199,7 +199,9 @@ export default defineComponent({
   setup() {
     const input = ref("请输入...");
     const motto = ref("有些路，只能一个人走...");
+    const scrollHere = ref(null);
     const copythis = ref(null);
+    const instance = getCurrentInstance(); //实例
     const time = reactive({
       hours: 0,
       minutes: 0,
@@ -212,7 +214,7 @@ export default defineComponent({
       email: "3409575546@qq.com",
       github: "https://github.com/QinCongH",
     });
-
+    // mthods
     const getTime = () => {
       const date = new Date();
       time.hours =
@@ -225,6 +227,10 @@ export default defineComponent({
     setInterval(() => {
       getTime();
     }, 1000);
+    const toHomePage = () => {
+      document.querySelector(".scrollHere").scrollIntoView();
+    };
+
     onMounted(() => {});
     return {
       input,
@@ -233,7 +239,9 @@ export default defineComponent({
       time,
       iconList,
       getTime,
-      copyText
+      copyText,
+      toHomePage,
+      scrollHere,
     };
   },
 });
