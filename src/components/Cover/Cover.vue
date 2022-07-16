@@ -295,15 +295,15 @@ export default defineComponent({
           }
           25% {
             opacity: 0.8;
-            transform: translateY(10px);
+            transform: translateY(20px);
           }
           50% {
             opacity: 1;
-            transform: translateY(20px);
+            transform: translateY(40px);
           }
           75% {
             opacity: 0.8;
-            transform: translateY(10px);
+            transform: translateY(20px);
           }
           100% {
             opacity: 0.4;

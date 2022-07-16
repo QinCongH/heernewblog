@@ -39,7 +39,7 @@
         </ul>
       </div>
       <div class="right flex-h align-center w-15">
-        <div @click="$emit('changeSwithTheme',!switchTheme)">
+        <div @click="$emit('changeSwithTheme', !switchTheme)">
           <div v-if="!switchTheme">
             <svg
               t="1657367921654"
@@ -218,7 +218,7 @@ export default defineComponent({
     const emit = defineEmits(["changeSwithTheme"]); //注册emit
     return {
       useRoute,
-      emit
+      emit,
     };
   },
 });
@@ -228,6 +228,9 @@ header {
   width: 100%;
   height: 50px;
   box-shadow: 0px 2px 28px #eeeeeee8;
+  position: sticky;
+  top: 0;
+  z-index: 99999;
   .header {
     .left {
       line-height: 50px;

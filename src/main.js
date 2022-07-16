@@ -4,9 +4,10 @@ import {
 import './common/css/style.css'
 import './common/css/layout.css'
 import './common/css/index.css'
-import 'element-plus/dist/index.css'
 import less from 'less'
 import App from './App.vue'
 import router from './route/index'
+import dayjs from 'dayjs'   //全局使用dayJs
 const app = createApp(App)
+app.config.globalProperties.$day=dayjs//全局挂载
 app.use(router, less).mount('#app')

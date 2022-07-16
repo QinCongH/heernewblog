@@ -7,7 +7,12 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Calendar: typeof import('./components/Calendar/Calendar.vue')['default']
+    Clalendar: typeof import('./components/Clalendar/Clalendar.vue')['default']
     Cover: typeof import('./components/Cover/Cover.vue')['default']
+    ElAffix: typeof import('element-plus/es')['ElAffix']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
     ElCalendar: typeof import('element-plus/es')['ElCalendar']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']

@@ -24,7 +24,7 @@ const changeSwithTheme = (e) => {
 
 <style lang="less" scoped>
 .container {
-  transition: background .6s ease;
+  transition: background 0.6s ease;
   // width: 100%;
 }
 .bg-night {
@@ -34,10 +34,17 @@ const changeSwithTheme = (e) => {
   /deep/a {
     color: #fff !important;
   }
-  /deep/header{
+  /deep/header {
+    background: #282c34;
     box-shadow: none !important;
+  }
+  /deep/.clalendar .el-calendar {
+    background: #f7f7f70a;
   }
 }
 .bg-day {
+  /deep/header {
+    background: #fff;
+  }
 }
 </style>

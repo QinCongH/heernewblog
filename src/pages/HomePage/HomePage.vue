@@ -3,7 +3,7 @@
 <template>
   <div class="HomePage w-90 mg-t-15">
     <el-row gutter="20">
-      <el-col :span="16">
+      <el-col :md="16">
         <div class="content">
           <!-- 轮播图 -->
           <div class="swiper">
@@ -23,7 +23,7 @@
           <!-- 内容 -->
           <div class="note-main">
             <el-row gutter="30">
-              <el-col :span="12" v-for="(item, index) in 6" :key="index">
+              <el-col :sm="12" :md="12" v-for="(item, index) in 6" :key="index">
                 <div class="note box-shadow-1 pd-15 mg-b-30">
                   <dl>
                     <dt>
@@ -57,7 +57,7 @@
           </div>
         </div>
       </el-col>
-      <el-col :span="8">
+      <el-col :md="8">
         <div class="side">
           <div class="introduce box-shadow-1 pd-bt-15">
             <div class="introduce-main text-center">
@@ -73,36 +73,40 @@
               </div>
             </div>
           </div>
-          <div class="calendar mg-t-30">
-            <div class="text-center clalendar-main">
-              <p>日历</p>
-              <div>
-                 <el-calendar v-model="value" />
+          <clalendar></clalendar>
+          <div class="article box-shadow-1 pd-15 mg-t-30">
+              <div class="header text-center">
+                <h2>
+                  最新文章
+                </h2>
               </div>
-            </div>
+              <div class="content w-100">
+                <div class="flex-h justify-between align-center mg-t-15" v-for="i in 6" key="i">
+                    <div class="w-15">
+                      <span>
+                        {{i}}
+                      </span>
+                    </div>
+                    <div  class="font-line-1">
+                        <p class="font-line-1">
+                          内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+                        </p>
+                    </div>
+                </div>
+              </div>
           </div>
-          <div>3</div>
         </div>
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
-// import { ElCalendar } from "element-plus";
-// import 'element-plus/es/components/form/style/css'
-import {defineComponent} from 'vue'
-import { ref } from "vue";
+import { defineComponent, ref } from "vue";
 export default defineComponent({
-  setup(){
-    const value = ref(new Date())
-    return {
-      value
-    }
+  setup() {
+    return {};
   },
-  // components:{
-  //   ElCalendar
-  // }
-})
+});
 </script>
 
 <style lang="less" scoped>

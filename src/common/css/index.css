@@ -19,7 +19,9 @@
 .w-15 {
     width: 15%;
 }
-
+.w-10{
+    width: 10%;
+}
 .max-w-1100 {
     max-width: 1100px;
 }
@@ -51,7 +53,9 @@
 .pd-t-130 {
     padding-top: 130px;
 }
-
+.pd-t-15{
+    padding-top: 15px;
+}
 .mg-lr-10 {
     margin: 0px 10px;
 }
@@ -64,9 +68,13 @@
 .box-shadow-1 {
     box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
 }
+
 /* 边框 */
 .border-50{
     border-radius: 50%;
+}
+.border-25{
+    border-radius: 25%;
 }
 
 
@@ -76,7 +84,9 @@
     background-color: #282c34;
     color: #fff;
 }
-
+.bg-f7{
+    background-color: #f7f7f70a;
+}
 /* 白天 */
 .bg-day {
     background-color: #fff;
