@@ -5,7 +5,9 @@
 .h-100 {
     height: 100%;
 }
-
+.h-30{
+    height: 30%;
+}
 .w-95 {
     width: 95%;
     margin: auto;
@@ -99,7 +101,10 @@
     flex-direction: row;
 
 }
-
+.flex-v{
+    display: flex;
+    flex-direction: column;
+}
 .align-center {
     align-items: center;
 }

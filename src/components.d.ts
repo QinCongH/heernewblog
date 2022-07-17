@@ -9,7 +9,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Clalendar: typeof import('./components/Clalendar/Clalendar.vue')['default']
     Cover: typeof import('./components/Cover/Cover.vue')['default']
-    ElBacktop: typeof import('element-plus/es')['ElBacktop']
+    Drawer: typeof import('./components/Drawer/Drawer.vue')['default']
     ElCalendar: typeof import('element-plus/es')['ElCalendar']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
@@ -20,6 +20,7 @@ declare module '@vue/runtime-core' {
     ElRow: typeof import('element-plus/es')['ElRow']
     HeerHeader: typeof import('./components/HeerHeader/HeerHeader.vue')['default']
     Home: typeof import('./components/Home/Home.vue')['default']
+    Introduce: typeof import('./components/Introduce/Introduce.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

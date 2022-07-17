@@ -12,7 +12,12 @@
     .heer-header .center {
         display: none;
     }
-
+    .side .introduce{
+        display: none;
+    }
+    .el-drawer__body {
+        overflow: hidden !important;
+      }
 }
 
 /* 公共 */

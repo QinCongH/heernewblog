@@ -191,13 +191,16 @@
       </div>
     </div>
   </header>
+  <!-- 移动端伸缩栏 -->
+  <!-- @closeMask="closeDrawer"  -->
   <el-drawer
     direction="ltr"
-    v-model="drawer"
+    v-model="isDrawer"
     title="I am the title"
     :with-header="false"
+    size="45%"
   >
-    <span>Hi there!</span>
+    <drawer></drawer>
   </el-drawer>
 </template>
 <script>
@@ -217,26 +220,25 @@ export default defineComponent({
       default: false,
     },
   },
+  emits: ["changeSwithTheme"],
   setup(props) {
     //接收父组件
-    const { switchTheme } = toRefs(props);
-    const emit = defineEmits(["changeSwithTheme"]); //注册emit
-    onMounted(() => {
-      console.log(switchTheme.value);
-    });
+    // const emit = defineEmits(["changeSwithTheme"]); //注册emit
+    onMounted(() => {});
     // 打开抽屉
-    const drawer = ref(false);
+    const isDrawer = ref(false);
     const expandMenu = () => {
+      //打开抽屉
       if (window.innerWidth > 767) {
         //仅移动端生效
         return;
       }
-      drawer.value = true;
+      isDrawer.value = true;
     };
     return {
       useRoute,
-      emit,
-      drawer,
+      // emit,
+      isDrawer,
       expandMenu,
     };
   },
