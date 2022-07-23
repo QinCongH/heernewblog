@@ -10,12 +10,22 @@
     .notepad-content img {
         height: 146px;
     }
+
+    .masonry {
+        columns: 3 !important;
+        column-gap: 20px;
+    }
 }
 
 /* ##平板电脑/Ipad竖屏 */
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     .notepad-content img {
         height: 335.59px;
+    }
+
+    .masonry {
+        columns: 3 !important;
+        column-gap: 20px;
     }
 }
 
@@ -29,9 +39,14 @@
         display: none;
     }
 
+    .masonry {
+        columns: 1 !important;
+    }
+
     .el-drawer__body {
         overflow: hidden !important;
     }
+
     .notepad-content img {
         height: 300px;
     }

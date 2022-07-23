@@ -7,17 +7,23 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Backtop: typeof import('./components/Backtop/Backtop.vue')['default']
     Clalendar: typeof import('./components/Clalendar/Clalendar.vue')['default']
     Cover: typeof import('./components/Cover/Cover.vue')['default']
     Drawer: typeof import('./components/Drawer/Drawer.vue')['default']
+    ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElCalendar: typeof import('element-plus/es')['ElCalendar']
+    ElCard: typeof import('element-plus/es')['ElCard']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
+    ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElPagination: typeof import('element-plus/es')['ElPagination']
     ElRow: typeof import('element-plus/es')['ElRow']
+    ElTimeline: typeof import('element-plus/es')['ElTimeline']
+    ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     HeerHeader: typeof import('./components/HeerHeader/HeerHeader.vue')['default']
     Home: typeof import('./components/Home/Home.vue')['default']
     Introduce: typeof import('./components/Introduce/Introduce.vue')['default']

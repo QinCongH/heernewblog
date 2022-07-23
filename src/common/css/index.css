@@ -1,18 +1,23 @@
 .w-100 {
     width: 100%;
 }
-.max-w-100{
+
+.max-w-100 {
     max-width: 100%;
 }
-.block{
+
+.block {
     display: block;
 }
+
 .h-100 {
     height: 100%;
 }
-.h-30{
+
+.h-30 {
     height: 30%;
 }
+
 .w-95 {
     width: 95%;
     margin: auto;
@@ -26,9 +31,11 @@
 .w-15 {
     width: 15%;
 }
-.w-10{
+
+.w-10 {
     width: 10%;
 }
+
 .max-w-1100 {
     max-width: 1100px;
 }
@@ -44,9 +51,19 @@
 .mg-t-15 {
     margin-top: 15px;
 }
-.mg-t-10{
+
+.mg-t-10 {
     margin-top: 10px;
 }
+
+.mg-b-30 {
+    margin-bottom: 30px;
+}
+
+.mg-b-15 {
+    margin-bottom: 15px;
+}
+
 .mg-l-15 {
     margin-left: 15px;
 }
@@ -62,30 +79,39 @@
 .pd-t-130 {
     padding-top: 130px;
 }
-.pd-t-15{
+
+.pd-t-15 {
     padding-top: 15px;
 }
+
 .mg-lr-10 {
     margin: 0px 10px;
 }
-.pd-15{
+.pd-10{
+    padding: 10px;
+}
+.pd-15 {
     padding: 15px;
 }
-.pd-bt-15{
+
+.pd-bt-15 {
     padding: 15px 0px;
 }
+
 .box-shadow-1 {
     box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
 }
 
 /* 边框 */
-.border-50{
+.border-50 {
     border-radius: 50%;
 }
-.border-25{
+
+.border-25 {
     border-radius: 25%;
 }
-.border-10{
+
+.border-10 {
     border-radius: 10%;
 }
 
@@ -96,9 +122,11 @@
     background-color: #282c34;
     color: #fff;
 }
-.bg-f7{
+
+.bg-f7 {
     background-color: #f7f7f70a;
 }
+
 /* 白天 */
 .bg-day {
     background-color: #fff;
@@ -111,10 +139,12 @@
     flex-direction: row;
 
 }
-.flex-v{
+
+.flex-v {
     display: flex;
     flex-direction: column;
 }
+
 .align-center {
     align-items: center;
 }
@@ -157,7 +187,9 @@
 .text-lighter {
     font-weight: lighter;
 }
-
+.text-through{
+    text-decoration: line-through;
+}
 .font-21 {
     font-size: 21px;
 }

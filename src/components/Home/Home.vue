@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref, watch } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -12,9 +11,9 @@ const changeSwithTheme = (e) => {
 };
 const date = new Date();
 const getTime = () => {
-  let time = `${
-    date.getHours() < 10 ? "0" + date.getHours() : date.getHours()
-  }${date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()}`;
+  let time = `${date.getHours() < 10 ? "0" + date.getHours() : date.getHours()}${
+    date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
+  }`;
   if (parseInt(time) > 1800 || parseInt(time) < 600) {
     //到晚上了
     if (switchTheme.value == false) {
@@ -27,7 +26,7 @@ const getTime = () => {
           switchTheme.value = true;
         })
         .catch(() => {
-          clearInterval(interval);
+          switchTheme.value = false;
         });
     }
   } else {
@@ -35,10 +34,6 @@ const getTime = () => {
   }
 };
 getTime();
-let interval = setInterval(() => {
-  //5分钟运行一次
-  getTime();
-}, 10000);
 </script>
 <template>
   <Cover></Cover>
@@ -74,6 +69,11 @@ let interval = setInterval(() => {
   }
   /deep/.el-drawer.ltr {
     background: #424242fc;
+  }
+  /deep/ .archive .el-card {
+    background: #f7f7f70a;
+    color: #fff;
+    border: none;
   }
 }
 .bg-day {
