@@ -1,6 +1,6 @@
 
 <template>
-  <header class="scrollHere heer-header">
+  <header  class="scrollHere heer-header">
     <div class="header w-90 flex-h justify-between">
       <div @click="expandMenu" class="left flex-1">
         <h1 class="font-21 text-lighter">禾耳</h1>
@@ -239,7 +239,7 @@ export default defineComponent({
       useRoute,
       // emit,
       isDrawer,
-      expandMenu,
+      expandMenu
     };
   },
 });

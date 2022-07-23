@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch ,onMounted} from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import "element-plus/es/components/message/style/css";
 import "element-plus/es/components/message-box/style/css";
@@ -34,6 +34,12 @@ const getTime = () => {
   }
 };
 getTime();
+
+//监听滚动
+// const handelScroll=()=>{
+//   console.log(111)
+// }
+
 </script>
 <template>
   <Cover></Cover>
@@ -45,6 +51,7 @@ getTime();
     <div class="main">
       <router-view></router-view>
     </div>
+    <Backtop></Backtop>
   </div>
 </template>
 
