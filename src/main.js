@@ -7,7 +7,10 @@ import './common/css/index.css'
 import less from 'less'
 import App from './App.vue'
 import router from './route/index'
-import dayjs from 'dayjs'   //全局使用dayJs
+import dayjs from 'dayjs' //全局使用dayJs
+import MdEditor from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
 const app = createApp(App)
-app.config.globalProperties.$day=dayjs//全局挂载
+app.config.globalProperties.$day = dayjs //全局挂载
 app.use(router, less).mount('#app')
+app.component("MdEditor", MdEditor);

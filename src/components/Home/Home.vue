@@ -1,5 +1,6 @@
 <script setup>
-import { ref, watch ,onMounted} from "vue";
+import { ref, watch, onMounted, computed } from "vue";
+import { useRoute } from "vue-router";
 import { ElMessage, ElMessageBox } from "element-plus";
 import "element-plus/es/components/message/style/css";
 import "element-plus/es/components/message-box/style/css";
@@ -35,20 +36,22 @@ const getTime = () => {
 };
 getTime();
 
-//监听滚动
-// const handelScroll=()=>{
-//   console.log(111)
-// }
-
+onMounted(() => {});
 </script>
 <template>
-  <Cover></Cover>
-  <div class="container w-100" :class="!switchTheme ? 'bg-day' : 'bg-night'">
+  <Cover v-show="useRoute().name !== 'TianJiaWenZhang'"></Cover>
+  <div
+    class="container  w-100"
+    :class="[
+      !switchTheme ? 'bg-day' : 'bg-night',
+      useRoute().name == 'TianJiaWenZhang' ? 'h-100' : '',
+    ]"
+  >
     <HeerHeader
       :switchTheme="switchTheme"
       @changeSwithTheme="changeSwithTheme"
     ></HeerHeader>
-    <div class="main">
+    <div class="main" :class="useRoute().name == 'TianJiaWenZhang' ? 'h-100' : ''">
       <router-view></router-view>
     </div>
     <Backtop></Backtop>
@@ -81,6 +84,39 @@ getTime();
     background: #f7f7f70a;
     color: #fff;
     border: none;
+  }
+  /deep/.el-breadcrumb__inner.is-link {
+    color: #fff;
+  }
+  /deep/.add-header input {
+    background: #f7f7f70a;
+  }
+  /deep/.add-content #md-editor-v3 {
+    background: #f7f7f70a;
+  }
+
+  /deep/.add-content .md-footer-label {
+    color: #fff;
+  }
+  /deep/.add-footer .el-select-v2__wrapper.is-filterable {
+    background: #f7f7f70a;
+    color: #fff;
+  }
+  /deep/.add-footer .el-select-v2__popper.el-popper {
+    background: #f7f7f70a;
+    color: #fff;
+  }
+  /deep/.add-content .md-footer-item span {
+    color: #fff;
+  }
+  /deep/.createNotepad .el-button {
+    background: #f7f7f70a;
+  }
+  /deep/.saveNote .el-button {
+    background: #f7f7f70a;
+  }
+  /deep/.add-header input::-webkit-input-placeholder {
+    color: #fff;
   }
 }
 .bg-day {

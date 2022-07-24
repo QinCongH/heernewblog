@@ -50,6 +50,16 @@
     .notepad-content img {
         height: 300px;
     }
+
+    .md-content {
+        flex-direction: column;
+    }
+    .md ::-webkit-scrollbar{
+        width: 1px !important;
+    }
+    #md-editor-v3-preview-wrapper{
+        border-top: 2px solid #ececec;
+    }
 }
 
 /* 公共 */

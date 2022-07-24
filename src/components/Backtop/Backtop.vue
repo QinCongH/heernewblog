@@ -30,7 +30,6 @@ export default defineComponent({
     };
     const scrollTop = () => {
       backtop.value = document.querySelector(".cover").clientHeight;
-      console.log(backtop.value);
       if (document.querySelector(".scrollHere").offsetTop > backtop.value + 200) {
         isBacktop.value = true;
       } else {
@@ -60,7 +59,7 @@ export default defineComponent({
   border-radius: 50%;
   background-color: rgb(138 138 138 / 39%);
   z-index: 99;
-  transition: 0.33s ease;
+  transition: 0.66s ease;
   display: flex;
   align-items: center;
   justify-content: center;

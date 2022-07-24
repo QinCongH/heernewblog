@@ -17,6 +17,9 @@
 .h-30 {
     height: 30%;
 }
+.h-80 {
+    height: 80%;
+}
 
 .w-95 {
     width: 95%;
@@ -30,6 +33,12 @@
 
 .w-15 {
     width: 15%;
+}
+.w-30 {
+    width: 30%;
+}
+.w-45 {
+    width:45%;
 }
 
 .w-10 {
@@ -50,6 +59,10 @@
 
 .mg-t-15 {
     margin-top: 15px;
+}
+
+.mg-t-20 {
+    margin-top: 20px;
 }
 
 .mg-t-10 {
@@ -76,6 +89,13 @@
     margin-bottom: 30px;
 }
 
+.pd-b-5 {
+    padding-bottom: 5px;
+}
+.pd-b-25 {
+    padding-bottom: 25px;
+}
+
 .pd-t-130 {
     padding-top: 130px;
 }
@@ -87,15 +107,21 @@
 .mg-lr-10 {
     margin: 0px 10px;
 }
-.pd-10{
+
+.pd-10 {
     padding: 10px;
 }
+
 .pd-15 {
     padding: 15px;
 }
 
 .pd-bt-15 {
     padding: 15px 0px;
+}
+
+.pd-bt-10 {
+    padding: 10px 0px;
 }
 
 .box-shadow-1 {
@@ -115,6 +141,9 @@
     border-radius: 10%;
 }
 
+.border-b-eee {
+    border-bottom: 1px solid #eee;
+}
 
 /* 主题 */
 /* 黑夜 */
@@ -167,6 +196,11 @@
 
 }
 
+.justify-flex-end {
+
+    justify-content: flex-end;
+}
+
 .flex-1 {
     flex: 1;
 }
@@ -187,11 +221,17 @@
 .text-lighter {
     font-weight: lighter;
 }
-.text-through{
+
+.text-through {
     text-decoration: line-through;
 }
+
 .font-21 {
     font-size: 21px;
+}
+
+.font-25 {
+    font-size: 25px;
 }
 
 .font-line-1 {

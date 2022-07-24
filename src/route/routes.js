@@ -4,14 +4,13 @@ import Notepad from '../pages/Notepad/Notepad.vue'
 import Archive from '../pages/Archive/Archive.vue'
 import Listing from '../pages/Listing/Listing.vue'
 import About from '../pages/About/About.vue'
-const routes = [
-    {
+import AddArchive from '../pages/AddArchive/AddArchive.vue'
+const routes = [{
         path: '',
         name: 'ShouYe',
         component: Home,
-        redirect:'/HomePage',
-    } 
-    ,
+        redirect: '/HomePage',
+    },
     {
         path: '/HomePage',
         name: 'ShouYeNeiRong',
@@ -40,5 +39,10 @@ const routes = [
         name: 'GuanYu',
         component: About
     },
+    {
+        path: '/AddArchive',
+        name: 'TianJiaWenZhang',
+        component: AddArchive
+    }
 ]
 export default routes
