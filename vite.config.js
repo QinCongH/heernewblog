@@ -23,5 +23,8 @@ export default defineConfig({
       // 配置文件生成位置
       dts: 'src/components.d.ts'
     }),
-  ]
+  ],
+  server: { //启动局域网
+    host: '0.0.0.0'
+  }
 })
