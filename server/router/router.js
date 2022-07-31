@@ -1,10 +1,13 @@
 const express = require('express')
 const router = express.Router() //创建router
-const {
-    HomeDataUrl
+const { //路径
+    Article
 } = require('./base')
-const {
-    getHomeData
-} = require('./HomeData/HomeData')
-router.get(HomeDataUrl.getHome, getHomeData)
+const { //方法
+    getArticle
+} = require('./Articel/Article')
+/**
+ 文章管理
+ */
+router.get(Article.queryArticle, getArticle)
 module.exports = router

@@ -1,6 +1,6 @@
-const HomeDataUrl = {
-    getHome: '/getHome'
+const Article= {
+    queryArticle: '/queryArticle'
 }
 module.exports = {
-    HomeDataUrl
+    Article
 }
