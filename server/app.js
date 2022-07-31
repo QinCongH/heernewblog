@@ -22,12 +22,14 @@ app.use(bodyParser.json()); //解析 application/json
 app.use(bodyParser.urlencoded({ //解析 application/x-www-form-urlencoded
     extended: false
 }))
+/*
+连接数据库
+*/
 /**
  配置路由
  */
 const router = require('./router/router')
 app.use(router)
-
 app.listen('3001', () => {
     console.log('localhost:3001')
 })
