@@ -24,7 +24,14 @@ export default defineConfig({
       dts: 'src/components.d.ts'
     }),
   ],
-  server: { //启动局域网
-    host: '0.0.0.0'
+  server: { 
+    host: '0.0.0.0',//启动局域网
+    proxy: {  //配置跨域
+      '/api': {
+        target: 'http://localhost:3001/', //你要跨域访问的网址
+        changeOrigin: true, // /是否访问时将自身端口更改为访问的端口（控制请求头的host值）
+        rewrite: (path) => path.replace(/^\/api/, '') // 重写路径把路径变成空字符
+      }
+    }
   }
 })

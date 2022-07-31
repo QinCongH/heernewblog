@@ -36,7 +36,6 @@ const getTime = () => {
 };
 getTime();
 
-onMounted(() => {});
 </script>
 <template>
   <Cover v-show="useRoute().name !== 'TianJiaWenZhang'"></Cover>
