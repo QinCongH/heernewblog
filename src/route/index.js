@@ -11,5 +11,11 @@ const router = createRouter({
   history: createWebHashHistory(), //createWebHashHistory是hash模式
   routes
 });
- 
+router.afterEach((to, from) => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  } else {
+    document.title = '禾耳' //自定义主页标题
+  }
+})
 export default router

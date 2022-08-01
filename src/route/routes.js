@@ -16,33 +16,48 @@ const routes = [{
         name: 'ShouYeNeiRong',
         component: HomePage,
         meta: {
-            title: '首页内容'
+            title: '首页'
         }
     },
     {
         path: '/Notepad',
         name: 'JiShiBen',
-        component: Notepad
+        component: Notepad,
+        meta: {
+            title: '记事本'
+        }
     },
     {
         path: '/Archive',
         name: 'GuiDang',
-        component: Archive
+        component: Archive,
+        meta: {
+            title: '归档'
+        }
     },
     {
         path: '/Listing',
         name: 'QinDan',
-        component: Listing
+        component: Listing,
+        meta: {
+            title: '清单'
+        }
     },
     {
         path: '/About',
         name: 'GuanYu',
-        component: About
+        component: About,
+        meta: {
+            title: '关于'
+        }
     },
     {
         path: '/AddArchive',
         name: 'TianJiaWenZhang',
-        component: AddArchive
+        component: AddArchive,
+        meta: {
+            title: '写文章'
+        }
     }
 ]
 export default routes
