@@ -1,4 +1,6 @@
 import Articel from './Article/Article';
+import interceptor from './interceptor' //拦截器
+interceptor()
 const {
     getArticle
 } = Articel

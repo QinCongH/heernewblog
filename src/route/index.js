@@ -11,6 +11,7 @@ const router = createRouter({
   history: createWebHashHistory(), //createWebHashHistory是hash模式
   routes
 });
+//设置标题
 router.afterEach((to, from) => {
   if (to.meta.title) {
     document.title = to.meta.title
