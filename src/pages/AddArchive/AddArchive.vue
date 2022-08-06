@@ -16,7 +16,14 @@
       </div>
       <div class="mg-t-15 h-80">
         <!-- :pageFullScreen="true"         previewOnly -->
-        <md-editor theme="light" :toolbars="toolbarList" v-model="value"> </md-editor>
+        <md-editor
+          @on-html-changed="getHtmlValue"
+          @on-upload-img="onUploadImg"
+          theme="light"
+          :toolbars="toolbarList"
+          v-model="value"
+        >
+        </md-editor>
       </div>
       <div class="add-footer flex-h justify-flex-end align-center mg-t-15">
         <div class="filterable w-45">
@@ -40,10 +47,11 @@
 </template>
 
 <script>
-import { ref, defineComponent, reactive } from "vue";
-
+import { getCurrentInstance, ref, defineComponent, reactive } from "vue";
+import axios from "axios";
 export default defineComponent({
   setup() {
+    const { proxy } = getCurrentInstance();
     const value = ref("");
     const toolbarList = [
       "bold",
@@ -78,17 +86,75 @@ export default defineComponent({
     ];
     // 过滤筛选
     const initials = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
-
     const tagValue = ref([]);
     const options = Array.from({ length: 1000 }).map((_, idx) => ({
       value: `Option${idx + 1}`,
       label: `${initials[idx % 10]}${idx}`,
     }));
+
+    //获取富文本代码
+    const getHtmlValue = (v) => {
+      //1.删除文章中没有用到的图片
+      let presentImgList = getExecStrs(v);
+      console.log("aaaaa", presentImgList, uploadImgList); //当前页面的img和已经上传的img
+      //拿到应该删除的列表
+      let deleteList = [];
+      deleteList = presentImgList.concat(uploadImgList).filter(function (v, i, arr) {
+        return arr.indexOf(v) === arr.lastIndexOf(v);
+      });
+      console.log("应该删除的列表", deleteList);
+    };
+    //获取图片列表（根据富文本拿到img的src标签内容）
+    const getExecStrs = (content) => {
+      //方法1.
+      let data = [];
+      content.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/g, function (match, capture) {
+        let index = capture.lastIndexOf("/");
+        capture = capture.substring(index + 1);
+        data.push(capture);
+      });
+      return data;
+      // 方法2.
+      // let imgReg = /<img.*?(?:>|\/>)/gi; //匹配图片中的img标签
+      // let srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i; // 匹配图片中的src
+      // let arr = content.match(imgReg); //筛选出所有的img
+      // let srcArr = [];
+      // for (let i = 0; i < arr?.length; i++) {
+      //   let src = arr[i].match(srcReg);
+      //   // 获取图片地址
+      //   srcArr.push(src[1]);
+      // }
+      // return srcArr;
+    };
+    //上传图片 proxy.$api.uploadFiles(form);
+    const uploadImgList = reactive([]);
+    const onUploadImg = async (files, callback) => {
+      const form = new FormData();
+      form.append("files", files);
+      const res = await proxy.$api.uploadFiles(files);
+      if (res) {
+        res.data.data.map((item) => console.log(item));
+      }
+      callback(
+        res.data.data.map((item) => {
+          // http://localhost:3001
+          uploadImgList.push(item.filename);
+          return `/api/public/image/${item.filename}`;
+        })
+      );
+      console.log("aaaa", res);
+    };
+    //删除没有使用的图片
+    //1.上传的图片上传数组
+    //2.存删除的图片
     return {
       value,
       toolbarList,
       options,
       tagValue,
+      getHtmlValue,
+      onUploadImg,
+      uploadImgList,
     };
   },
 });
@@ -96,10 +162,10 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .add-archive {
-  .breadcrumb{
+  .breadcrumb {
     height: 3%;
   }
-  /deep/#md-editor-v3{
+  /deep/#md-editor-v3 {
     height: 100%;
   }
 }
