@@ -25,6 +25,7 @@ declare module '@vue/runtime-core' {
     ElPagination: typeof import('element-plus/es')['ElPagination']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSelectV2: typeof import('element-plus/es')['ElSelectV2']
+    ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTimeline: typeof import('element-plus/es')['ElTimeline']
     ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     HeerHeader: typeof import('./components/HeerHeader/HeerHeader.vue')['default']

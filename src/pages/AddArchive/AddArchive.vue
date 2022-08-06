@@ -25,8 +25,38 @@
         >
         </md-editor>
       </div>
-      <div class="add-footer flex-h justify-flex-end align-center mg-t-15">
-        <div class="filterable w-45">
+      <div class="add-footer flex-h justify-flex-end align-center flex-wrap mg-t-15">
+        <!-- 是否置顶 -->
+        <div class="is-top flex-h align-center">
+          <div>
+            <p class="white-space font-13">
+              {{ isTop ? "置顶" : "默认排序" }}
+            </p>
+          </div>
+          <div class="mg-l-10">
+            <el-switch
+              v-model="isTop"
+              class="ml-2"
+              style="--el-switch-on-color: #000000; --el-switch-off-color: #b7b7b7"
+            />
+          </div>
+        </div>
+        <!-- 是否显示 -->
+        <div class="is-show flex-h align-center mg-l-10">
+          <div>
+            <p class="white-space font-13">
+              {{ isShow ? "隐藏" : "默认显示" }}
+            </p>
+          </div>
+          <div class="mg-l-10">
+            <el-switch
+              v-model="isShow"
+              class="ml-2"
+              style="--el-switch-on-color: #000000; --el-switch-off-color: #b7b7b7"
+            />
+          </div>
+        </div>
+        <div class="filterable w-45 mg-l-10">
           <el-select-v2
             v-model="tagValue"
             filterable
@@ -144,9 +174,9 @@ export default defineComponent({
       );
       console.log("aaaa", res);
     };
-    //删除没有使用的图片
-    //1.上传的图片上传数组
-    //2.存删除的图片
+    //是否置顶，显示
+    const isShow = ref(0); //0 显示 1隐藏
+    const isTop = ref(0); //1置顶 0默认
     return {
       value,
       toolbarList,
@@ -155,6 +185,8 @@ export default defineComponent({
       getHtmlValue,
       onUploadImg,
       uploadImgList,
+      isShow,
+      isTop,
     };
   },
 });
