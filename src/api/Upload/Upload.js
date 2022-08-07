@@ -13,3 +13,11 @@ export const uploadFiles = (data) => {
         },
     });
 }
+/*
+删除未用到的图片
+ */
+export const deleteAllFile = (data) => {
+    return axios.post(base.deleteAllFile, {
+        data
+    })
+}

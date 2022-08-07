@@ -40,9 +40,11 @@ eval("(" +req.body.data + ")") 字符串转换为对象
 ${path.resolve('./')}       获取当前路径
 */
 const deleteAllFile = (req, res) => {
+    console.log(req.body)
     let {
         deleteList
-    } =eval("(" +req.body.data + ")")   //转换为对象
+    } = req.body.data//转换为对象
+    // eval("(" +req.body.data.data + ")")  
     for (let index = 0; index < deleteList.length; index++) {
         fs.unlink(`${path.resolve('./')}/public/image/${deleteList[index]}`, function (error) {
             if (error) {

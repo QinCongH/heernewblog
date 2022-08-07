@@ -2,7 +2,8 @@ import {
     getArticle
 } from './Article/Article';
 import {
-    uploadFiles
+    uploadFiles,
+    deleteAllFile
 } from './Upload/Upload';
 import {
     queryNotePadeName
@@ -12,8 +13,10 @@ interceptor()
 const api = {
     // ----------获取文章数据------------
     getArticle,
-    uploadFiles,
     // ----------获取记事本数据-------------------
-    queryNotePadeName
+    queryNotePadeName,
+    // ----------上传-------------------------
+    uploadFiles,
+    deleteAllFile
 }
 export default api

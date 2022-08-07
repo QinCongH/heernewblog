@@ -7,6 +7,8 @@ const base = {
         上传
     */
    uploadPicture:'/api/uploadPicture',
+   deleteAllFile:'/api/deleteAllFile',
+
    /* 记事本*/
    queryNotePadeName:'/api/queryNotePadeName'
 }

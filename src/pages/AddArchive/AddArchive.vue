@@ -12,6 +12,7 @@
           type="text"
           class="w-100 border-b-eee pd-b-5 text-bold font-25"
           placeholder="标题"
+          v-model="contentTitle"
         />
       </div>
       <div class="mg-t-15 h-80">
@@ -19,6 +20,7 @@
         <md-editor
           @on-html-changed="getHtmlValue"
           @on-upload-img="onUploadImg"
+          @on-save="onSaveData"
           theme="light"
           :toolbars="toolbarList"
           v-model="value"
@@ -75,15 +77,17 @@
           <el-button>创建新本</el-button>
         </div>
         <div class="saveNote mg-l-10">
-          <el-button>保存笔记</el-button>
+          <el-button @click="onSaveData(value)">保存笔记</el-button>
         </div>
       </div>
     </div>
+    <!-- 提示 -->
+    <msg-alert :msg="msg" :isMsgAlert="isMsgState"></msg-alert>
   </div>
 </template>
 
 <script>
-import { getCurrentInstance, ref, defineComponent, reactive, onMounted } from "vue";
+import { getCurrentInstance, ref, defineComponent, reactive, onMounted, h } from "vue";
 export default defineComponent({
   setup() {
     const { proxy } = getCurrentInstance();
@@ -105,6 +109,7 @@ export default defineComponent({
     loadData();
     // 过滤筛选
     const value = ref("");
+    const contentTitle = ref("");
     const toolbarList = [
       "bold",
       "underline",
@@ -137,16 +142,17 @@ export default defineComponent({
       "catalog",
     ];
     //获取富文本代码
+    const deleteList = ref([]);
     const getHtmlValue = (v) => {
-      //1.删除文章中没有用到的图片
+      //2-1.删除文章中没有用到的图片
       let presentImgList = getExecStrs(v);
       console.log("aaaaa", presentImgList, uploadImgList); //当前页面的img和已经上传的img
-      //拿到应该删除的列表
-      let deleteList = [];
-      deleteList = presentImgList.concat(uploadImgList).filter(function (v, i, arr) {
-        return arr.indexOf(v) === arr.lastIndexOf(v);
-      });
-      console.log("应该删除的列表", deleteList);
+      //2-2.拿到应该删除的列表
+      deleteList.value = presentImgList
+        .concat(uploadImgList)
+        .filter(function (v, i, arr) {
+          return arr.indexOf(v) === arr.lastIndexOf(v);
+        });
     };
     //获取记事本
     const notePadValue = ref([]);
@@ -191,7 +197,7 @@ export default defineComponent({
     const onUploadImg = async (files, callback) => {
       const form = new FormData();
       form.append("files", files);
-      const res = await proxy.$api.uploadFiles(files);
+      let res = await proxy.$api.uploadFiles(files);
       if (res) {
         res.data.data.map((item) => console.log(item));
       }
@@ -207,6 +213,70 @@ export default defineComponent({
     //是否置顶，显示
     const isShow = ref(0); //0 显示 1隐藏
     const isTop = ref(0); //1置顶 0默认
+    /*
+      保存
+    */
+    const msg = ref("");
+    const isMsgState = ref(false);
+    const onSaveData =async (v) => {
+      /*
+        1.校验字段
+        2.删除不需要上传的图片
+        3.执行添加
+      添加文章参数：
+      value : markdown内容 content
+      isShow
+      isTop
+      title
+      sortid： 记事本id
+      aid ：文章id ?
+      author:?
+      addTime 创建时间
+      */
+      //  1.校验字段
+      //消息提示
+      function sendMsg(v) {
+        if (v.length) {
+          msg.value = v;
+          isMsgState.value = true;
+          setTimeout(() => {
+            isMsgState.value = false;
+          }, 1000);
+        }
+      }
+      if (!contentTitle.value.length) {
+        sendMsg("标题丢了。。(；′⌒`)");
+        return;
+      }
+      if (!v.length) {
+        sendMsg("写点什么吧(*/ω＼*)");
+        return;
+      }
+      if (!notePadValue.value.length) {
+        sendMsg("忘记选记事本啦( =•ω•= )m");
+        return;
+      }
+      //2.删除没有用到的服务器照片
+      let res=await proxy.$api.deleteAllFile({
+        deleteList:deleteList.value
+      })
+      if(res){
+        console.log("aaaaaaaaaaaaaa",res)
+      }
+      console.log("应该删除的列表", deleteList.value);
+      // 3.上传
+
+      let savedataList = {};
+      savedataList.addtime = Date.now();
+      savedataList.is_show = isShow.value;
+      savedataList.is_top = isTop.value;
+      savedataList.title = contentTitle.value;
+      savedataList.sortid = notePadValue.value;
+      savedataList.click_count = 0;
+      savedataList.content = v;
+      console.log("即将保存", v, savedataList);
+    };
+
     return {
       value,
       toolbarList,
@@ -219,6 +289,11 @@ export default defineComponent({
       notePadeNameList,
       notePadValue,
       options,
+      onSaveData,
+      contentTitle,
+      msg,
+      isMsgState,
+      deleteList,
     };
   },
 });
