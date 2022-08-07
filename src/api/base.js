@@ -6,6 +6,8 @@ const base = {
     /*
         上传
     */
-   uploadPicture:'/api/uploadPicture'
+   uploadPicture:'/api/uploadPicture',
+   /* 记事本*/
+   queryNotePadeName:'/api/queryNotePadeName'
 }
 export default base

@@ -56,14 +56,20 @@
             />
           </div>
         </div>
-        <div class="filterable w-45 mg-l-10">
-          <el-select-v2
-            v-model="tagValue"
-            filterable
-            :options="options"
-            placeholder="请选择记事本"
-            style="width: 100%"
-          />
+        <div class="filterable mg-l-10">
+          <el-select
+            v-model="notePadValue"
+            default-first-option
+            :reserve-keyword="false"
+            placeholder="选择记事本"
+          >
+            <el-option
+              v-for="item in notePadeNameList"
+              :key="item.sortid"
+              :label="item.name"
+              :value="item.sortid"
+            />
+          </el-select>
         </div>
         <div class="createNotepad mg-l-10">
           <el-button>创建新本</el-button>
@@ -77,11 +83,27 @@
 </template>
 
 <script>
-import { getCurrentInstance, ref, defineComponent, reactive } from "vue";
-import axios from "axios";
+import { getCurrentInstance, ref, defineComponent, reactive, onMounted } from "vue";
 export default defineComponent({
   setup() {
     const { proxy } = getCurrentInstance();
+    /*
+      加载数据
+    */
+    const notePadeNameList = ref([]);
+    const loadData = async () => {
+      try {
+        let res = await proxy.$api.queryNotePadeName();
+        if (res) {
+          notePadeNameList.value = res.data.data;
+        }
+        console.log(notePadeNameList.value);
+      } catch (error) {
+        throw error;
+      }
+    };
+    loadData();
+    // 过滤筛选
     const value = ref("");
     const toolbarList = [
       "bold",
@@ -114,14 +136,6 @@ export default defineComponent({
       "htmlPreview",
       "catalog",
     ];
-    // 过滤筛选
-    const initials = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
-    const tagValue = ref([]);
-    const options = Array.from({ length: 1000 }).map((_, idx) => ({
-      value: `Option${idx + 1}`,
-      label: `${initials[idx % 10]}${idx}`,
-    }));
-
     //获取富文本代码
     const getHtmlValue = (v) => {
       //1.删除文章中没有用到的图片
@@ -134,6 +148,22 @@ export default defineComponent({
       });
       console.log("应该删除的列表", deleteList);
     };
+    //获取记事本
+    const notePadValue = ref([]);
+    const options = [
+      {
+        value: "HTML",
+        label: "HTML",
+      },
+      {
+        value: "CSS",
+        label: "CSS",
+      },
+      {
+        value: "JavaScript",
+        label: "JavaScript",
+      },
+    ];
     //获取图片列表（根据富文本拿到img的src标签内容）
     const getExecStrs = (content) => {
       //方法1.
@@ -180,13 +210,15 @@ export default defineComponent({
     return {
       value,
       toolbarList,
-      options,
-      tagValue,
       getHtmlValue,
       onUploadImg,
       uploadImgList,
       isShow,
       isTop,
+      loadData,
+      notePadeNameList,
+      notePadValue,
+      options,
     };
   },
 });

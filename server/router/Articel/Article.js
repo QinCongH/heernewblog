@@ -5,7 +5,7 @@ const connection = require('../../db/connection')
 /*获取文章数据*/
 const getArticle = async (req, res) => {
     //建立查询语句
-    const querySql = 'select * from heer_article' //user为表名
+    let querySql = 'select * from heer_article' //user为表名
     //查询数据err, results（结果）, fields(数据库详情)
     connection.query(querySql, function (err, results, fields) {
         if (err) {
