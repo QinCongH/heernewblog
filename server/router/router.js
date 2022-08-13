@@ -7,7 +7,8 @@ const { //路径
     Notepad
 } = require('./base')
 const { //方法
-    getArticle
+    getArticle,
+    addArticle
 } = require('./Articel/Article')
 const {
     uploadPicture,
@@ -20,7 +21,10 @@ const {
 /**
  文章管理
  */
+//查询全部文章
 router.get(Article.queryArticle, getArticle)
+//添加文章
+router.post(Article.addArticle, addArticle)
 /*
 上传
 */

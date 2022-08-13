@@ -35,12 +35,11 @@ const getTime = () => {
   }
 };
 getTime();
-
 </script>
 <template>
   <Cover v-show="useRoute().name !== 'TianJiaWenZhang'"></Cover>
   <div
-    class="container  w-100"
+    class="container w-100"
     :class="[
       !switchTheme ? 'bg-day' : 'bg-night',
       useRoute().name == 'TianJiaWenZhang' ? 'h-100' : '',
@@ -51,7 +50,7 @@ getTime();
       @changeSwithTheme="changeSwithTheme"
     ></HeerHeader>
     <div class="main" :class="useRoute().name == 'TianJiaWenZhang' ? 'h-100' : ''">
-      <router-view></router-view>
+        <router-view></router-view>
     </div>
     <Backtop></Backtop>
   </div>

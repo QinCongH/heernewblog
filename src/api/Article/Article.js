@@ -8,3 +8,11 @@ import axios from 'axios';
 export const getArticle=()=> {
     return axios.get(base.queryArticle);
 }
+/*
+添加文章
+*/
+export const addArticle=(data)=>{
+    return axios.post(base.addArticle,{
+        data
+    })
+}

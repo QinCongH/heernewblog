@@ -88,11 +88,13 @@
 
 <script>
 import { getCurrentInstance, ref, defineComponent, reactive, onMounted, h } from "vue";
+import { onBeforeRouteLeave , useRouter } from "vue-router";
 export default defineComponent({
   setup() {
+    const router = useRouter();
     const { proxy } = getCurrentInstance();
     /*
-      加载数据
+      1.加载记事本数据
     */
     const notePadeNameList = ref([]);
     const loadData = async () => {
@@ -107,7 +109,23 @@ export default defineComponent({
       }
     };
     loadData();
-    // 过滤筛选
+    //1.1.获取记事本
+    const notePadValue = ref([]);
+    const options = [
+      {
+        value: "HTML",
+        label: "HTML",
+      },
+      {
+        value: "CSS",
+        label: "CSS",
+      },
+      {
+        value: "JavaScript",
+        label: "JavaScript",
+      },
+    ];
+    /*2.创建遍编辑器数据*/
     const value = ref("");
     const contentTitle = ref("");
     const toolbarList = [
@@ -141,36 +159,20 @@ export default defineComponent({
       "htmlPreview",
       "catalog",
     ];
-    //获取富文本代码
+    /*3.拿到富文本代码，以及删除的列表*/
     const deleteList = ref([]);
     const getHtmlValue = (v) => {
-      //2-1.删除文章中没有用到的图片
+      //3-1.删除文章中没有用到的图片
       let presentImgList = getExecStrs(v);
-      console.log("aaaaa", presentImgList, uploadImgList); //当前页面的img和已经上传的img
-      //2-2.拿到应该删除的列表
+      //3-2.拿到应该删除的列表
       deleteList.value = presentImgList
         .concat(uploadImgList)
         .filter(function (v, i, arr) {
           return arr.indexOf(v) === arr.lastIndexOf(v);
         });
     };
-    //获取记事本
-    const notePadValue = ref([]);
-    const options = [
-      {
-        value: "HTML",
-        label: "HTML",
-      },
-      {
-        value: "CSS",
-        label: "CSS",
-      },
-      {
-        value: "JavaScript",
-        label: "JavaScript",
-      },
-    ];
-    //获取图片列表（根据富文本拿到img的src标签内容）
+
+    //3-1获取图片列表（根据富文本拿到img的src标签内容）
     const getExecStrs = (content) => {
       //方法1.
       let data = [];
@@ -180,19 +182,8 @@ export default defineComponent({
         data.push(capture);
       });
       return data;
-      // 方法2.
-      // let imgReg = /<img.*?(?:>|\/>)/gi; //匹配图片中的img标签
-      // let srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i; // 匹配图片中的src
-      // let arr = content.match(imgReg); //筛选出所有的img
-      // let srcArr = [];
-      // for (let i = 0; i < arr?.length; i++) {
-      //   let src = arr[i].match(srcReg);
-      //   // 获取图片地址
-      //   srcArr.push(src[1]);
-      // }
-      // return srcArr;
     };
-    //上传图片 proxy.$api.uploadFiles(form);
+    /*4.上传图片 proxy.$api.uploadFiles(form);*/
     const uploadImgList = reactive([]);
     const onUploadImg = async (files, callback) => {
       const form = new FormData();
@@ -208,42 +199,41 @@ export default defineComponent({
           return `/api/public/image/${item.filename}`;
         })
       );
-      console.log("aaaa", res);
     };
-    //是否置顶，显示
+
+    /*
+      5.保存
+    */
     const isShow = ref(0); //0 显示 1隐藏
     const isTop = ref(0); //1置顶 0默认
-    /*
-      保存
-    */
+    const saveState = ref(false); //保存状态
     const msg = ref("");
     const isMsgState = ref(false);
-    const onSaveData =async (v) => {
-      /*
-        1.校验字段
-        2.删除不需要上传的图片
-        3.执行添加
-      添加文章参数：
-      value : markdown内容 content
-      isShow
-      isTop
-      title
-      sortid： 记事本id
-      aid ：文章id ?
-      author:?
-      addTime 创建时间
-      */
-      //  1.校验字段
-      //消息提示
-      function sendMsg(v) {
-        if (v.length) {
-          msg.value = v;
-          isMsgState.value = true;
-          setTimeout(() => {
-            isMsgState.value = false;
-          }, 1000);
-        }
+    //5.1.信息提示方法
+    const sendMsg = (v) => {
+      if (v.length) {
+        msg.value = v;
+        isMsgState.value = true;
+        setTimeout(() => {
+          isMsgState.value = false;
+        }, 1000);
       }
+    };
+    //5.2 删除图片方法
+    const deleteImage = async () => {
+      let sendDeleteList;
+      if (!saveState.value) {
+        sendDeleteList = uploadImgList;
+      } else {
+        sendDeleteList = deleteList.value;
+      }
+      let deleteListRes = await proxy.$api.deleteAllFile({
+        deleteList: sendDeleteList,
+      });
+      return deleteListRes;
+    };
+    //5.3. 执行保存
+    const onSaveData = async (v) => {
       if (!contentTitle.value.length) {
         sendMsg("标题丢了。。(；′⌒`)");
         return;
@@ -257,26 +247,61 @@ export default defineComponent({
         return;
       }
       //2.删除没有用到的服务器照片
-      let res=await proxy.$api.deleteAllFile({
-        deleteList:deleteList.value
-      })
-      if(res){
-        console.log("aaaaaaaaaaaaaa",res)
+      if (deleteList.value.length) {
+        let deleteListRes = await deleteImage();
+        if (!deleteListRes) {
+          sendMsg("删除图片接口出问题了( TωT= )m");
+          return;
+        }
+        console.log("删除图片结果", deleteListRes);
       }
-      console.log("应该删除的列表", deleteList.value);
       // 3.上传
-
-      let savedataList = {};
-      savedataList.addtime = Date.now();
-      savedataList.is_show = isShow.value;
-      savedataList.is_top = isTop.value;
-      savedataList.title = contentTitle.value;
-      savedataList.sortid = notePadValue.value;
-      savedataList.click_count = 0;
-      savedataList.content = v;
-      console.log("即将保存", v, savedataList);
+      let addArticleList = {
+        addtime: Date.now(),
+        is_show: !isShow.value,
+        is_top: isTop.value,
+        title: contentTitle.value,
+        sortid: notePadValue.value,
+        click_count: 0,
+        content: v,
+      };
+      let addArticleRes = await proxy.$api.addArticle({
+        addArticleList,
+      });
+      if (addArticleRes) {
+        sendMsg("保存成功( =•ω•= )m");
+        saveState.value = true;
+        setTimeout(() => {
+          router.push({
+            path: "/HomePage",
+            query: {
+              saveState: saveState.value,
+            },
+          });
+        }, 1000);
+      }
     };
-
+    /*
+        6. 路由守卫
+    */
+    onBeforeRouteLeave(async (to, from, next) => {
+      if ((to.fullPath = "/HomePage")) {
+        if (saveState.value || !Object.keys(uploadImgList).length) {
+          next();
+        } else {
+          if (deleteList.value.length || Object.keys(uploadImgList).length) {
+            let deleteListRes = await deleteImage();
+            if (!deleteListRes) {
+              sendMsg("删除图片接口出问题了( TωT= )m");
+              return;
+            }
+            console.log("删除图片结果", deleteListRes);
+          }
+          next();
+          return;
+        }
+      }
+    });
     return {
       value,
       toolbarList,
@@ -294,6 +319,7 @@ export default defineComponent({
       msg,
       isMsgState,
       deleteList,
+      router
     };
   },
 });

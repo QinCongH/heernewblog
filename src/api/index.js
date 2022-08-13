@@ -1,5 +1,6 @@
 import {
-    getArticle
+    getArticle,
+    addArticle
 } from './Article/Article';
 import {
     uploadFiles,
@@ -13,6 +14,7 @@ interceptor()
 const api = {
     // ----------获取文章数据------------
     getArticle,
+    addArticle,
     // ----------获取记事本数据-------------------
     queryNotePadeName,
     // ----------上传-------------------------

@@ -3,6 +3,7 @@ const base = {
     host: 'localhost:3001/api',
     /*获取文章*/
     queryArticle: '/api/queryArticle',
+    addArticle:'/api/addArticle',
     /*
         上传
     */

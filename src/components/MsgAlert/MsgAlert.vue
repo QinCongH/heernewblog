@@ -5,7 +5,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import {
   getCurrentInstance,

@@ -40,7 +40,6 @@ eval("(" +req.body.data + ")") 字符串转换为对象
 ${path.resolve('./')}       获取当前路径
 */
 const deleteAllFile = (req, res) => {
-    console.log(req.body)
     let {
         deleteList
     } = req.body.data//转换为对象

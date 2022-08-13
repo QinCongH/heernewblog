@@ -33,6 +33,7 @@ declare module '@vue/runtime-core' {
     Home: typeof import('./components/Home/Home.vue')['default']
     Introduce: typeof import('./components/Introduce/Introduce.vue')['default']
     MsgAlert: typeof import('./components/MsgAlert/MsgAlert.vue')['default']
+    MsgConfirm: typeof import('./components/MsgC/MsgConfirm.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Side: typeof import('./components/Side/Side.vue')['default']
