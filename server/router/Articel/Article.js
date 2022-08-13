@@ -29,42 +29,15 @@ const getArticle = async (req, res) => {
 添加文章
 */
 const addArticle = async (req, res) => {
-
     // 1.得到数据
     let {
         addArticleList
     } = req.body.data
-    console.log(req.body)
     if (Object.keys(addArticleList).length) {
-        console.log(1)
-        // 得到了数据
-        //  insert into table set col1='val1',col2='val2',col3='val3';
-        /*
-        //接收的
-        addtime: 1660050206115
-        is_show: true
-        is_top: false
-        title: "实打实"
-        sortid: " sdfdsfsdfsd发射点发生发射点发生"
-        click_count: 0
-        content: "↵撒打撒打撒"
-        */
         let aid = processID()
         let author = "禾耳"
         let increaseSql = `INSERT INTO heer_article (id,addtime,is_show,is_top,title,sortid,click_count,content,aid,author) VALUES (0,?,?,?,?,?,?,?,?,?)`
         let addSqlParams = [addArticleList.addtime, Number(addArticleList.is_show), Number(addArticleList.is_top), addArticleList.title, addArticleList.sortid, addArticleList.click_count, addArticleList.content, aid, author]
-        /*
-        // let increaseSql = `insert into heer_article set 
-        addtime=${addArticleList.addtime},
-        is_show=${Number(addArticleList.is_show)},
-        is_top=${Number(addArticleList.is_top)},
-        title=${addArticleList.title},
-        sortid=${addArticleList.sortid},
-        click_count=${addArticleList.click_count},
-        content=${addArticleList.content},
-        aid=${aid},
-        author=${author}`
-        */
         connection.query(increaseSql, addSqlParams, (err, results, fields) => {
             if (err) {
                 console.error(err)
@@ -78,10 +51,67 @@ const addArticle = async (req, res) => {
             res.send(sendData)
         })
     }
-    // 2.执行语句
-    // 3.发送数据
+}
+/*
+分页查询文章
+*/
+const queryPagArticle = async (req, res) => {
+
+    function getCountData() {
+        return new Promise((resolve, reject) => {
+            let queryCountSql = `select count(*) from heer_article where is_show = 1`
+            connection.query(queryCountSql, (err, results) => {
+                if (results) {
+                    resolve(results)
+                } else {
+                    reject(err)
+                }
+            })
+        })
+    }
+
+    function getPagData(startNum, endNum) {
+        return new Promise((resolve, reject) => {
+            // 选取第n~m条数据(n最小为1为第一条数据,m为一次查询几条)
+            // SELECT * FROM table LIMIT n,m;
+            let qeryPagSql = `SELECT * FROM heer_article LIMIT ${startNum},${endNum}`
+            connection.query(qeryPagSql, (err, results) => {
+                if (results) {
+                    resolve(results)
+                } else {
+                    reject(err)
+                }
+            })
+        })
+    }
+    const sendData = async () => {
+        try {
+            //获取分页
+            let page = req.query.page || 1 //接受用户端传递过来的当前页参数(页码)
+            let pageSize = req.query.pageSize //每页显示的数据条数
+            const countDataRes = await getCountData()
+            let countRes = Object.values(countDataRes[0])
+            let count = parseInt(countRes)
+            let total = Math.ceil(count / pageSize) //总页数=总数/每页显示的条数
+            let start = (page - 1) * pageSize //页码对应的数据查询开始位置
+            const pagDataRes = await getPagData(parseInt(start), parseInt(pageSize))
+            res.send({
+                params: pagDataRes,
+                msg: 'ok'
+            })
+        } catch (error) {
+            console.error(error)
+            res.send({
+                error,
+                msg: 'error'
+            })
+        }
+
+    }
+    await sendData()
 }
 module.exports = {
     getArticle,
-    addArticle
+    addArticle,
+    queryPagArticle
 }

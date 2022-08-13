@@ -1,7 +1,8 @@
 /*文章*/
 const Article = {
     queryArticle: '/queryArticle',
-    addArticle:'/addArticle'
+    addArticle:'/addArticle',
+    queryPagArticle:'/queryPagArticle'
 }
 /*上传*/
 const Upload = {

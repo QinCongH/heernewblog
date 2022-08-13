@@ -8,7 +8,8 @@ const { //路径
 } = require('./base')
 const { //方法
     getArticle,
-    addArticle
+    addArticle,
+    queryPagArticle
 } = require('./Articel/Article')
 const {
     uploadPicture,
@@ -25,6 +26,8 @@ const {
 router.get(Article.queryArticle, getArticle)
 //添加文章
 router.post(Article.addArticle, addArticle)
+//分页查询文章
+router.get(Article.queryPagArticle,queryPagArticle)
 /*
 上传
 */
