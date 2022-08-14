@@ -1,6 +1,7 @@
 import {
     getArticle,
-    addArticle
+    addArticle,
+    queryPagArticle
 } from './Article/Article';
 import {
     uploadFiles,
@@ -15,6 +16,7 @@ const api = {
     // ----------获取文章数据------------
     getArticle,
     addArticle,
+    queryPagArticle,
     // ----------获取记事本数据-------------------
     queryNotePadeName,
     // ----------上传-------------------------

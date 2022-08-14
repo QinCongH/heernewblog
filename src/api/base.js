@@ -4,6 +4,7 @@ const base = {
     /*获取文章*/
     queryArticle: '/api/queryArticle',
     addArticle:'/api/addArticle',
+    queryPagArticle:'/api/queryPagArticle',
     /*
         上传
     */

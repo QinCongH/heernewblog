@@ -74,7 +74,9 @@ const queryPagArticle = async (req, res) => {
         return new Promise((resolve, reject) => {
             // 选取第n~m条数据(n最小为1为第一条数据,m为一次查询几条)
             // SELECT * FROM table LIMIT n,m;
-            let qeryPagSql = `SELECT * FROM heer_article LIMIT ${startNum},${endNum}`
+            // let qeryPagSql = `SELECT * FROM heer_article where is_show = 1 LIMIT ${startNum},${endNum}`
+            //倒叙
+            let qeryPagSql = `SELECT * FROM heer_article where is_show = 1 order by id desc LIMIT ${startNum},${endNum}`
             connection.query(qeryPagSql, (err, results) => {
                 if (results) {
                     resolve(results)
@@ -84,31 +86,36 @@ const queryPagArticle = async (req, res) => {
             })
         })
     }
-    const sendData = async () => {
-        try {
-            //获取分页
-            let page = req.query.page || 1 //接受用户端传递过来的当前页参数(页码)
-            let pageSize = req.query.pageSize //每页显示的数据条数
-            const countDataRes = await getCountData()
-            let countRes = Object.values(countDataRes[0])
-            let count = parseInt(countRes)
-            let total = Math.ceil(count / pageSize) //总页数=总数/每页显示的条数
-            let start = (page - 1) * pageSize //页码对应的数据查询开始位置
-            const pagDataRes = await getPagData(parseInt(start), parseInt(pageSize))
+    try {
+        //获取分页
+        let page = req.query.page || 1 //接受用户端传递过来的当前页参数(页码)
+        let pageSize = req.query.pageSize //每页显示的数据条数
+        if(isNaN(page)||isNaN(pageSize)){
             res.send({
-                params: pagDataRes,
-                msg: 'ok'
+                msg: 'page isNaN,pageSize isNaN'
             })
-        } catch (error) {
-            console.error(error)
-            res.send({
-                error,
-                msg: 'error'
-            })
+            return false
         }
-
+        const countDataRes = await getCountData()
+        let countRes = Object.values(countDataRes[0])
+        let total = parseInt(countRes)
+        let pageCount = Math.ceil(total / pageSize) //总页数=总数/每页显示的条数
+        let start = (page - 1) * pageSize //页码对应的数据查询开始位置
+        const pagDataRes = await getPagData(parseInt(start), parseInt(pageSize))
+        // const pagDataRes = await getPagData(parseInt(total), parseInt(pageSize))
+        res.send({
+            params: pagDataRes,
+            total,
+            pageCount,
+            msg: 'ok'
+        })
+    } catch (error) {
+        console.error(error)
+        res.send({
+            error,
+            msg: 'error'
+        })
     }
-    await sendData()
 }
 module.exports = {
     getArticle,
