@@ -88,7 +88,7 @@
 
 <script>
 import { getCurrentInstance, ref, defineComponent, reactive, onMounted, h } from "vue";
-import { onBeforeRouteLeave , useRouter } from "vue-router";
+import { onBeforeRouteLeave, useRouter } from "vue-router";
 export default defineComponent({
   setup() {
     const router = useRouter();
@@ -319,7 +319,7 @@ export default defineComponent({
       msg,
       isMsgState,
       deleteList,
-      router
+      router,
     };
   },
 });
@@ -327,6 +327,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .add-archive {
+  height: 100vh;
   .breadcrumb {
     height: 3%;
   }

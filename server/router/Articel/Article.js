@@ -90,7 +90,7 @@ const queryPagArticle = async (req, res) => {
         //获取分页
         let page = req.query.page || 1 //接受用户端传递过来的当前页参数(页码)
         let pageSize = req.query.pageSize //每页显示的数据条数
-        if(isNaN(page)||isNaN(pageSize)){
+        if (isNaN(page) || isNaN(pageSize)) {
             res.send({
                 msg: 'page isNaN,pageSize isNaN'
             })
@@ -117,8 +117,37 @@ const queryPagArticle = async (req, res) => {
         })
     }
 }
+
+/*
+根据id查询文章
+*/
+const queryIdArticle = (req, res) => {
+    let aid = req.query.aid
+    if (!aid) {
+        res.status(500)
+        res.send('aid字段未定义！！')
+        return 
+    }
+    let querySql = `select * from heer_article where aid='${aid}'`
+    connection.query(querySql, (err, results, fields) => {
+        if (err) {
+            res.status(500)
+            res.send({
+                message: '数据库未查询到',
+                error: err
+            })
+            return
+        }
+        res.send({
+            message: '查询成功！',
+            data: results
+        })
+
+    })
+}
 module.exports = {
     getArticle,
     addArticle,
-    queryPagArticle
+    queryPagArticle,
+    queryIdArticle
 }

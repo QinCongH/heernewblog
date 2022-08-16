@@ -2,7 +2,8 @@
 const Article = {
     queryArticle: '/queryArticle',
     addArticle:'/addArticle',
-    queryPagArticle:'/queryPagArticle'
+    queryPagArticle:'/queryPagArticle',
+    queryIdArticle:'/queryIdArticle'
 }
 /*上传*/
 const Upload = {

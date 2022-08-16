@@ -23,7 +23,10 @@
                 v-for="(item, index) in pagArticleList"
                 :key="item.aid"
               >
-                <div class="note box-shadow-1 pd-15 mg-b-30">
+                <div
+                  @click="toPage({ path: '/ViewArticles', _id: item.aid })"
+                  class="note box-shadow-1 pd-15 mg-b-30"
+                >
                   <dl>
                     <dt>
                       <h2 class="font-line-1 lh-35">
@@ -32,9 +35,6 @@
                       <div class="line"></div>
                     </dt>
                     <dd class="mg-t-15">
-                      <!-- :pageFullScreen="true"         previewOnly -->
-                      <!-- <md-editor theme="light" previewOnly v-model="item.content">
-                      </md-editor> -->
                       <p class="font-line-3 lh-25">
                         {{ item.content }}
                       </p>
@@ -43,32 +43,6 @@
                       <p>{{ item.name }}</p>
                       <p>
                         {{ dayjs(item.addtime).format("YYYY-MM-DD HH:mm") }}
-                        <!-- <span >
-                          <svg
-                            t="1660459761215"
-                            class="icon mg-l-15"
-                            viewBox="0 0 1024 1024"
-                            version="1.1"
-                            xmlns="http://www.w3.org/2000/svg"
-                            p-id="3052"
-                            width="15"
-                            height="15"
-                          >
-                            <path
-                              d="M997 435.6c-28.2-36.7-65.4-81.4-107.4-122.2-54.6-53.2-110.5-95.6-166.1-126.3-71.2-39.2-142-59.1-210.7-59.1s-139.6 19.9-210.7 59.1c-55.5 30.7-111.4 73.1-166.1 126.3-42 40.8-79.3 85.5-107.5 122.1-34.8 45.3-34.8 107.8 0 153.1 28.2 36.7 65.4 81.4 107.4 122.2C190.5 764 246.5 806.4 302 837.1c71.2 39.2 142.1 59.1 210.7 59.1 68.7 0 139.6-19.9 210.8-59 55.5-30.7 111.4-73.1 166.1-126.3 42-40.8 79.3-85.6 107.4-122.2 34.8-45.3 34.8-107.8 0-153.1z m-37.3 99c-66.2 89-243.8 299-446.8 299-57.5 0-117.7-17.1-179-50.8-50.5-27.7-101.7-66.6-152.2-115.6-51.1-49.5-91-99.5-115.7-132.6-10-13.5-10-31.6 0-44.9 66.1-89 243.7-299 446.8-299 57.5 0 117.6 17.1 179 50.8 50.5 27.7 101.7 66.6 152.2 115.6 51.1 49.5 91 99.5 115.7 132.6 9.9 13.4 9.9 31.6 0 44.9z"
-                              p-id="3053"
-                              fill="#ffffff"
-                            ></path>
-                            <path
-                              d="M512 321.7c-105.7 0-191.6 86-191.6 191.6 0 105.7 86 191.6 191.6 191.6s191.6-86 191.6-191.6c0-105.7-86-191.6-191.6-191.6z m0 319.2c-70.3 0-127.6-57.2-127.6-127.6S441.7 385.7 512 385.7s127.6 57.2 127.6 127.6S582.3 640.9 512 640.9z"
-                              p-id="3054"
-                              fill="#ffffff"
-                            ></path>
-                          </svg>
-                          <span>
-                            {{ item.click_count }}
-                          </span>
-                        </span> -->
                       </p>
                     </dd>
                   </dl>
@@ -96,7 +70,8 @@
   </div>
 </template>
 <script>
-import { defineComponent, ref,provide, getCurrentInstance } from "vue";
+import { defineComponent, ref, provide, getCurrentInstance } from "vue";
+import { useRouter } from "vue-router";
 export default defineComponent({
   setup() {
     /*
@@ -139,8 +114,7 @@ export default defineComponent({
         });
       });
     };
-    provide('sendNewArticleList',newArticleList.value)
-    console.log(newArticleList.value);
+
     const loadData = async () => {
       try {
         await loadMore();
@@ -153,15 +127,35 @@ export default defineComponent({
     2.分页
     */
     const changePag = (val) => {
-      console.log(val);
+      newArticleList.value = [];
       page.value = val;
       loadMore();
     };
+    provide("sendNewArticleList", newArticleList.value);
     /*
     3.日期格式化
     */
     const dayjs = proxy.$day;
     console.log(dayjs());
+    /*
+    页面跳转
+    */
+    const router = useRouter();
+    const toPage = (obj) => {
+      switch (obj.path) {
+        case "/ViewArticles":
+          router.push({
+            path: obj.path,
+            query: {
+              _id: obj._id,
+            },
+          });
+          break;
+
+        default:
+          break;
+      }
+    };
     return {
       pageSize,
       page,
@@ -172,6 +166,8 @@ export default defineComponent({
       changePag,
       dayjs,
       newArticleList,
+      toPage,
+      router,
     };
   },
 });
