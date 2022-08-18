@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Backtop: typeof import('./components/Backtop/Backtop.vue')['default']
+    Breadcrumb: typeof import('./components/Breadcrumb/Breadcrumb.vue')['default']
     Clalendar: typeof import('./components/Clalendar/Clalendar.vue')['default']
     Cover: typeof import('./components/Cover/Cover.vue')['default']
     Drawer: typeof import('./components/Drawer/Drawer.vue')['default']

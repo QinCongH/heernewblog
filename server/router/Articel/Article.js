@@ -126,7 +126,7 @@ const queryIdArticle = (req, res) => {
     if (!aid) {
         res.status(500)
         res.send('aid字段未定义！！')
-        return 
+        return
     }
     let querySql = `select * from heer_article where aid='${aid}'`
     connection.query(querySql, (err, results, fields) => {
@@ -138,9 +138,10 @@ const queryIdArticle = (req, res) => {
             })
             return
         }
+        let resul = JSON.parse(JSON.stringify(results).slice(1).slice(0, -1))
         res.send({
             message: '查询成功！',
-            data: results
+            params: resul
         })
 
     })

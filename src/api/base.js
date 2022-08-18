@@ -3,15 +3,16 @@ const base = {
     host: 'localhost:3001/api',
     /*获取文章*/
     queryArticle: '/api/queryArticle',
-    addArticle:'/api/addArticle',
-    queryPagArticle:'/api/queryPagArticle',
+    addArticle: '/api/addArticle',
+    queryPagArticle: '/api/queryPagArticle',
+    queryIdArticle: '/api/queryIdArticle',
     /*
         上传
     */
-   uploadPicture:'/api/uploadPicture',
-   deleteAllFile:'/api/deleteAllFile',
+    uploadPicture: '/api/uploadPicture',
+    deleteAllFile: '/api/deleteAllFile',
 
-   /* 记事本*/
-   queryNotePadeName:'/api/queryNotePadeName'
+    /* 记事本*/
+    queryNotePadeName: '/api/queryNotePadeName'
 }
 export default base

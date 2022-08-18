@@ -24,3 +24,11 @@ export const queryPagArticle = (params) => {
         params
     })
 }
+/*
+查询文章(id)
+*/
+export const queryIdArticle = (params) => {
+    return axios.get(base.queryIdArticle, {
+        params
+    })
+}
