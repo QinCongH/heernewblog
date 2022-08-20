@@ -253,7 +253,7 @@ export default defineComponent({
   background-position: center;
   background-origin: border-box;
   scroll-behavior: smooth;
-
+  height:100vh;
   .cover-content {
     .cover-title {
       font-size: 36px;

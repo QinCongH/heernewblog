@@ -146,9 +146,31 @@ const queryIdArticle = (req, res) => {
 
     })
 }
+/*
+查询最新文章列表
+*/
+const queryNewArticles = (req, res) => {
+    let endNum = req.query.endNum
+    let querySql = `SELECT aid,title,addtime FROM  heer_article where is_show = 1 order by id desc LIMIT 0,${endNum} `
+    connection.query(querySql, (err, results, fields) => {
+      if(err){
+        res.send({
+            msg:'err',
+            data:err
+
+        })
+        return
+    }
+    res.send({
+        results,
+        msg:'ok'
+    })
+    })
+}
 module.exports = {
     getArticle,
     addArticle,
     queryPagArticle,
-    queryIdArticle
+    queryIdArticle,
+    queryNewArticles
 }

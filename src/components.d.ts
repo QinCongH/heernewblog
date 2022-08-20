@@ -30,6 +30,7 @@ declare module '@vue/runtime-core' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTimeline: typeof import('element-plus/es')['ElTimeline']
     ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
+    FlowLayout: typeof import('./components/FlowLayout/FlowLayout.vue')['default']
     HeerHeader: typeof import('./components/HeerHeader/HeerHeader.vue')['default']
     Home: typeof import('./components/Home/Home.vue')['default']
     Introduce: typeof import('./components/Introduce/Introduce.vue')['default']

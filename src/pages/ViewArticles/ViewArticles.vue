@@ -10,7 +10,7 @@
     </div>
     <div class="head pd-bt-15">
       <h1 class="font-25">
-        {{title}}
+        {{ title }}
       </h1>
     </div>
     <div class="content mg-t-15">
@@ -30,7 +30,10 @@
         <el-col :md="7">
           <div class="catalogue">
             <div class="catalogue-content box-shadow-1">
-              <div class="catalogue-tle">目录</div>
+              <div class="catalogue-tle">
+                <h2 class="text-center">目录</h2>
+              </div>
+              <div class="line"></div>
               <div v-for="(item, index) in catalogList" :key="index">
                 <h1
                   v-show="item.level == 1"
@@ -88,6 +91,7 @@
 <script>
 import { defineComponent, ref, reactive, provide, getCurrentInstance } from "vue";
 import { useRouter, useRoute } from "vue-router";
+
 export default defineComponent({
   setup() {
     const value = ref("");
@@ -95,7 +99,6 @@ export default defineComponent({
     const catalogList = ref([]);
     const getCatalog = (list) => {
       catalogList.value = list;
-      console.log(list);
     };
     const { proxy } = getCurrentInstance();
     const route = useRoute();
@@ -137,5 +140,11 @@ export default defineComponent({
 }
 .readbox {
   padding: 15px;
+}
+.line {
+  width: 100%;
+  padding-bottom: 1px;
+  background: #cecece;
+  margin: 15px auto 0px auto;
 }
 </style>

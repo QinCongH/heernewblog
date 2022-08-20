@@ -1,6 +1,6 @@
 <template>
   <div class="HomePage w-90 mg-t-15">
-    <el-row :gutter="20">
+    <el-row :gutter="30">
       <el-col :md="17">
         <div class="content">
           <!-- 轮播图 -->
@@ -19,25 +19,23 @@
             <el-row :gutter="30">
               <el-col
                 :sm="12"
-                :md="12"
+                :md="8"
                 v-for="(item, index) in pagArticleList"
                 :key="item.aid"
               >
                 <div
                   @click="toPage({ path: '/ViewArticles', _id: item.aid })"
-                  class="note box-shadow-1 pd-15 mg-b-30"
+                  class="note box-shadow-1 mg-b-30 w-100 overflow-hidden"
                 >
-                  <dl>
+                  <dl class="pd-10">
                     <dt>
                       <h2 class="font-line-1 lh-35">
                         {{ item.title }}
                       </h2>
                       <div class="line"></div>
                     </dt>
-                    <dd class="mg-t-15">
-                      <p class="font-line-3 lh-25">
-                        {{ item.content }}
-                      </p>
+                    <dd class="note-view" v-if="item.content">
+                      <p v-html="toText(md.render(item.content))"></p>
                     </dd>
                     <dd class="flex-h mg-t-15 justify-between">
                       <p>{{ item.name }}</p>
@@ -72,6 +70,7 @@
 <script>
 import { defineComponent, ref, provide, getCurrentInstance } from "vue";
 import { useRouter } from "vue-router";
+import MarkdownIt from "markdown-it";
 export default defineComponent({
   setup() {
     /*
@@ -83,7 +82,8 @@ export default defineComponent({
     const total = ref(0);
     const pagArticleList = ref([]);
     const notePadeNameList = ref([]);
-    const newArticleList = ref([]);
+
+    const md = new MarkdownIt();
     const loadMore = async () => {
       //分页数据
       let pagArticleRes = await proxy.$api.queryPagArticle({
@@ -92,7 +92,6 @@ export default defineComponent({
       });
       if (pagArticleRes) {
         pagArticleList.value = pagArticleRes.data.params;
-        console.log(111);
         total.value = pagArticleRes.data.total;
       }
       //记事本数据
@@ -102,11 +101,6 @@ export default defineComponent({
         console.log(notePadeNameList.value);
       }
       pagArticleList.value.forEach((el) => {
-        let obj = {
-          title: el.title,
-          aid: el.aid,
-        };
-        newArticleList.value.push(obj);
         notePadeNameList.value.forEach((val) => {
           if (el.sortid == val.sortid) {
             el.name = val.name;
@@ -127,11 +121,9 @@ export default defineComponent({
     2.分页
     */
     const changePag = (val) => {
-      newArticleList.value = [];
       page.value = val;
       loadMore();
     };
-    provide("sendNewArticleList", newArticleList.value);
     /*
     3.日期格式化
     */
@@ -156,6 +148,16 @@ export default defineComponent({
           break;
       }
     };
+    const toText = (html) => {
+      //将html代码转换未纯文本
+      return html
+        .replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi, "")
+        .replace(/<[^>]+?>/g, "")
+        .replace(/\s+/g, " ")
+        .replace(/ /g, " ")
+        .replace(/>/g, " ");
+    };
+
     return {
       pageSize,
       page,
@@ -165,9 +167,10 @@ export default defineComponent({
       loadData,
       changePag,
       dayjs,
-      newArticleList,
       toPage,
       router,
+      md,
+      toText,
     };
   },
 });
@@ -176,6 +179,43 @@ export default defineComponent({
 <style lang="less" scoped>
 .note-main {
   .note {
+    height: 240px;
+    dl {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      dd {
+        &:nth-of-type(1) {
+          height: 56%;
+        }
+        &:nth-of-type(2) {
+          flex: 1;
+        }
+      }
+      dt {
+        height: 20%;
+      }
+    }
+    .note-view {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      p {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
+        overflow: hidden;
+        //当p标签中有数字使多行显示失效时：
+        word-wrap: break-word;
+        word-break: break-all;
+        line-height: 25px;
+      }
+
+      /deep/img {
+        // display: none;
+      }
+    }
     .line {
       width: 90%;
       background-color: #c4c4c4;

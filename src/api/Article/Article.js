@@ -32,3 +32,11 @@ export const queryIdArticle = (params) => {
         params
     })
 }
+/*
+最新文章 queryNewArticles
+*/
+export const queryNewArticles = (params) => {
+    return axios.get(base.queryNewArticles, {
+        params
+    })
+}
