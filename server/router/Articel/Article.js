@@ -153,24 +153,51 @@ const queryNewArticles = (req, res) => {
     let endNum = req.query.endNum
     let querySql = `SELECT aid,title,addtime FROM  heer_article where is_show = 1 order by id desc LIMIT 0,${endNum} `
     connection.query(querySql, (err, results, fields) => {
-      if(err){
-        res.send({
-            msg:'err',
-            data:err
+        if (err) {
+            res.send({
+                msg: 'err',
+                data: err
 
+            })
+            return
+        }
+        res.send({
+            results,
+            msg: 'ok'
         })
-        return
+    })
+}
+
+/*
+更新文章
+*/
+const editArticle = (req, res) => {
+    // 1.得到数据
+    let {
+        editArticleList
+    } = req.body.data
+    if (Object.keys(editArticleList).length) {
+        let updataSql = 'UPDATE heer_article SET is_show=?,is_top=?,title=?,sortid=?,content=? WHERE aid = ?'
+        let updataSqlParams = [Number(editArticleList.is_show), Number(editArticleList.is_top),editArticleList.title,editArticleList.sortid, editArticleList.content,editArticleList.aid]
+        connection.query(updataSql, updataSqlParams, (err, results, fields) => {
+            if (err) {
+                console.error(err)
+                res.send({
+                    msg: 'err'
+                })
+            }
+            let sendData = {}
+            sendData.data = results
+            sendData.msg = 'ok'
+            res.send(sendData)
+        })
     }
-    res.send({
-        results,
-        msg:'ok'
-    })
-    })
 }
 module.exports = {
     getArticle,
     addArticle,
     queryPagArticle,
     queryIdArticle,
-    queryNewArticles
+    queryNewArticles,
+    editArticle
 }

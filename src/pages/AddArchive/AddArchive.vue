@@ -77,7 +77,12 @@
           <el-button>创建新本</el-button>
         </div>
         <div class="saveNote mg-l-10">
-          <el-button @click="onSaveData(value)">保存笔记</el-button>
+          <el-button @click="onSaveData(value)"
+            >{{ isEdit ? "更新" : "添加" }}笔记</el-button
+          >
+        </div>
+        <div class="deleteNote mg-l-10">
+          <el-button @click="onDeleteData()">删除笔记</el-button>
         </div>
       </div>
     </div>
@@ -88,20 +93,49 @@
 
 <script>
 import { getCurrentInstance, ref, defineComponent, reactive, onMounted, h } from "vue";
-import { onBeforeRouteLeave, useRouter } from "vue-router";
+import { onBeforeRouteLeave, useRouter, useRoute } from "vue-router";
 export default defineComponent({
   setup() {
     const router = useRouter();
     const { proxy } = getCurrentInstance();
+    /*
+    0.是否编辑
+    */
+    const route = useRoute();
+    const isEdit = ref(false);
+    const queryIdArticleList = ref([]);
+    const _id = route.query?._id;
+    if (_id?.length) {
+      isEdit.value = true;
+    }
     /*
       1.加载记事本数据
     */
     const notePadeNameList = ref([]);
     const loadData = async () => {
       try {
-        let res = await proxy.$api.queryNotePadeName();
-        if (res) {
-          notePadeNameList.value = res.data.data;
+        let notePadeNamRes = await proxy.$api.queryNotePadeName();
+        if (notePadeNamRes) {
+          notePadeNameList.value = notePadeNamRes.data.data;
+        }
+        if (isEdit.value) {
+          //queryIdArticle
+          let queryIdArticleRes = await proxy.$api.queryIdArticle({
+            aid: route.query?._id,
+          });
+          if (queryIdArticleRes) {
+            queryIdArticleList.value = queryIdArticleRes.data.params;
+            console.log("queryIdArticleRes", queryIdArticleList.value);
+            contentTitle.value = queryIdArticleList.value.title;
+            value.value = queryIdArticleList.value.content;
+            isShow.value = queryIdArticleList.value.is_show;
+            isTop.value = queryIdArticleList.value.is_top;
+            notePadeNameList.value.forEach((el) => {
+              if (el.sortid == queryIdArticleList.value.sortid) {
+                notePadValue.value = el.sortid;
+              }
+            });
+          }
         }
         console.log(notePadeNameList.value);
       } catch (error) {
@@ -256,29 +290,62 @@ export default defineComponent({
         console.log("删除图片结果", deleteListRes);
       }
       // 3.上传
-      let addArticleList = {
-        addtime: Date.now(),
-        is_show: !isShow.value,
-        is_top: isTop.value,
-        title: contentTitle.value,
-        sortid: notePadValue.value,
-        click_count: 0,
-        content: v,
+      const add = async (v) => {
+        let addArticleList = {
+          addtime: Date.now(),
+          is_show: !isShow.value,
+          is_top: isTop.value,
+          title: contentTitle.value,
+          sortid: notePadValue.value,
+          click_count: 0,
+          content: v,
+        };
+        let addArticleRes = await proxy.$api.addArticle({
+          addArticleList,
+        });
+        if (addArticleRes) {
+          sendMsg("保存成功( =•ω•= )m");
+          saveState.value = true;
+          setTimeout(() => {
+            router.push({
+              path: "/HomePage",
+              query: {
+                saveState: saveState.value,
+              },
+            });
+          }, 1000);
+        }
       };
-      let addArticleRes = await proxy.$api.addArticle({
-        addArticleList,
-      });
-      if (addArticleRes) {
-        sendMsg("保存成功( =•ω•= )m");
-        saveState.value = true;
-        setTimeout(() => {
-          router.push({
-            path: "/HomePage",
-            query: {
-              saveState: saveState.value,
-            },
-          });
-        }, 1000);
+
+      const edit = async (v) => {
+        let editArticleList = {
+          is_show: isShow.value,
+          is_top: isTop.value,
+          title: contentTitle.value,
+          sortid: notePadValue.value,
+          content: v,
+          aid: route.query?._id,
+        };
+        let editArticleRes = await proxy.$api.editArticle({
+          editArticleList,
+        });
+        if (editArticleRes) {
+          sendMsg("更新成功( =•ω•= )m");
+          saveState.value = true;
+          setTimeout(() => {
+            router.push({
+              path: "/HomePage",
+              query: {
+                saveState: saveState.value,
+              },
+            });
+          }, 1000);
+        }
+      };
+      if (isEdit.value) {
+        edit(v);
+      } else {
+        add(v);
       }
     };
     /*
@@ -302,6 +369,12 @@ export default defineComponent({
         }
       }
     });
+    /*
+7.删除笔记
+ */
+    const onDeleteData = () => {
+      console.log("delete", route.query?._id);
+    };
     return {
       value,
       toolbarList,
@@ -320,6 +393,8 @@ export default defineComponent({
       isMsgState,
       deleteList,
       router,
+      isEdit,
+      onDeleteData,
     };
   },
 });

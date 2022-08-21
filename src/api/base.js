@@ -7,6 +7,7 @@ const base = {
     queryPagArticle: '/api/queryPagArticle',
     queryIdArticle: '/api/queryIdArticle',
     queryNewArticles:'/api/queryNewArticles',
+    editArticle:'/api/editArticle',
     /*
         上传
     */

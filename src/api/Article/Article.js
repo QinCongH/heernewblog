@@ -40,3 +40,11 @@ export const queryNewArticles = (params) => {
         params
     })
 }
+/*
+编辑文章 editArticle
+*/
+export const editArticle = (data) => {
+    return axios.post(base.editArticle, {
+      data
+    })
+}

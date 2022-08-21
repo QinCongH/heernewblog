@@ -30,7 +30,7 @@ export default defineComponent({
     };
     const scrollTop = () => {
       backtop.value = document.querySelector(".cover")?.clientHeight;
-      if (document.querySelector(".scrollHere").offsetTop > backtop.value + 200) {
+      if (document.querySelector(".scrollHere")?.offsetTop > backtop.value + 200) {
         isBacktop.value = true;
       } else {
         isBacktop.value = false;

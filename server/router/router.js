@@ -11,7 +11,8 @@ const { //方法
     addArticle,
     queryPagArticle,
     queryIdArticle,
-    queryNewArticles
+    queryNewArticles,
+    editArticle
 } = require('./Articel/Article')
 const {
     uploadPicture,
@@ -33,7 +34,9 @@ router.get(Article.queryPagArticle, queryPagArticle)
 //根据id查询文章
 router.get(Article.queryIdArticle, queryIdArticle)
 //查询最新文章列表
-router.get(Article.queryNewArticles,queryNewArticles)
+router.get(Article.queryNewArticles, queryNewArticles)
+//编辑文章
+router.post(Article.editArticle, editArticle)
 /*
 上传
 */

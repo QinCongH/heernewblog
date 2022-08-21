@@ -7,10 +7,11 @@
           ><a href="javascript:;">{{ title }}</a></el-breadcrumb-item
         >
       </el-breadcrumb>
-      <div @click="drawer = true" class="photoDrawer">
+      <div class="flex-h align-center">
         <svg
+          @click="drawer = true"
           t="1661049360733"
-          class="icon"
+          class="icon photoDrawer"
           viewBox="0 0 1024 1024"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -25,6 +26,28 @@
           <path
             d="M847.1 560.4V250.1s0-24.7-14-46.4c-10.8-16.8-30-31.8-64.2-31.8h-261c-0.2 0-0.3 0-0.5 0.1H255s-78.1 0-78.1 78.1l0.1 213.4V774s0 24.7 13.9 46.3c10.8 16.8 30 31.8 64.2 31.8h261.1c0.2 0 0.3 0 0.5-0.1H769s78.1 0 78.1-78.1l-0.1-213.4 0.1-0.1z m-39 213.6c-1.3 38.5-38.9 39-38.9 39h-514c-1.3-0.1-2.5-0.2-3.8-0.3-5.4-1.1-15.7-4.1-23.9-11.7-9-9.7-11.2-22.3-11.7-26.1v-0.7l0.1-524.2c1.3-38.5 38.9-39 38.9-39h514c1.3 0.1 2.5 0.2 3.7 0.3 5.4 1.1 15.7 4.1 23.9 11.7 9 9.7 11.2 22.2 11.7 26 0 0.2 0 0.5 0.1 0.7l-0.1 524.3z"
             p-id="4032"
+          ></path>
+        </svg>
+        <svg
+          t="1657415474596"
+          class="icon edit-article mg-l-15"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="6686"
+          width="20"
+          height="20"
+          @click="editArticle"
+        >
+          <path
+            d="M0.09999 1024l98.590372-295.771116 565.644762-565.644761 197.180744 197.180744-565.644762 565.644761L0.09999 1024z m125.587736-225.877942L87.091495 914.310712l22.797774 22.797773 117.188555-37.596328m33.196759-11.398887l9.799043-4.39957 523.948833-523.948833L664.435114 229.977541l-523.948833 523.948833-2.599746 11.598868M882.313837 337.367054L686.732936 141.786154 828.4191 0.09999l195.5809 195.580901-141.686163 141.686163zM754.226345 141.786154L882.313837 269.973635l74.192754-74.192754L828.4191 67.593399l-74.192755 74.192755z"
+            fill="#303030"
+            p-id="6687"
+          ></path>
+          <path
+            d="M183.213108 766.736123L644.127097 305.823134l33.724707 33.725707L216.938815 800.46183z"
+            fill="#303030"
+            p-id="6688"
           ></path>
         </svg>
       </div>
@@ -175,6 +198,7 @@ import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
   setup() {
+    /*加载数据*/
     const value = ref("");
     const title = ref("");
     const catalogList = ref([]);
@@ -183,6 +207,7 @@ export default defineComponent({
     };
     const { proxy } = getCurrentInstance();
     const route = useRoute();
+     const router = useRouter();
     console.log(route.query);
     const loadData = async () => {
       try {
@@ -195,15 +220,29 @@ export default defineComponent({
       }
     };
     loadData();
+    /*
+   点击目录
+    */
     const toHere = (here) => {
       document.getElementById(here).scrollIntoView();
     };
-    //抽屉
+    /*抽屉*/
     const drawer = ref(false);
     const direction = ref("rtl");
     const handleClose = () => {
       drawer.value = false;
     };
+    /*
+    跳转到编辑页面editArticle
+    */
+   const editArticle=()=>{
+          router.push({
+            path: "/AddArchive",
+            query: {
+              _id: route.query._id,
+            },
+          });
+   }
     return {
       value,
       getCatalog,
@@ -214,6 +253,7 @@ export default defineComponent({
       drawer,
       direction,
       handleClose,
+      editArticle
     };
   },
 });
@@ -246,7 +286,7 @@ export default defineComponent({
 .noShow {
   position: sticky;
   top: 30px;
-  .catalogue-content{
+  .catalogue-content {
     height: 86vh;
     overflow-y: scroll;
   }

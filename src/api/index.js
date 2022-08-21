@@ -3,7 +3,8 @@ import {
     addArticle,
     queryPagArticle,
     queryIdArticle,
-    queryNewArticles
+    queryNewArticles,
+    editArticle
 } from './Article/Article';
 import {
     uploadFiles,
@@ -21,6 +22,7 @@ const api = {
     queryPagArticle,
     queryIdArticle,
     queryNewArticles,
+    editArticle,
     // ----------获取记事本数据-------------------
     queryNotePadeName,
     // ----------上传-------------------------
