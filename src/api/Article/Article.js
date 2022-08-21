@@ -48,3 +48,11 @@ export const editArticle = (data) => {
       data
     })
 }
+/*
+删除文章 deleteArticle
+*/
+export const deleteArticle = (params) => {
+    return axios.get(base.deleteArticle, {
+        params
+    })
+}

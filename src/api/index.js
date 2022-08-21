@@ -4,7 +4,8 @@ import {
     queryPagArticle,
     queryIdArticle,
     queryNewArticles,
-    editArticle
+    editArticle,
+    deleteArticle
 } from './Article/Article';
 import {
     uploadFiles,
@@ -23,10 +24,12 @@ const api = {
     queryIdArticle,
     queryNewArticles,
     editArticle,
+    deleteArticle,
     // ----------获取记事本数据-------------------
     queryNotePadeName,
     // ----------上传-------------------------
     uploadFiles,
-    deleteAllFile
+    deleteAllFile,
+    
 }
 export default api

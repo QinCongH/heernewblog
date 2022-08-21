@@ -5,7 +5,8 @@ const Article = {
     queryPagArticle:'/queryPagArticle',
     queryIdArticle:'/queryIdArticle',
     queryNewArticles:'/queryNewArticles',
-    editArticle:'/editArticle'
+    editArticle:'/editArticle',
+    deleteArticle:'/deleteArticle'
 }
 /*上传*/
 const Upload = {

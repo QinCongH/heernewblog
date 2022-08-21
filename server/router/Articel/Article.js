@@ -50,6 +50,10 @@ const addArticle = async (req, res) => {
             sendData.msg = 'ok'
             res.send(sendData)
         })
+    }else{
+        res.send({
+            msg: '请检查字段'
+        })
     }
 }
 /*
@@ -151,6 +155,11 @@ const queryIdArticle = (req, res) => {
 */
 const queryNewArticles = (req, res) => {
     let endNum = req.query.endNum
+    if(!endNum){
+        res.send({
+            msg:'endNum is null'
+        })
+    }
     let querySql = `SELECT aid,title,addtime FROM  heer_article where is_show = 1 order by id desc LIMIT 0,${endNum} `
     connection.query(querySql, (err, results, fields) => {
         if (err) {
@@ -191,7 +200,39 @@ const editArticle = (req, res) => {
             sendData.msg = 'ok'
             res.send(sendData)
         })
+    }else{
+        res.send({
+            msg: '请检查字段'
+        })
     }
+}
+
+/*
+删除文章
+*/
+const deleteArticle=(req,res)=>{
+    let aid = req.query.aid
+    if (!aid) {
+        res.status(500)
+        res.send('aid字段未定义！！')
+        return
+    }
+    let deleteSql = `DELETE FROM heer_article where aid='${aid}'`
+    connection.query(deleteSql, (err, results, fields) => {
+        if (err) {
+            res.status(500)
+            res.send({
+                message: '数据库未查询到该id',
+                error: err
+            })
+            return
+        }
+        res.send({
+            message: '删除成功！',
+            params: results
+        })
+
+    })
 }
 module.exports = {
     getArticle,
@@ -199,5 +240,6 @@ module.exports = {
     queryPagArticle,
     queryIdArticle,
     queryNewArticles,
-    editArticle
+    editArticle,
+    deleteArticle
 }

@@ -94,10 +94,13 @@
 <script>
 import { getCurrentInstance, ref, defineComponent, reactive, onMounted, h } from "vue";
 import { onBeforeRouteLeave, useRouter, useRoute } from "vue-router";
+import MarkdownIt from "markdown-it";
 export default defineComponent({
   setup() {
     const router = useRouter();
     const { proxy } = getCurrentInstance();
+    const md = new MarkdownIt();
+    const delImgList = ref([]); //点击删除时使用
     /*
     0.是否编辑
     */
@@ -119,7 +122,7 @@ export default defineComponent({
           notePadeNameList.value = notePadeNamRes.data.data;
         }
         if (isEdit.value) {
-          //queryIdArticle
+          //得到编辑的数据
           let queryIdArticleRes = await proxy.$api.queryIdArticle({
             aid: route.query?._id,
           });
@@ -135,6 +138,9 @@ export default defineComponent({
                 notePadValue.value = el.sortid;
               }
             });
+            //得到删除的图片列表。如果点击删除执行
+            let htmlCode = md.render(value.value);
+            delImgList.value = getExecStrs(htmlCode);
           }
         }
         console.log(notePadeNameList.value);
@@ -142,7 +148,9 @@ export default defineComponent({
         throw error;
       }
     };
-    loadData();
+    onMounted(() => {
+      loadData();
+    });
     //1.1.获取记事本
     const notePadValue = ref([]);
     const options = [
@@ -206,7 +214,7 @@ export default defineComponent({
         });
     };
 
-    //3-1获取图片列表（根据富文本拿到img的src标签内容）
+    //3-1获取图片列表（根据html代码拿到img的src标签内容）
     const getExecStrs = (content) => {
       //方法1.
       let data = [];
@@ -372,8 +380,34 @@ export default defineComponent({
     /*
 7.删除笔记
  */
-    const onDeleteData = () => {
-      console.log("delete", route.query?._id);
+    const onDeleteData = async () => {
+      //如果删除时有图片列表，执行删除图片
+      if (delImgList.value.length) {
+        let delImgListRes = await proxy.$api.deleteAllFile({
+          deleteList: delImgList.value,
+        });
+        if (!delImgListRes) {
+          sendMsg("删除图片接口出问题了( TωT= )m");
+          return;
+        }
+        console.log("删除图片结果", delImgListRes);
+      }
+      //执行删除
+      let deleteArticleRes = await proxy.$api.deleteArticle({
+        aid: route.query?._id,
+      });
+      if (deleteArticleRes) {
+        sendMsg("删除成功( =•ω•= )m");
+        saveState.value = false;
+        setTimeout(() => {
+          router.push({
+            path: "/HomePage",
+            query: {
+              saveState: saveState.value,
+            },
+          });
+        }, 1000);
+      }
     };
     return {
       value,
@@ -395,6 +429,9 @@ export default defineComponent({
       router,
       isEdit,
       onDeleteData,
+      getExecStrs,
+      md,
+      delImgList,
     };
   },
 });

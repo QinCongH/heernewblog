@@ -12,7 +12,8 @@ const { //方法
     queryPagArticle,
     queryIdArticle,
     queryNewArticles,
-    editArticle
+    editArticle,
+    deleteArticle
 } = require('./Articel/Article')
 const {
     uploadPicture,
@@ -37,6 +38,8 @@ router.get(Article.queryIdArticle, queryIdArticle)
 router.get(Article.queryNewArticles, queryNewArticles)
 //编辑文章
 router.post(Article.editArticle, editArticle)
+//删除文章
+router.get(Article.deleteArticle,deleteArticle)
 /*
 上传
 */

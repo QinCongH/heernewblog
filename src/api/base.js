@@ -8,6 +8,7 @@ const base = {
     queryIdArticle: '/api/queryIdArticle',
     queryNewArticles:'/api/queryNewArticles',
     editArticle:'/api/editArticle',
+    deleteArticle:'/api/deleteArticle',
     /*
         上传
     */
