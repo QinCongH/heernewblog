@@ -8,3 +8,10 @@ import axios from 'axios';
 export const queryNotePadeName = () => {
     return axios.get(base.queryNotePadeName);
 }
+
+/*
+获取笔记本内容
+*/
+export const queryNotePad = () => {
+    return axios.get(base.queryNotePad);
+}

@@ -23,6 +23,26 @@ const queryNotePadeName = (req, res) => {
         res.send(sendData)
     })
 }
+
+/*
+查询记事本数据
+*/
+const queryNotePad=(req,res)=>{
+    let querySql = "select * from heer_notepad"
+    connection.query(querySql, function (err, results, fields) {
+        if (err) {
+            res.send({
+                msg: '查询失败'
+            })
+            return
+        }
+        let sendData = {}
+        sendData.data = results
+        sendData.msg = 'ok'
+        res.send(sendData)
+    })
+}
 module.exports = {
-    queryNotePadeName
+    queryNotePadeName,
+    queryNotePad
 }

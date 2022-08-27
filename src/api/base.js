@@ -16,6 +16,7 @@ const base = {
     deleteAllFile: '/api/deleteAllFile',
 
     /* 记事本*/
-    queryNotePadeName: '/api/queryNotePadeName'
+    queryNotePadeName: '/api/queryNotePadeName',
+    queryNotePad:'/api/queryNotePad'
 }
 export default base

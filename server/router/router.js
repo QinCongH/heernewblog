@@ -21,7 +21,8 @@ const {
     deleteAllFile
 } = require('./Upload/Upload')
 const {
-    queryNotePadeName
+    queryNotePadeName,
+    queryNotePad
 } = require('./Notepad/Notepad')
 /**
  文章管理
@@ -39,7 +40,7 @@ router.get(Article.queryNewArticles, queryNewArticles)
 //编辑文章
 router.post(Article.editArticle, editArticle)
 //删除文章
-router.get(Article.deleteArticle,deleteArticle)
+router.get(Article.deleteArticle, deleteArticle)
 /*
 上传
 */
@@ -54,4 +55,6 @@ router.post(Upload.deleteAllFile, deleteAllFile)
 */
 //查询记事本名称列表
 router.get(Notepad.queryNotePadeName, queryNotePadeName)
+router.get(Notepad.queryNotePad, queryNotePad)
+//查询记事本列表
 module.exports = router

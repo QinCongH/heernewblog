@@ -66,6 +66,7 @@
               previewOnly
               theme="light"
               v-model="value"
+              ref="editor"
             >
             </md-editor>
           </div>
@@ -193,21 +194,29 @@
 </template>
 
 <script>
-import { defineComponent, ref, reactive, provide, getCurrentInstance } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import {
+  defineComponent,
+  ref,
+  reactive,
+  provide,
+  getCurrentInstance,
+  onMounted,
+} from "vue";
+import { onBeforeRouteLeave, useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
   setup() {
     /*加载数据*/
     const value = ref("");
     const title = ref("");
+    const editor = ref(null);
     const catalogList = ref([]);
     const getCatalog = (list) => {
       catalogList.value = list;
     };
     const { proxy } = getCurrentInstance();
     const route = useRoute();
-     const router = useRouter();
+    const router = useRouter();
     console.log(route.query);
     const loadData = async () => {
       try {
@@ -235,14 +244,24 @@ export default defineComponent({
     /*
     跳转到编辑页面editArticle
     */
-   const editArticle=()=>{
-          router.push({
-            path: "/AddArchive",
-            query: {
-              _id: route.query._id,
-            },
-          });
-   }
+    const editArticle = () => {
+      router.push({
+        path: "/AddArchive",
+        query: {
+          _id: route.query._id,
+        },
+      });
+    };
+    onMounted(() => {
+      console.log(editor.value);
+    });
+    // 路由守卫
+    onBeforeRouteLeave((to, from, next) => {
+      console.log(to)
+      if (to.name == "TianJiaWenZhang" || to.path == "/HomePage") {
+        next();
+      }
+    });
     return {
       value,
       getCatalog,
@@ -253,7 +272,8 @@ export default defineComponent({
       drawer,
       direction,
       handleClose,
-      editArticle
+      editArticle,
+      editor,
     };
   },
 });
