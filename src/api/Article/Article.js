@@ -56,3 +56,11 @@ export const deleteArticle = (params) => {
         params
     })
 }
+/*
+根据sortid查询文章
+*/
+export const querySortidArticle = (params) => {
+    return axios.get(base.querySortidArticle, {
+        params
+    })
+}

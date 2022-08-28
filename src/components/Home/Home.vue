@@ -37,7 +37,7 @@ const getTime = () => {
 getTime();
 </script>
 <template>
-  <Cover v-show="useRoute().name !== 'TianJiaWenZhang'"></Cover>
+  <!-- <Cover v-show="useRoute().name !== 'TianJiaWenZhang'"></Cover> -->
   <div
     class="container w-100"
     :class="[

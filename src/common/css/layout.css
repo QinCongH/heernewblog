@@ -31,6 +31,9 @@
     .photoDrawer{
         display: block !important;
       }
+      .notepad-main .center .notepad-view img{
+        height: 22vh !important;
+      }
 }
 
 /* 多数竖屏的智能手机 */
@@ -74,7 +77,9 @@
     .photoDrawer{
         display: block !important;
       }
-
+      .notepad-main .center .notepad-view img{
+        height: none !important;
+      }
 }
 
 /* 公共 */

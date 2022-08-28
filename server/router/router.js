@@ -1,5 +1,4 @@
 const express = require('express')
-
 const router = express.Router() //创建router
 const { //路径
     Article,
@@ -13,7 +12,8 @@ const { //方法
     queryIdArticle,
     queryNewArticles,
     editArticle,
-    deleteArticle
+    deleteArticle,
+    querySortidArticle
 } = require('./Articel/Article')
 const {
     uploadPicture,
@@ -22,7 +22,8 @@ const {
 } = require('./Upload/Upload')
 const {
     queryNotePadeName,
-    queryNotePad
+    queryNotePad,
+    queryIdNotePad
 } = require('./Notepad/Notepad')
 /**
  文章管理
@@ -41,6 +42,8 @@ router.get(Article.queryNewArticles, queryNewArticles)
 router.post(Article.editArticle, editArticle)
 //删除文章
 router.get(Article.deleteArticle, deleteArticle)
+//根据sortid查询文章
+router.get(Article.querySortidArticle, querySortidArticle)
 /*
 上传
 */
@@ -49,12 +52,14 @@ router.post(Upload.uploadPicture, uploadPicture)
 //删除文件
 router.get(Upload.deleteFile, deleteFile)
 router.post(Upload.deleteAllFile, deleteAllFile)
-
 /*
 记事本
 */
 //查询记事本名称列表
 router.get(Notepad.queryNotePadeName, queryNotePadeName)
+//查询所有笔记本数据
 router.get(Notepad.queryNotePad, queryNotePad)
+//根据id查询笔记本数据
+router.get(Notepad.queryIdNotePad, queryIdNotePad)
 //查询记事本列表
 module.exports = router

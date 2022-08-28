@@ -6,6 +6,7 @@ import Listing from '../pages/Listing/Listing.vue'
 import About from '../pages/About/About.vue'
 import AddArchive from '../pages/AddArchive/AddArchive.vue'
 import ViewArticles from '../pages/ViewArticles/ViewArticles.vue'
+import NotepadContent from '../pages/NotepadContent/NotepadContent.vue'
 const routes = [{
         path: '',
         name: 'ShouYe',
@@ -50,6 +51,14 @@ const routes = [{
                 component: About,
                 meta: {
                     title: '关于'
+                }
+            },
+            {
+                path: 'NotepadContent',
+                name: 'ChaKanJiShiBen',
+                component:NotepadContent,
+                meta: {
+                    title: '查看记事本'
                 }
             },
         ]

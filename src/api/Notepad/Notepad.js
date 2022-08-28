@@ -15,3 +15,12 @@ export const queryNotePadeName = () => {
 export const queryNotePad = () => {
     return axios.get(base.queryNotePad);
 }
+/*
+根据id查询笔记本内容
+*/
+
+export const queryIdNotePad = (params) => {
+    return axios.get(base.queryIdNotePad,{
+        params
+    });
+}

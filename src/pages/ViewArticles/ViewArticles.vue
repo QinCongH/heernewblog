@@ -217,7 +217,6 @@ export default defineComponent({
     const { proxy } = getCurrentInstance();
     const route = useRoute();
     const router = useRouter();
-    console.log(route.query);
     const loadData = async () => {
       try {
         let res = await proxy.$api.queryIdArticle({ aid: route.query._id });
@@ -257,8 +256,8 @@ export default defineComponent({
     });
     // 路由守卫
     onBeforeRouteLeave((to, from, next) => {
-      console.log(to)
-      if (to.name == "TianJiaWenZhang" || to.path == "/HomePage") {
+      console.log(to);
+      if (to.meta.title.length) {
         next();
       }
     });

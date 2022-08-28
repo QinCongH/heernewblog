@@ -50,7 +50,7 @@ const addArticle = async (req, res) => {
             sendData.msg = 'ok'
             res.send(sendData)
         })
-    }else{
+    } else {
         res.send({
             msg: '请检查字段'
         })
@@ -155,9 +155,9 @@ const queryIdArticle = (req, res) => {
 */
 const queryNewArticles = (req, res) => {
     let endNum = req.query.endNum
-    if(!endNum){
+    if (!endNum) {
         res.send({
-            msg:'endNum is null'
+            msg: 'endNum is null'
         })
     }
     let querySql = `SELECT aid,title,addtime FROM  heer_article where is_show = 1 order by id desc LIMIT 0,${endNum} `
@@ -187,7 +187,7 @@ const editArticle = (req, res) => {
     } = req.body.data
     if (Object.keys(editArticleList).length) {
         let updataSql = 'UPDATE heer_article SET is_show=?,is_top=?,title=?,sortid=?,content=? WHERE aid = ?'
-        let updataSqlParams = [Number(editArticleList.is_show), Number(editArticleList.is_top),editArticleList.title,editArticleList.sortid, editArticleList.content,editArticleList.aid]
+        let updataSqlParams = [Number(editArticleList.is_show), Number(editArticleList.is_top), editArticleList.title, editArticleList.sortid, editArticleList.content, editArticleList.aid]
         connection.query(updataSql, updataSqlParams, (err, results, fields) => {
             if (err) {
                 console.error(err)
@@ -200,7 +200,7 @@ const editArticle = (req, res) => {
             sendData.msg = 'ok'
             res.send(sendData)
         })
-    }else{
+    } else {
         res.send({
             msg: '请检查字段'
         })
@@ -210,7 +210,7 @@ const editArticle = (req, res) => {
 /*
 删除文章
 */
-const deleteArticle=(req,res)=>{
+const deleteArticle = (req, res) => {
     let aid = req.query.aid
     if (!aid) {
         res.status(500)
@@ -234,6 +234,35 @@ const deleteArticle=(req,res)=>{
 
     })
 }
+
+/*
+根据sortid查询文章 querySortidArticle
+*/
+const querySortidArticle = (req, res) => {
+    let sortid = req.query.sortid
+    if (!sortid) {
+        res.status(500)
+        res.send('sortid字段未定义！！')
+        return
+    }
+    let querySql = `select * from heer_article where sortid='${sortid}'`
+    connection.query(querySql, (err, results, fields) => {
+        if (err) {
+            res.status(500)
+            res.send({
+                message: '数据库未查询到',
+                error: err
+            })
+            return
+        }
+        // let resul = JSON.parse(JSON.stringify(results).slice(1).slice(0, -1))
+        res.send({
+            message: '查询成功！',
+            params: results
+        })
+
+    })
+}
 module.exports = {
     getArticle,
     addArticle,
@@ -241,5 +270,6 @@ module.exports = {
     queryIdArticle,
     queryNewArticles,
     editArticle,
-    deleteArticle
+    deleteArticle,
+    querySortidArticle
 }

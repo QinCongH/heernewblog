@@ -9,6 +9,7 @@
                 v-for="v in queryNotePadList"
                 :key="v.sortid"
                 class="notepad-content w-100 mg-t-30"
+                @click="toPage(v.sortid)"
               >
                 <img
                   ref="imgWidth"
@@ -38,12 +39,14 @@ import {
   onMounted,
   reactive,
 } from "vue";
+import { onBeforeRouteLeave, useRouter, useRoute } from "vue-router";
 export default defineComponent({
   setup() {
     const imgWidth = ref(null);
     const imgHeight = ref("");
     const { proxy } = getCurrentInstance();
     const queryNotePadList = ref([]);
+    const router= useRouter()
     const loadData = async () => {
       try {
         let queryNotePadRes = await proxy.$api.queryNotePad();
@@ -57,18 +60,21 @@ export default defineComponent({
     };
     onMounted(() => {
       loadData();
-      // imgWidth.value.forEach((e, i) => {
-      //   if (i == 0) {
-      //     imgHeight.value = e.width;
-      //     return;
-      //   }
-      // });
     });
+    const toPage = (id) => {
+      router.push({
+        path: "/NotepadContent",
+        query: {
+          _id: id,
+        },
+      });
+    };
     return {
       imgWidth,
       imgHeight,
       loadData,
       queryNotePadList,
+      toPage
     };
   },
 });

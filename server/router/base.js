@@ -6,7 +6,8 @@ const Article = {
     queryIdArticle:'/queryIdArticle',
     queryNewArticles:'/queryNewArticles',
     editArticle:'/editArticle',
-    deleteArticle:'/deleteArticle'
+    deleteArticle:'/deleteArticle',
+    querySortidArticle:'/querySortidArticle'
 }
 /*上传*/
 const Upload = {
@@ -17,7 +18,8 @@ const Upload = {
 /*记事本*/
 const Notepad = {
     queryNotePadeName: '/queryNotePadeName', //获取笔记本名称list
-    queryNotePad:'/queryNotePad'
+    queryNotePad:'/queryNotePad',
+    queryIdNotePad:'/queryIdNotePad'
 }
 module.exports = {
     Article,

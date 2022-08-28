@@ -79,7 +79,9 @@
 .mg-b-15 {
     margin-bottom: 15px;
 }
-
+.mg-l-20 {
+    margin-left: 20px;
+}
 .mg-l-15 {
     margin-left: 15px;
 }
@@ -133,6 +135,12 @@
 }
 .overflow-hidden{
     overflow: hidden;
+}
+.pos-real{
+    position: relative;
+}
+.pos-abs{
+    position: absolute;
 }
 /* 边框 */
 .border-50 {

@@ -9,6 +9,7 @@ const base = {
     queryNewArticles:'/api/queryNewArticles',
     editArticle:'/api/editArticle',
     deleteArticle:'/api/deleteArticle',
+    querySortidArticle:'/api/querySortidArticle',
     /*
         上传
     */
@@ -17,6 +18,7 @@ const base = {
 
     /* 记事本*/
     queryNotePadeName: '/api/queryNotePadeName',
-    queryNotePad:'/api/queryNotePad'
+    queryNotePad:'/api/queryNotePad',
+    queryIdNotePad:'/api/queryIdNotePad'
 }
 export default base
