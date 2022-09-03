@@ -21,3 +21,11 @@ export const deleteAllFile = (data) => {
         data
     })
 }
+/*
+删除单张图片
+*/
+export const deleteFile = (params) => {
+    return axios.get(base.deleteFile, {
+        params
+    })
+}

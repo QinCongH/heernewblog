@@ -15,7 +15,7 @@ const base = {
     */
     uploadPicture: '/api/uploadPicture',
     deleteAllFile: '/api/deleteAllFile',
-
+    deleteFile:'/api/deleteFile',
     /* 记事本*/
     queryNotePadeName: '/api/queryNotePadeName',
     queryNotePad:'/api/queryNotePad',

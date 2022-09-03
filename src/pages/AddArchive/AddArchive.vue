@@ -74,7 +74,7 @@
           </el-select>
         </div>
         <div class="createNotepad mg-l-10">
-          <el-button>创建新本</el-button>
+          <el-button @click="dialogTableVisible=true">创建新本</el-button>
         </div>
         <div class="saveNote mg-l-10">
           <el-button @click="onSaveData(value)"
@@ -88,6 +88,8 @@
     </div>
     <!-- 提示 -->
     <msg-alert :msg="msg" :isMsgAlert="isMsgState"></msg-alert>
+    <!-- 创建记事本 -->
+    <add-notepad-dialog @closeDialog="dialogTableVisible=false" :dialogTableVisible="dialogTableVisible"></add-notepad-dialog>
   </div>
 </template>
 
@@ -409,6 +411,10 @@ export default defineComponent({
         }, 1000);
       }
     };
+    /*
+    创建记事本
+    */
+    const dialogTableVisible = ref(false);
     return {
       value,
       toolbarList,
@@ -432,6 +438,7 @@ export default defineComponent({
       getExecStrs,
       md,
       delImgList,
+      dialogTableVisible,
     };
   },
 });

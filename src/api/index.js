@@ -10,6 +10,7 @@ import {
 } from './Article/Article';
 import {
     uploadFiles,
+    deleteFile,
     deleteAllFile
 } from './Upload/Upload';
 import {
@@ -38,6 +39,6 @@ const api = {
     // ----------上传-------------------------
     uploadFiles,
     deleteAllFile,
-
+    deleteFile
 }
 export default api

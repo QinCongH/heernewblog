@@ -7,10 +7,12 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AddNotepadDialog: typeof import('./components/AddNotepadDialog/AddNotepadDialog.vue')['default']
     Backtop: typeof import('./components/Backtop/Backtop.vue')['default']
     Breadcrumb: typeof import('./components/Breadcrumb/Breadcrumb.vue')['default']
     Clalendar: typeof import('./components/Clalendar/Clalendar.vue')['default']
     Cover: typeof import('./components/Cover/Cover.vue')['default']
+    Drag: typeof import('./components/Drag/Drag.vue')['default']
     Drawer: typeof import('./components/Drawer/Drawer.vue')['default']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
@@ -21,6 +23,7 @@ declare module '@vue/runtime-core' {
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCol: typeof import('element-plus/es')['ElCol']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElPagination: typeof import('element-plus/es')['ElPagination']

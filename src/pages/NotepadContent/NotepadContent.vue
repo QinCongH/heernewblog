@@ -98,6 +98,9 @@
       </el-col>
     </el-row>
   </div>
+  <!-- <teleport to="body">
+    <drag></drag>
+  </teleport> -->
 </template>
 
 <script>
@@ -156,10 +159,9 @@ export default defineComponent({
       });
     };
     //上传头像
-    const handleAvatarSuccess = (response, file, fileList) => {
+    const handleAvatarSuccess = async (response, file, fileList) => {
       if (response) {
         for (let key in queryIdNotePadList.value) {
-          console.log(key);
           if (key == "head_portrait") {
             queryIdNotePadList.value[
               key
@@ -168,14 +170,30 @@ export default defineComponent({
         }
         let head_portrait = `/api/public/image/${response.data[0].filename}`;
         //更新数据库头像
-        proxy.$api.updataNotepadAvatar({
+       await  proxy.$api.updataNotepadAvatar({
           sortid: sortid.value,
           head_portrait,
         });
       }
     };
-    const beforeAvatarUpload = (file) => {
-      console.log("file", file);
+    const beforeAvatarUpload = async (file) => {
+      try {
+        for (let key in queryIdNotePadList.value) {
+          if (key == "head_portrait") {
+            //删除当前头像 deleteFile
+            let idx = queryIdNotePadList.value[key].split("/").length - 1;
+            let fileName = queryIdNotePadList.value[key].split("/")[idx];
+            console.log('fileName',fileName)
+            if (fileName.length) {
+              await proxy.$api.deleteFile({
+                fileName:fileName,
+              });
+            }
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
     };
     onMounted(() => {
       loadData();
@@ -195,7 +213,6 @@ export default defineComponent({
 
 <style scoped lang="less">
 .notepad-main {
-  height: 700px;
   .top {
     align-items: flex-end;
     .left {
