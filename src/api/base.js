@@ -19,6 +19,7 @@ const base = {
     /* 记事本*/
     queryNotePadeName: '/api/queryNotePadeName',
     queryNotePad:'/api/queryNotePad',
-    queryIdNotePad:'/api/queryIdNotePad'
+    queryIdNotePad:'/api/queryIdNotePad',
+    updataNotepadAvatar:'/api/updataNotepadAvatar'
 }
 export default base

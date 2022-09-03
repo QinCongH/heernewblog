@@ -24,3 +24,11 @@ export const queryIdNotePad = (params) => {
         params
     });
 }
+/*
+更新头像
+*/
+export const updataNotepadAvatar = (params) => {
+    return axios.get(base.updataNotepadAvatar,{
+        params
+    });
+}

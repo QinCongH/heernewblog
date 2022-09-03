@@ -19,7 +19,8 @@ const Upload = {
 const Notepad = {
     queryNotePadeName: '/queryNotePadeName', //获取笔记本名称list
     queryNotePad:'/queryNotePad',
-    queryIdNotePad:'/queryIdNotePad'
+    queryIdNotePad:'/queryIdNotePad',
+    updataNotepadAvatar:'/updataNotepadAvatar'
 }
 module.exports = {
     Article,

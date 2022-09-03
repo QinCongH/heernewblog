@@ -4,22 +4,34 @@
       <el-col :md="17">
         <div class="content">
           <div class="top flex-h" v-if="queryIdNotePadList.head_portrait">
-            <div class="left">
-              <div class="pos-real">
-                <img :src="queryIdNotePadList.head_portrait" alt="" />
-                <div class="text pos-abs">
-                  <p>上传头像</p>
+            <!-- <img v-if="imageUrl" :src="imageUrl" class="avatar" /> -->
+            <el-upload
+              class="avatar-uploader"
+              action="/api/uploadPicture"
+              accept="image"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload"
+            >
+              <div class="left">
+                <div class="pos-real">
+                  <img :src="queryIdNotePadList.head_portrait" alt="" />
+
+                  <div class="text pos-abs">
+                    <p>上传头像</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </el-upload>
+
             <div class="center mg-l-20">
               <div>
-                <h1>{{queryIdNotePadList.name}}</h1>
+                <h1>{{ queryIdNotePadList.name }}</h1>
               </div>
               <div class="flex-h">
                 <span style="font-weight: bold">简介: </span>
                 <p class="font-line-1" style="margin-left: 5px; width: 70%">
-                 {{queryIdNotePadList.detailed}}
+                  {{ queryIdNotePadList.detailed }}
                 </p>
               </div>
             </div>
@@ -143,6 +155,28 @@ export default defineComponent({
         },
       });
     };
+    //上传头像
+    const handleAvatarSuccess = (response, file, fileList) => {
+      if (response) {
+        for (let key in queryIdNotePadList.value) {
+          console.log(key);
+          if (key == "head_portrait") {
+            queryIdNotePadList.value[
+              key
+            ] = `/api/public/image/${response.data[0].filename}`;
+          }
+        }
+        let head_portrait = `/api/public/image/${response.data[0].filename}`;
+        //更新数据库头像
+        proxy.$api.updataNotepadAvatar({
+          sortid: sortid.value,
+          head_portrait,
+        });
+      }
+    };
+    const beforeAvatarUpload = (file) => {
+      console.log("file", file);
+    };
     onMounted(() => {
       loadData();
     });
@@ -152,6 +186,8 @@ export default defineComponent({
       querySortidArticleList,
       queryIdNotePadList,
       toPage,
+      handleAvatarSuccess,
+      beforeAvatarUpload,
     };
   },
 });
