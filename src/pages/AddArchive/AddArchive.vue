@@ -74,7 +74,7 @@
           </el-select>
         </div>
         <div class="createNotepad mg-l-10">
-          <el-button @click="dialogTableVisible=true">创建新本</el-button>
+          <el-button @click="dialogTableVisible = true">创建新本</el-button>
         </div>
         <div class="saveNote mg-l-10">
           <el-button @click="onSaveData(value)"
@@ -89,7 +89,10 @@
     <!-- 提示 -->
     <msg-alert :msg="msg" :isMsgAlert="isMsgState"></msg-alert>
     <!-- 创建记事本 -->
-    <add-notepad-dialog @closeDialog="dialogTableVisible=false" :dialogTableVisible="dialogTableVisible"></add-notepad-dialog>
+    <add-notepad-dialog
+      @closeDialog="closeDialog"
+      :dialogTableVisible="dialogTableVisible"
+    ></add-notepad-dialog>
   </div>
 </template>
 
@@ -103,6 +106,10 @@ export default defineComponent({
     const { proxy } = getCurrentInstance();
     const md = new MarkdownIt();
     const delImgList = ref([]); //点击删除时使用
+    const delNotePad = reactive({
+      path: "",
+      num: 0,
+    });
     /*
     0.是否编辑
     */
@@ -363,6 +370,15 @@ export default defineComponent({
     */
     onBeforeRouteLeave(async (to, from, next) => {
       if ((to.fullPath = "/HomePage")) {
+        //删除笔记本没创建的头像
+        if (delNotePad.num == 1) {
+          let imageUrl = delNotePad.path;
+          let idx = imageUrl.split("/").length - 1;
+          let fileName = imageUrl.split("/")[idx];
+          await proxy.$api.deleteFile({
+            fileName,
+          });
+        }
         if (saveState.value || !Object.keys(uploadImgList).length) {
           next();
         } else {
@@ -415,6 +431,11 @@ export default defineComponent({
     创建记事本
     */
     const dialogTableVisible = ref(false);
+    const closeDialog = async (obj) => {
+      dialogTableVisible.value = false;
+      delNotePad.path = obj.path;
+      delNotePad.num = obj.num;
+    };
     return {
       value,
       toolbarList,
@@ -439,6 +460,8 @@ export default defineComponent({
       md,
       delImgList,
       dialogTableVisible,
+      closeDialog,
+      delNotePad,
     };
   },
 });

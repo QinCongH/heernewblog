@@ -2,6 +2,9 @@
 连接数据库
 */
 const connection = require('../../db/connection')
+const {
+    processID
+} = require('../../until/processId')
 /*
 分页查询数据
 */
@@ -112,9 +115,61 @@ const updataNotepadAvatar = (req, res) => {
         res.send(sendData)
     })
 }
+
+/*
+添加记事本
+addNotepad
+*/
+const addNotepad = (req, res) => {
+    // 1.得到数据
+    if(!req.body.hasOwnProperty('data')){
+        res.send({
+            msg: '请检查字段'
+        })
+        return false
+    }
+    let {
+        addNotepadList
+    } = req.body.data
+    const fieldCheck = (arr) => {
+        for (let i = 0; i < arr.length; i++) {
+            let el = arr[i];
+            if (el === '' || el == null) {
+                res.send({
+                    msg: `请检查${el}字段!!`
+                })
+                return false
+            }
+        }
+    }
+    if (Object.keys(addNotepadList).length) {
+        let arr = [addNotepadList.name, addNotepadList.head_portrait, addNotepadList.detailed]
+        fieldCheck(arr) //检查字段
+        let sortid = processID()
+        let increaseSql = `INSERT INTO heer_notepad (id,sortid,name,head_portrait,detailed) VALUES (0,?,?,?,?)`
+        let addSqlParams = [sortid,addNotepadList.name, addNotepadList.head_portrait, addNotepadList.detailed]
+        connection.query(increaseSql, addSqlParams, (err, results, fields) => {
+            if (err) {
+                console.error(err)
+                res.send({
+                    msg: 'err'
+                })
+            }
+            let sendData = {}
+            sendData.data = results
+            sendData.msg = 'ok'
+            res.send(sendData)
+        })
+    } else {
+        res.send({
+            msg: '请检查字段'
+        })
+    }
+}
 module.exports = {
     queryNotePadeName,
     queryNotePad,
     queryIdNotePad,
-    updataNotepadAvatar
+    updataNotepadAvatar,
+    addNotepad
 }

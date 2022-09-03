@@ -17,7 +17,8 @@ import {
     queryNotePadeName,
     queryNotePad,
     queryIdNotePad,
-    updataNotepadAvatar
+    updataNotepadAvatar,
+    addNotepad
 } from './Notepad/Notepad'
 import interceptor from './interceptor' //拦截器
 interceptor()
@@ -36,6 +37,7 @@ const api = {
     queryNotePad,
     queryIdNotePad,
     updataNotepadAvatar,
+    addNotepad,
     // ----------上传-------------------------
     uploadFiles,
     deleteAllFile,

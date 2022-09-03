@@ -24,7 +24,8 @@ const {
     queryNotePadeName,
     queryNotePad,
     queryIdNotePad,
-    updataNotepadAvatar
+    updataNotepadAvatar,
+    addNotepad
 } = require('./Notepad/Notepad')
 /**
  文章管理
@@ -64,5 +65,7 @@ router.get(Notepad.queryNotePad, queryNotePad)
 router.get(Notepad.queryIdNotePad, queryIdNotePad)
 //更新笔记本头像
 router.get(Notepad.updataNotepadAvatar,updataNotepadAvatar)
-//查询记事本列表
+//添加记事本
+router.post(Notepad.addNotepad,addNotepad)
+
 module.exports = router

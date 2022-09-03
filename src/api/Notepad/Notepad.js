@@ -32,3 +32,11 @@ export const updataNotepadAvatar = (params) => {
         params
     });
 }
+/*
+添加记事本 addNotepad
+*/
+export const addNotepad = (data) => {
+    return axios.post(base.addNotepad, {
+        data
+    })
+}

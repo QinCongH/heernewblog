@@ -20,7 +20,8 @@ const Notepad = {
     queryNotePadeName: '/queryNotePadeName', //获取笔记本名称list
     queryNotePad:'/queryNotePad',
     queryIdNotePad:'/queryIdNotePad',
-    updataNotepadAvatar:'/updataNotepadAvatar'
+    updataNotepadAvatar:'/updataNotepadAvatar',
+    addNotepad:'/addNotepad'
 }
 module.exports = {
     Article,

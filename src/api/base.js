@@ -20,6 +20,7 @@ const base = {
     queryNotePadeName: '/api/queryNotePadeName',
     queryNotePad:'/api/queryNotePad',
     queryIdNotePad:'/api/queryIdNotePad',
-    updataNotepadAvatar:'/api/updataNotepadAvatar'
+    updataNotepadAvatar:'/api/updataNotepadAvatar',
+    addNotepad:'/api/addNotepad'
 }
 export default base
