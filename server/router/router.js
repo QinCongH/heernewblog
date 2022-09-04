@@ -13,7 +13,8 @@ const { //方法
     queryNewArticles,
     editArticle,
     deleteArticle,
-    querySortidArticle
+    querySortidArticle,
+    queryTimeArticle
 } = require('./Articel/Article')
 const {
     uploadPicture,
@@ -48,6 +49,8 @@ router.post(Article.editArticle, editArticle)
 router.get(Article.deleteArticle, deleteArticle)
 //根据sortid查询文章
 router.get(Article.querySortidArticle, querySortidArticle)
+//根据时间戳查询文章
+router.get(Article.queryTimeArticle,queryTimeArticle)
 /*
 上传
 */

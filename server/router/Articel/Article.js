@@ -260,6 +260,72 @@ const querySortidArticle = (req, res) => {
 
     })
 }
+
+/*
+分页查询时间递减的文章
+queryTimeArticle
+*/
+const queryTimeArticle=async (req,res)=>{
+    //1.查询文章总count
+    function getCountData() {
+        return new Promise((resolve, reject) => {
+            let queryCountSql = `select count(*) from heer_article`
+            connection.query(queryCountSql, (err, results) => {
+                if (results) {
+                    resolve(results)
+                } else {
+                    reject(err)
+                }
+            })
+        })
+    }
+    //2.进行分页
+    function getPagData(startNum, endNum) {
+        return new Promise((resolve, reject) => {
+            // 选取第n~m条数据(n最小为1为第一条数据,m为一次查询几条)
+            // SELECT * FROM table LIMIT n,m;
+            // let qeryPagSql = `SELECT * FROM heer_article where is_show = 1 LIMIT ${startNum},${endNum}`
+            //倒叙
+            let qeryPagSql = `SELECT id,aid,title,addTime FROM heer_article where is_show = 1 order by id desc LIMIT ${startNum},${endNum}`
+            connection.query(qeryPagSql, (err, results) => {
+                if (results) {
+                    resolve(results)
+                } else {
+                    reject(err)
+                }
+            })
+        })
+    }
+    try {
+        //获取分页
+        let page = req.query.page || 1 //接受用户端传递过来的当前页参数(页码)
+        let pageSize = req.query.pageSize //每页显示的数据条数
+        if (isNaN(page) || isNaN(pageSize)) {
+            res.send({
+                msg: 'page isNaN,pageSize isNaN'
+            })
+            return false
+        }
+        const countDataRes = await getCountData()
+        let countRes = Object.values(countDataRes[0])
+        let total = parseInt(countRes)
+        let pageCount = Math.ceil(total / pageSize) //总页数=总数/每页显示的条数
+        let start = (page - 1) * pageSize //页码对应的数据查询开始位置
+        const pagDataRes = await getPagData(parseInt(start), parseInt(pageSize))
+        res.send({
+            params: pagDataRes,
+            total,
+            pageCount,
+            msg: 'ok'
+        })
+        // res.send(total)
+    } catch (error) {
+        res.send({
+            error,
+            msg: 'error'
+        })
+    }
+}
 module.exports = {
     getArticle,
     addArticle,
@@ -268,5 +334,6 @@ module.exports = {
     queryNewArticles,
     editArticle,
     deleteArticle,
-    querySortidArticle
+    querySortidArticle,
+    queryTimeArticle
 }

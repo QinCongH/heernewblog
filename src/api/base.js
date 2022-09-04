@@ -10,6 +10,7 @@ const base = {
     editArticle:'/api/editArticle',
     deleteArticle:'/api/deleteArticle',
     querySortidArticle:'/api/querySortidArticle',
+    queryTimeArticle:'/api/queryTimeArticle',
     /*
         上传
     */

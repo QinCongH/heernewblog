@@ -248,7 +248,7 @@ header {
   box-shadow: 0px 2px 28px #eeeeeee8;
   position: sticky;
   top: 0;
-  z-index: 9;
+  z-index: 999;
   .header {
     .left {
       line-height: 50px;

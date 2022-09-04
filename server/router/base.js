@@ -7,7 +7,8 @@ const Article = {
     queryNewArticles:'/queryNewArticles',
     editArticle:'/editArticle',
     deleteArticle:'/deleteArticle',
-    querySortidArticle:'/querySortidArticle'
+    querySortidArticle:'/querySortidArticle',
+    queryTimeArticle:'/queryTimeArticle'
 }
 /*上传*/
 const Upload = {

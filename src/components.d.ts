@@ -18,7 +18,6 @@ declare module '@vue/runtime-core' {
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCalendar: typeof import('element-plus/es')['ElCalendar']
-    ElCard: typeof import('element-plus/es')['ElCard']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
@@ -34,8 +33,6 @@ declare module '@vue/runtime-core' {
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
-    ElTimeline: typeof import('element-plus/es')['ElTimeline']
-    ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     FlowLayout: typeof import('./components/FlowLayout/FlowLayout.vue')['default']
     HeerHeader: typeof import('./components/HeerHeader/HeerHeader.vue')['default']
@@ -47,6 +44,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Side: typeof import('./components/Side/Side.vue')['default']
+    TimeLine: typeof import('./components/TimeLine/TimeLine.vue')['default']
   }
 
 }

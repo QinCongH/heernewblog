@@ -24,6 +24,7 @@ export const queryPagArticle = (params) => {
         params
     })
 }
+
 /*
 查询文章(id)
 */
@@ -64,3 +65,11 @@ export const querySortidArticle = (params) => {
         params
     })
 }
+/*
+分页查询时间线文章，
+*/
+export const  queryTimeArticle= (params) => {
+    return axios.get(base.queryTimeArticle, {
+        params
+    })
+} 

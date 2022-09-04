@@ -6,7 +6,8 @@ import {
     queryNewArticles,
     editArticle,
     deleteArticle,
-    querySortidArticle
+    querySortidArticle,
+    queryTimeArticle
 } from './Article/Article';
 import {
     uploadFiles,
@@ -34,6 +35,7 @@ const api = {
     editArticle,
     deleteArticle,
     querySortidArticle,
+    queryTimeArticle,
     // ----------获取记事本数据-------------------
     queryNotePadeName,
     queryNotePad,
