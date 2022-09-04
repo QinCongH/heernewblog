@@ -252,12 +252,12 @@ export default defineComponent({
       });
     };
     onMounted(() => {
-      console.log(editor.value);
+      // console.log(editor.value);
     });
     // 路由守卫
     onBeforeRouteLeave((to, from, next) => {
-      console.log(to);
-      if (to.meta.title.length) {
+      // console.log(to);
+      if (to.hasOwnProperty('meta')&&to.meta.hasOwnProperty('title')) {
         next();
       }
     });

@@ -40,7 +40,6 @@ const addArticle = async (req, res) => {
         let addSqlParams = [addArticleList.addtime, Number(addArticleList.is_show), Number(addArticleList.is_top), addArticleList.title, addArticleList.sortid, addArticleList.click_count, addArticleList.content, aid, author]
         connection.query(increaseSql, addSqlParams, (err, results, fields) => {
             if (err) {
-                console.error(err)
                 res.send({
                     msg: 'err'
                 })
@@ -114,7 +113,6 @@ const queryPagArticle = async (req, res) => {
             msg: 'ok'
         })
     } catch (error) {
-        console.error(error)
         res.send({
             error,
             msg: 'error'
@@ -190,7 +188,6 @@ const editArticle = (req, res) => {
         let updataSqlParams = [Number(editArticleList.is_show), Number(editArticleList.is_top), editArticleList.title, editArticleList.sortid, editArticleList.content, editArticleList.aid]
         connection.query(updataSql, updataSqlParams, (err, results, fields) => {
             if (err) {
-                console.error(err)
                 res.send({
                     msg: 'err'
                 })

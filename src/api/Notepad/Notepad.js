@@ -40,3 +40,19 @@ export const addNotepad = (data) => {
         data
     })
 }
+/*
+更新记事本
+*/
+export const editNotepad = (data) => {
+    return axios.post(base.editNotepad, {
+        data
+    })
+}
+/*
+删除记事本
+*/
+export const deleteNotepad = (params) => {
+    return axios.get(base.deleteNotepad, {
+       params
+    })
+}

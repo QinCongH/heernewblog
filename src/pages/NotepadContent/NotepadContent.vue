@@ -17,16 +17,73 @@
                 <div class="pos-real">
                   <img :src="queryIdNotePadList.head_portrait" alt="" />
 
-                  <div class="text pos-abs">
-                    <p>上传头像</p>
+                  <div class="text pos-abs flex-h">
+                    <svg
+                      t="1662257148267"
+                      class="icon mg-auto"
+                      viewBox="0 0 1024 1024"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      p-id="1397"
+                      width="30"
+                      height="30"
+                    >
+                      <path
+                        d="M518.3 459c-3.2-4.1-9.4-4.1-12.6 0l-112 141.7c-4.1 5.2-0.4 12.9 6.3 12.9h73.9V856c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V613.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 459z"
+                        p-id="1398"
+                        fill="#ffffff"
+                      ></path>
+                      <path
+                        d="M811.4 366.7C765.6 245.9 648.9 160 512.2 160S258.8 245.8 213 366.6C127.3 389.1 64 467.2 64 560c0 110.5 89.5 200 199.9 200H304c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8h-40.1c-33.7 0-65.4-13.4-89-37.7-23.5-24.2-36-56.8-34.9-90.6 0.9-26.4 9.9-51.2 26.2-72.1 16.7-21.3 40.1-36.8 66.1-43.7l37.9-9.9 13.9-36.6c8.6-22.8 20.6-44.1 35.7-63.4 14.9-19.2 32.6-35.9 52.4-49.9 41.1-28.9 89.5-44.2 140-44.2s98.9 15.3 140 44.2c19.9 14 37.5 30.8 52.4 49.9 15.1 19.3 27.1 40.7 35.7 63.4l13.8 36.5 37.8 10C846.1 454.5 884 503.8 884 560c0 33.1-12.9 64.3-36.3 87.7-23.4 23.4-54.5 36.3-87.6 36.3H720c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h40.1C870.5 760 960 670.5 960 560c0-92.7-63.1-170.7-148.6-193.3z"
+                        p-id="1399"
+                        fill="#ffffff"
+                      ></path>
+                    </svg>
                   </div>
                 </div>
               </div>
             </el-upload>
 
             <div class="center mg-l-20">
-              <div>
+              <div class="flex-h">
                 <h1>{{ queryIdNotePadList.name }}</h1>
+                <svg
+                  @click="dialogTableVisible = true"
+                  t="1662262321535"
+                  class="icon mg-l-15"
+                  viewBox="0 0 1024 1024"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  p-id="7159"
+                  width="20"
+                  height="20"
+                >
+                  <path
+                    d="M799.306 313.723v20.48h154.167v618.844h-882.098v-618.844h233.189v-20.48h-253.669v659.804h923.058v-659.804z"
+                    fill=""
+                    p-id="7160"
+                  ></path>
+                  <path
+                    d="M339.333 880.513h45.173v45.173h-45.173v-45.173z"
+                    fill=""
+                    p-id="7161"
+                  ></path>
+                  <path
+                    d="M640.119 880.513h45.394v45.173h-45.394v-45.173z"
+                    fill=""
+                    p-id="7162"
+                  ></path>
+                  <path
+                    d="M489.837 880.513h45.173v45.173h-45.173v-45.173z"
+                    fill=""
+                    p-id="7163"
+                  ></path>
+                  <path
+                    d="M293.186 582.762c-1.417 1.876-3.299 5.628-5.659 11.258-2.355 5.159-32.893 66.118-70.724 180.115-3.299 15.479-5.188 28.142-5.659 37.99 31.885-39.688 115.452-199.588 126.433-211.38 32.426-34.816 203.776-308.566 241.349-334.59-17.093 47.567-232.454 395.172-237.642 403.149 162.181 35.549 232.452-55.351 241.883-63.324l-71.436-12.667 86.995-26.030c57.315-58.356 72.847-149.86 72.847-149.86-6.603 2.343-75.911 22.749-87.702 26.032l94.775-51.36c6.599-25.799 56.584-142.582 58.704-331.383-25.463 1.878-283.72 77.869-445.583 505.162-1.411 8.446-0.94 14.074 1.417 16.888z"
+                    fill=""
+                    p-id="7164"
+                  ></path>
+                </svg>
               </div>
               <div class="flex-h">
                 <span style="font-weight: bold">简介: </span>
@@ -37,6 +94,7 @@
             </div>
           </div>
           <div class="line"></div>
+
           <div class="center mg-t-15">
             <el-row :gutter="30">
               <el-col
@@ -97,10 +155,13 @@
         <side></side>
       </el-col>
     </el-row>
+    <!-- 创建记事本 -->
+    <add-notepad-dialog
+      @closeDialog="closeDialog"
+      :dialogTableVisible="dialogTableVisible"
+      :sortid="sortid"
+    ></add-notepad-dialog>
   </div>
-  <!-- <teleport to="body">
-    <drag></drag>
-  </teleport> -->
 </template>
 
 <script>
@@ -113,8 +174,9 @@ import {
   onMounted,
 } from "vue";
 import { onBeforeRouteLeave, useRouter, useRoute } from "vue-router";
-
+import { Plus } from "@element-plus/icons-vue";
 export default defineComponent({
+  components: { Plus },
   setup() {
     const { proxy } = getCurrentInstance();
     const querySortidArticleList = ref([]);
@@ -170,7 +232,7 @@ export default defineComponent({
         }
         let head_portrait = `/api/public/image/${response.data[0].filename}`;
         //更新数据库头像
-       await  proxy.$api.updataNotepadAvatar({
+        await proxy.$api.updataNotepadAvatar({
           sortid: sortid.value,
           head_portrait,
         });
@@ -183,10 +245,10 @@ export default defineComponent({
             //删除当前头像 deleteFile
             let idx = queryIdNotePadList.value[key].split("/").length - 1;
             let fileName = queryIdNotePadList.value[key].split("/")[idx];
-            console.log('fileName',fileName)
+            console.log("fileName", fileName);
             if (fileName.length) {
               await proxy.$api.deleteFile({
-                fileName:fileName,
+                fileName: fileName,
               });
             }
           }
@@ -198,7 +260,23 @@ export default defineComponent({
     onMounted(() => {
       loadData();
     });
-
+    /*
+    创建记事本
+    */
+    const dialogTableVisible = ref(false);
+    const delNotePad = reactive({
+      path: "",
+      num: 0,
+    });
+    const closeDialog = async (obj) => {
+      dialogTableVisible.value = false;
+      delNotePad.path = obj.path;
+      delNotePad.num = obj.num;
+      if (delNotePad.num == 2) {
+        
+        loadData();
+      }
+    };
     return {
       dayjs,
       querySortidArticleList,
@@ -206,12 +284,22 @@ export default defineComponent({
       toPage,
       handleAvatarSuccess,
       beforeAvatarUpload,
+      dialogTableVisible,
+      closeDialog,
+      delNotePad,
+      sortid
     };
   },
 });
 </script>
 
 <style scoped lang="less">
+[v-clock] {
+  display: none;
+}
+/deep/.avatar-uploader .el-upload {
+  border: none;
+}
 .notepad-main {
   .top {
     align-items: flex-end;
@@ -237,7 +325,7 @@ export default defineComponent({
             top: 0;
             bottom: 0;
             z-index: -1;
-            background-color: #ced7da;
+            background-color: #8e8e8e33;
             border-radius: 10px;
             text-align: center;
             line-height: 90px;

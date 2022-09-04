@@ -6,7 +6,6 @@ const path = require('path')
 const uploadPicture = (req, res, next) => {
     //接收值：req.files,req.files
     //线上的也就是服务器中的图片的绝对地址
-    console.log(req.files)
     res.send({
         msg: '上传成功',
         data: req.files
@@ -18,11 +17,9 @@ const deleteFile = (req, res) => {
     let {
         fileName
     } = req.query
-    console.log(fileName)
     //执行删除  ${path.resolve('./')} 当前目录
     fs.unlink(`${path.resolve('./')}/public/image/${fileName}`, function (error) {
         if (error) {
-            console.log(error);
             res.send({
                 msg: '查询不到该文件，删除失败',
                 error
@@ -47,7 +44,6 @@ const deleteAllFile = (req, res) => {
     for (let index = 0; index < deleteList.length; index++) {
         fs.unlink(`${path.resolve('./')}/public/image/${deleteList[index]}`, function (error) {
             if (error) {
-                console.log(error);
                 res.send({
                     msg: '查询不到该文件，删除失败',
                     error

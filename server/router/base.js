@@ -21,7 +21,9 @@ const Notepad = {
     queryNotePad:'/queryNotePad',
     queryIdNotePad:'/queryIdNotePad',
     updataNotepadAvatar:'/updataNotepadAvatar',
-    addNotepad:'/addNotepad'
+    addNotepad:'/addNotepad',
+    editNotepad:'/editNotepad',
+    deleteNotepad:'/deleteNotepad'
 }
 module.exports = {
     Article,

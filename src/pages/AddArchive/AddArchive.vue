@@ -99,8 +99,10 @@
 <script>
 import { getCurrentInstance, ref, defineComponent, reactive, onMounted, h } from "vue";
 import { onBeforeRouteLeave, useRouter, useRoute } from "vue-router";
+
 import MarkdownIt from "markdown-it";
 export default defineComponent({
+
   setup() {
     const router = useRouter();
     const { proxy } = getCurrentInstance();
@@ -258,9 +260,9 @@ export default defineComponent({
     const isShow = ref(0); //0 显示 1隐藏
     const isTop = ref(0); //1置顶 0默认
     const saveState = ref(false); //保存状态
+    //5.1.信息提示方法
     const msg = ref("");
     const isMsgState = ref(false);
-    //5.1.信息提示方法
     const sendMsg = (v) => {
       if (v.length) {
         msg.value = v;
@@ -372,6 +374,7 @@ export default defineComponent({
       if ((to.fullPath = "/HomePage")) {
         //删除笔记本没创建的头像
         if (delNotePad.num == 1) {
+          ///上传了图片，没点击创建，此时删除图片
           let imageUrl = delNotePad.path;
           let idx = imageUrl.split("/").length - 1;
           let fileName = imageUrl.split("/")[idx];
@@ -435,6 +438,9 @@ export default defineComponent({
       dialogTableVisible.value = false;
       delNotePad.path = obj.path;
       delNotePad.num = obj.num;
+      if (delNotePad.num == 2) {
+        loadData();
+      }
     };
     return {
       value,

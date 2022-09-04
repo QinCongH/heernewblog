@@ -21,6 +21,8 @@ const base = {
     queryNotePad:'/api/queryNotePad',
     queryIdNotePad:'/api/queryIdNotePad',
     updataNotepadAvatar:'/api/updataNotepadAvatar',
-    addNotepad:'/api/addNotepad'
+    addNotepad:'/api/addNotepad',
+    editNotepad:'/api/editNotepad',
+    deleteNotepad:'/api/deleteNotepad'
 }
 export default base
