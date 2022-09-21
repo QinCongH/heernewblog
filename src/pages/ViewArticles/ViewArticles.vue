@@ -56,6 +56,9 @@
       <h1 class="font-25">
         {{ title }}
       </h1>
+      <div>
+       <!-- 1 -->
+      </div>
     </div>
     <div class="content mg-t-15">
       <el-row :gutter="20">

@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\..\\.."
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\学习代码"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "学习代码"
+	}
+}

@@ -132,7 +132,7 @@ export default defineComponent({
               }
             })
           })
-          console.log('timeLineList.valuet',timeLineList.value);
+          console.log('timeLineList.value',timeLineList.value);
         }
       } catch (err) {
         throw err;

@@ -21,11 +21,11 @@
         </router-link>
       </li>
 
-      <li>
+      <!-- <li>
         <router-link active-class="active" to="/Listing">
           <p>清单</p>
         </router-link>
-      </li>
+      </li> -->
       <li>
         <router-link active-class="active" to="/About">
           <p>关于</p>

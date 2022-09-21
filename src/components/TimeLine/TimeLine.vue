@@ -1,15 +1,17 @@
 <template>
   <ul class="timeline">
     <!-- Item 1 -->
-    <li  v-for="item,index in timeLineList" :key="index">
-      <div :class="index%2==0?'direction-r':'direction-l'">
+    <li v-for="(item, index) in timeLineList" :key="index">
+      <div :class="index % 2 == 0 ? 'direction-r' : 'direction-l'">
         <div class="flag-wrapper">
           <span class="hexa"></span>
-          <span class="flag">{{item.interpret}}</span>
-          <span class="time-wrapper"><span class="time">{{item.time}}</span></span>
+          <span class="flag">{{ item.interpret }}</span>
+          <span class="time-wrapper"
+            ><span class="time">{{ item.time }}</span></span
+          >
         </div>
-        <div class="desc" v-for="val,idx in item.titleList" :key="idx">
-          {{val}}
+        <div class="desc" v-for="(val, idx) in item.titleList" :key="idx">
+          {{ val }}
         </div>
       </div>
     </li>
@@ -42,7 +44,7 @@
         </div>
       </div>
     </li> -->
-  </ul> 
+  </ul>
 </template>
 <script>
 import {
@@ -56,11 +58,15 @@ import {
   toRefs
 } from "vue";
 export default defineComponent({
+  props:{
+    timeLineList:{
+      type:Array,
+    default:[],
+    }
+  },
   setup(props) {
     const { timeLineList } = toRefs(props);
-    const loadData = async () => {
-
-    };
+    console.log(timeLineList)
     return { timeLineList};
   },
 });

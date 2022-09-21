@@ -81,7 +81,7 @@
             >{{ isEdit ? "更新" : "添加" }}笔记</el-button
           >
         </div>
-        <div class="deleteNote mg-l-10">
+        <div v-show="isEdit" class="deleteNote mg-l-10">
           <el-button @click="onDeleteData()">删除笔记</el-button>
         </div>
       </div>
