@@ -186,6 +186,12 @@ export default defineComponent({
       flex-direction: column;
       justify-content: space-evenly;
       dd {
+        align-items: center;
+        // p{
+        //   width:40%;
+        //   font-size: 10px;
+        //   white-space: nowrap;
+        // }
         &:nth-of-type(1) {
           height: 56%;
         }

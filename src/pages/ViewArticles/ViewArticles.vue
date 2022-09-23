@@ -53,16 +53,16 @@
       </div>
     </div>
     <div class="head pd-bt-15">
-      <h1 class="font-25">
+      <p class="font-18">
         {{ title }}
-      </h1>
+      </p>
       <div>
-       <!-- 1 -->
+        <!-- 1 -->
       </div>
     </div>
     <div class="content mg-t-15">
       <el-row :gutter="20">
-        <el-col :md="17">
+        <el-col :md="24">
           <div class="readbox h-100 box-shadow-1">
             <md-editor
               @on-getCatalog="getCatalog"
@@ -72,63 +72,6 @@
               ref="editor"
             >
             </md-editor>
-          </div>
-        </el-col>
-        <!-- 目录 -->
-        <el-col :md="7">
-          <div class="catalogue noShow">
-            <div class="catalogue-content pd-15 box-shadow-1">
-              <div class="catalogue-tle">
-                <h2 class="text-center">目录</h2>
-              </div>
-              <div class="line"></div>
-              <div v-for="(item, index) in catalogList" :key="index">
-                <h1
-                  v-show="item.level == 1"
-                  class="font-line-1"
-                  style="margin-top: 15px"
-                  @click="toHere(item.text)"
-                >
-                  {{ item.text }}
-                </h1>
-
-                <h2
-                  v-show="item.level == 2"
-                  class="font-line-1"
-                  style="margin-left: 10px; margin-top: 10px"
-                  @click="toHere(item.text)"
-                >
-                  {{ item.text }}
-                </h2>
-
-                <h3
-                  v-show="item.level == 3"
-                  class="font-line-1"
-                  style="margin-left: 20px; margin-top: 10px"
-                  @click="toHere(item.text)"
-                >
-                  {{ item.text }}
-                </h3>
-
-                <h4
-                  v-show="item.level == 4"
-                  class="font-line-1"
-                  style="margin-left: 25px; margin-top: 10px"
-                  @click="toHere(item.text)"
-                >
-                  {{ item.text }}
-                </h4>
-
-                <h5
-                  v-show="item.level == 5"
-                  class="font-line-1"
-                  style="margin-left: 30px; margin-top: 10px"
-                  @click="toHere(item.text)"
-                >
-                  {{ item.text }}
-                </h5>
-              </div>
-            </div>
           </div>
         </el-col>
       </el-row>
@@ -144,50 +87,50 @@
         <div class="catalogue">
           <div class="catalogue-content">
             <div v-for="(item, index) in catalogList" :key="index">
-              <h1
+              <p
                 v-show="item.level == 1"
                 class="font-line-1"
                 style="margin-top: 15px"
                 @click="toHere(item.text)"
               >
                 {{ item.text }}
-              </h1>
+              </p>
 
-              <h2
+              <p
                 v-show="item.level == 2"
                 class="font-line-1"
                 style="margin-left: 10px; margin-top: 10px"
                 @click="toHere(item.text)"
               >
                 {{ item.text }}
-              </h2>
+              </p>
 
-              <h3
+              <p
                 v-show="item.level == 3"
                 class="font-line-1"
                 style="margin-left: 20px; margin-top: 10px"
                 @click="toHere(item.text)"
               >
                 {{ item.text }}
-              </h3>
+              </p>
 
-              <h4
+              <p
                 v-show="item.level == 4"
                 class="font-line-1"
                 style="margin-left: 25px; margin-top: 10px"
                 @click="toHere(item.text)"
               >
                 {{ item.text }}
-              </h4>
+              </p>
 
-              <h5
+              <p
                 v-show="item.level == 5"
                 class="font-line-1"
                 style="margin-left: 30px; margin-top: 10px"
                 @click="toHere(item.text)"
               >
                 {{ item.text }}
-              </h5>
+              </p>
             </div>
           </div>
         </div>
@@ -260,7 +203,7 @@ export default defineComponent({
     // 路由守卫
     onBeforeRouteLeave((to, from, next) => {
       // console.log(to);
-      if (to.hasOwnProperty('meta')&&to.meta.hasOwnProperty('title')) {
+      if (to.hasOwnProperty("meta") && to.meta.hasOwnProperty("title")) {
         next();
       }
     });
@@ -284,6 +227,10 @@ export default defineComponent({
 <style scoped lang="less">
 .breadcrumb {
   height: 3%;
+  position: sticky;
+  top: 0%;
+  z-index: 999;
+  background: #fff;
 }
 .catalogue-content {
   color: #222;
@@ -300,16 +247,22 @@ export default defineComponent({
   margin: 15px auto 0px auto;
 }
 .photoDrawer {
-  display: none;
+  display: block;
 }
 /deep/.el-drawer__header {
   margin-bottom: 0px;
 }
 .noShow {
-  position: sticky;
-  top: 30px;
+  position: fixed;
+  width: 24%;
+  right: 5%;
+  background: #ffffff;
+  top: 8%;
+  bottom: 1%;
+  border: 1px solid #2c0e0e1a;
+  border-radius: 12px;
   .catalogue-content {
-    height: 86vh;
+    height: 100%;
     overflow-y: scroll;
   }
 }

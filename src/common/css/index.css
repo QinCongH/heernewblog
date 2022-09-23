@@ -234,7 +234,12 @@
 .text-center {
     text-align: center;
 }
-
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
 .text-bold {
     font-weight: blod;
 }
@@ -255,7 +260,9 @@
 .font-13 {
     font-size: 13px;
 }
-
+.font-18 {
+    font-size: 18px;
+}
 .font-21 {
     font-size: 21px;
 }

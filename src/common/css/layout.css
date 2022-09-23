@@ -3,6 +3,9 @@
     .notepad-content img {
         height: 213px;
     }
+    .photoDrawer .el-drawer{
+        width: 25% !important;
+    }
 }
 
 /* 笔记本或PC */
@@ -14,6 +17,9 @@
     .masonry {
         columns: 3 !important;
         column-gap: 20px;
+    }
+    .photoDrawer .el-drawer{
+        width: 25% !important;
     }
 }
 
