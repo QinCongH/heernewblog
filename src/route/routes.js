@@ -7,6 +7,7 @@ import About from '../pages/About/About.vue'
 import AddArchive from '../pages/AddArchive/AddArchive.vue'
 import ViewArticles from '../pages/ViewArticles/ViewArticles.vue'
 import NotepadContent from '../pages/NotepadContent/NotepadContent.vue'
+import Login from '../pages/Login/Login.vue'
 const routes = [{
         path: '',
         name: 'ShouYe',
@@ -78,6 +79,15 @@ const routes = [{
         meta: {
             title: '看文章'
         }
+    },
+    {
+        path: '/Login',
+        name: 'DengLu',
+        component: Login,
+        meta: {
+            title: '登录'
+        }
     }
+
 ]
 export default routes

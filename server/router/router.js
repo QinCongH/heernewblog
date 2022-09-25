@@ -3,7 +3,8 @@ const router = express.Router() //创建router
 const { //路径
     Article,
     Upload,
-    Notepad
+    Notepad,
+    Login
 } = require('./base')
 const { //方法
     getArticle,
@@ -30,6 +31,10 @@ const {
     editNotepad,
     deleteNotepad
 } = require('./Notepad/Notepad')
+const {
+    login,
+    register
+}=require('./Login/Login')
 /**
  文章管理
  */
@@ -76,4 +81,9 @@ router.post(Notepad.addNotepad,addNotepad)
 router.post(Notepad.editNotepad,editNotepad)
 //删除记事本
 router.get(Notepad.deleteNotepad,deleteNotepad)
+/*
+登录
+*/
+router.post(Login.login, login)
+router.post(Login.register,register)
 module.exports = router

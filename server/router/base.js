@@ -26,8 +26,16 @@ const Notepad = {
     editNotepad:'/editNotepad',
     deleteNotepad:'/deleteNotepad'
 }
+/*
+处理登录
+*/
+const Login={
+    login:'/login',
+    register:'/register'
+}
 module.exports = {
     Article,
     Upload,
-    Notepad
+    Notepad,
+    Login
 }
