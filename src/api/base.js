@@ -24,6 +24,10 @@ const base = {
     updataNotepadAvatar:'/api/updataNotepadAvatar',
     addNotepad:'/api/addNotepad',
     editNotepad:'/api/editNotepad',
-    deleteNotepad:'/api/deleteNotepad'
+    deleteNotepad:'/api/deleteNotepad',
+    /*
+    登录注册
+    */
+   login:'/api/login'
 }
 export default base

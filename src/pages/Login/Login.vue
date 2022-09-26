@@ -14,6 +14,8 @@
             v-model="email"
             placeholder="email"
             id="login-name"
+            :class="isCheck ? 'check' : ''"
+            @blur="formCheck"
           />
           <label class="login-field-icon fui-user" for="login-name"></label>
         </div>
@@ -33,10 +35,13 @@
         <a class="login-link">Lost your password?</a>
       </div>
     </div>
+    <!-- 提示 -->
+    <msg-alert :msg="msg" :isMsgAlert="isMsgState"></msg-alert>
   </div>
 </template>
 
 <script>
+import { truncate } from "lodash";
 import {
   defineComponent,
   ref,
@@ -47,16 +52,63 @@ import {
 } from "vue";
 export default defineComponent({
   setup() {
+    //配置文件
+    const { proxy } = getCurrentInstance();
     // 处理登录
     const email = ref("");
     const password = ref("");
-    const submit=()=>{
-        console.log(email.value,password.value)
-    }
+    const msg = ref("");
+    const isMsgState = ref(false);
+    const isCheck = ref(false);
+    const sendMsg = (v) => {
+      if (v.length) {
+        msg.value = v;
+        isMsgState.value = true;
+        setTimeout(() => {
+          isMsgState.value = false;
+        }, 1000);
+      }
+    };
+    const formCheck = async () => {
+      let regEmail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+      if (!regEmail.test(email.value)) {
+        isCheck.value = true;
+        return 0;
+      } else {
+        isCheck.value = false;
+        return 1;
+      }
+    };
+    const submit = async () => {
+      try {
+        let fromCheckRes = await formCheck();
+        if (!fromCheckRes) {
+          return false;
+        }
+        let loginRes = await proxy.$api.login({
+          email: email.value,
+          password: password.value,
+        });
+        if (loginRes) {
+          loginRes.data;
+          localStorage.setItem("token", loginRes.data.token);
+          sendMsg(loginRes.data.msg);
+          console.log("loginRes", loginRes.data);
+        }
+      } catch (error) {
+        sendMsg("邮箱或者密码错误qwq");
+        throw error;
+      }
+      console.log(email.value, password.value);
+    };
     return {
       email,
       password,
-      submit
+      isCheck,
+      submit,
+      formCheck,
+      msg,
+      isMsgState,
     };
   },
 });
@@ -80,12 +132,12 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #16161487;
+  background: #d7ecf3;
 }
 .login-screen {
   background-color: #fff;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
 .app-title {
@@ -146,6 +198,7 @@ input:focus {
 
 .btn:hover {
   background-color: #8199a9;
+  cursor: pointer;
 }
 
 .login-link {
@@ -153,5 +206,9 @@ input:focus {
   color: #444;
   display: block;
   margin-top: 12px;
+}
+.check {
+  transition: 0.3s ease;
+  border: 1px solid red;
 }
 </style>

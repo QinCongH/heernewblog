@@ -23,6 +23,9 @@ import {
     editNotepad,
     deleteNotepad
 } from './Notepad/Notepad'
+import {
+    login
+} from './Login/Login'
 import interceptor from './interceptor' //拦截器
 interceptor()
 const api = {
@@ -47,6 +50,8 @@ const api = {
     // ----------上传-------------------------
     uploadFiles,
     deleteAllFile,
-    deleteFile
+    deleteFile,
+    //--------登录--------
+    login
 }
 export default api
