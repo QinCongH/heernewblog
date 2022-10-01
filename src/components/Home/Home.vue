@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 import { ElMessage, ElMessageBox } from "element-plus";
 import "element-plus/es/components/message/style/css";
 import "element-plus/es/components/message-box/style/css";
@@ -35,6 +36,7 @@ const getTime = () => {
   }
 };
 getTime();
+
 </script>
 <template>
   <!-- <Cover v-show="useRoute().name !== 'TianJiaWenZhang'"></Cover> -->
@@ -50,7 +52,7 @@ getTime();
       @changeSwithTheme="changeSwithTheme"
     ></HeerHeader>
     <div class="main" :class="useRoute().name == 'TianJiaWenZhang' ? 'h-100' : ''">
-        <router-view></router-view>
+      <router-view></router-view>
     </div>
     <Backtop></Backtop>
   </div>

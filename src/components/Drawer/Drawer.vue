@@ -1,5 +1,7 @@
 <template>
-  <introduce :isShadow="false"></introduce>
+  <div @dblclick="toLogin">
+    <introduce :isShadow="false"></introduce>
+  </div>
   <div class="nav h-100 center">
     <ul class="flex-v align-center justify-between h-30 mg-t-30">
       <li>
@@ -36,13 +38,24 @@
 </template>
 
 <script>
-import { ref, defineComponent, defineEmits, toRefs } from "vue";
-import { useRoute } from "vue-router";
+import { ref, defineComponent, defineEmits, toRefs,computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
 export default defineComponent({
   props: {},
   setup(props, context) {
+    const router = useRouter();
+    //2.接收state
+    const store = useStore();
+    const isShow = computed(() => store.state.permissions.isShow);
+    const toLogin = () => {
+      if (!isShow.value) {
+        router.push("/Login");
+      }
+    };
     return {
       useRoute,
+      toLogin,
     };
   },
 });

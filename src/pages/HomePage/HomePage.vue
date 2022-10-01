@@ -62,14 +62,15 @@
         </div>
       </el-col>
       <el-col :md="7">
-        <side></side>
+        <side @toLogin="toLogin"></side>
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
-import { defineComponent, ref, provide, getCurrentInstance } from "vue";
+import { defineComponent, ref, provide, getCurrentInstance,computed } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import MarkdownIt from "markdown-it";
 export default defineComponent({
   setup() {
@@ -157,7 +158,17 @@ export default defineComponent({
         .replace(/ /g, " ")
         .replace(/>/g, " ");
     };
-
+    /*
+    跳转页面
+    */
+    //2.接收state
+    const store = useStore();
+    const isShow = computed(() => store.state.permissions.isShow);
+    const toLogin = () => {
+      if (!isShow.value) {
+        router.push("/Login");
+      }
+    };
     return {
       pageSize,
       page,
@@ -171,6 +182,8 @@ export default defineComponent({
       router,
       md,
       toText,
+      toLogin,
+      isShow,
     };
   },
 });

@@ -19,11 +19,11 @@ router.beforeEach(async (to, from, next) => {
   //to 目标路由
   //from 来源
   //next 放行
-
+  //修改样式的状态
   //登陆、注册守卫
   if (to.meta.hasOwnProperty('cheakIsLogin')) {
     let checkTokenRes = await api.checkToken()
-    if (checkTokenRes.status == 200) {  //验证token是否通过,不通过不放行
+    if (checkTokenRes.status == 200) { //验证token是否通过,不通过不放行
       next()
     } else {
       next('/Login')

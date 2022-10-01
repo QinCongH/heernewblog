@@ -6,6 +6,7 @@
           <div class="top flex-h" v-if="queryIdNotePadList.head_portrait">
             <!-- <img v-if="imageUrl" :src="imageUrl" class="avatar" /> -->
             <el-upload
+              :disabled="!isShow"
               class="avatar-uploader"
               action="/api/uploadPicture"
               accept="image"
@@ -13,7 +14,7 @@
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
             >
-              <div class="left">
+              <div class="left" :class="isShow ? 'is-hover' : ''">
                 <div class="pos-real">
                   <img :src="queryIdNotePadList.head_portrait" alt="" />
 
@@ -48,6 +49,7 @@
               <div class="flex-h">
                 <h1>{{ queryIdNotePadList.name }}</h1>
                 <svg
+                  v-if="isShow"
                   @click="dialogTableVisible = true"
                   t="1662262321535"
                   class="icon mg-l-15"
@@ -172,7 +174,9 @@ import {
   provide,
   getCurrentInstance,
   onMounted,
+  computed,
 } from "vue";
+import { useStore } from "vuex";
 import { onBeforeRouteLeave, useRouter, useRoute } from "vue-router";
 import { Plus } from "@element-plus/icons-vue";
 export default defineComponent({
@@ -187,6 +191,9 @@ export default defineComponent({
     sortid.value = route.query._id;
     console.log("sortid.value", sortid.value);
     const dayjs = proxy.$day;
+    //2.接收state
+    const store = useStore();
+    const isShow = computed(() => store.state.permissions.isShow);
     const loadData = async () => {
       try {
         //获取文章数据
@@ -273,7 +280,6 @@ export default defineComponent({
       delNotePad.path = obj.path;
       delNotePad.num = obj.num;
       if (delNotePad.num == 2) {
-        
         loadData();
       }
     };
@@ -287,7 +293,8 @@ export default defineComponent({
       dialogTableVisible,
       closeDialog,
       delNotePad,
-      sortid
+      sortid,
+      isShow,
     };
   },
 });
@@ -304,6 +311,38 @@ export default defineComponent({
   .top {
     align-items: flex-end;
     .left {
+      > div {
+        &:nth-child(1) {
+          width: 90px;
+          height: 90px;
+          transition: 0.3s ease;
+          .text {
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+            background-color: #8e8e8e33;
+            border-radius: 10px;
+            text-align: center;
+            line-height: 90px;
+            transform: rotateY(180deg);
+            color: #fff;
+          }
+          img {
+            width: 100%;
+            height: inherit;
+            border-radius: 10px;
+          }
+        }
+        &:nth-child(2) {
+          width: 90px;
+          font-size: 14px;
+          text-align: center;
+        }
+      }
+    }
+    .is-hover {
       > div {
         &:nth-child(1) {
           width: 90px;
@@ -337,11 +376,6 @@ export default defineComponent({
             height: inherit;
             border-radius: 10px;
           }
-        }
-        &:nth-child(2) {
-          width: 90px;
-          font-size: 14px;
-          text-align: center;
         }
       }
     }

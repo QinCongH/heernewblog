@@ -29,6 +29,7 @@
           ></path>
         </svg>
         <svg
+          v-if="isShow"
           t="1657415474596"
           class="icon edit-article mg-l-15"
           viewBox="0 0 1024 1024"
@@ -147,7 +148,9 @@ import {
   provide,
   getCurrentInstance,
   onMounted,
+  computed,
 } from "vue";
+import { useStore } from "vuex";
 import { onBeforeRouteLeave, useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
@@ -163,6 +166,9 @@ export default defineComponent({
     const { proxy } = getCurrentInstance();
     const route = useRoute();
     const router = useRouter();
+    //2.接收state
+    const store = useStore();
+    const isShow = computed(() => store.state.permissions.isShow);
     const loadData = async () => {
       try {
         let res = await proxy.$api.queryIdArticle({ aid: route.query._id });
@@ -219,6 +225,7 @@ export default defineComponent({
       handleClose,
       editArticle,
       editor,
+      isShow,
     };
   },
 });

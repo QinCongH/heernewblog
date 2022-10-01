@@ -49,6 +49,7 @@ import {
   onMounted,
   reactive,
 } from "vue";
+import { useStore} from "vuex";
 import { onBeforeRouteLeave, useRouter, useRoute } from "vue-router";
 export default defineComponent({
   setup() {
@@ -56,6 +57,7 @@ export default defineComponent({
     const { proxy } = getCurrentInstance();
     const route = useRoute();
     const router = useRouter();
+    const store=useStore()
     // 处理登录
     const email = ref("");
     const password = ref("");
@@ -93,7 +95,8 @@ export default defineComponent({
         });
         if (loginRes) {
           if(loginRes.status==200){
-            localStorage.setItem("token", loginRes.data.token);
+          
+            store.dispatch('permissions/getToken', loginRes.data.token) //发送token给vuex
             sendMsg(loginRes.data.msg);
             router.replace('/')
           }

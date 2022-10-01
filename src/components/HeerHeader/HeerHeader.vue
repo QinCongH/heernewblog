@@ -40,7 +40,7 @@
           </li>
         </ul>
       </div>
-      <div class="right flex-h align-center w-15">
+      <div class="right flex-h align-center justify-center w-15">
         <div @click="$emit('changeSwithTheme', !switchTheme)">
           <div v-if="!switchTheme">
             <svg
@@ -144,7 +144,7 @@
             </svg>
           </div>
         </div>
-        <div class="mg-l-15">
+        <div v-show="isShow" class="mg-l-15">
           <router-link to="/AddArchive">
             <svg
               v-if="!switchTheme"
@@ -208,8 +208,18 @@
   </el-drawer>
 </template>
 <script>
-import { toRefs, defineProps, defineEmits, ref, onMounted, defineComponent } from "vue";
+import {
+  toRefs,
+  defineProps,
+  defineEmits,
+  ref,
+  computed,
+  onMounted,
+  defineComponent,
+  getCurrentInstance,
+} from "vue";
 import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 export default defineComponent({
   props: {
     switchTheme: {
@@ -218,11 +228,12 @@ export default defineComponent({
     },
   },
   emits: ["changeSwithTheme"],
-  setup(props) {
+  setup(props, context) {
     //接收父组件
+    const instance = getCurrentInstance();
     // const emit = defineEmits(["changeSwithTheme"]); //注册emit
     onMounted(() => {});
-    // 打开抽屉
+    //1. 打开抽屉
     const isDrawer = ref(false);
     const expandMenu = () => {
       //打开抽屉
@@ -232,11 +243,18 @@ export default defineComponent({
       }
       isDrawer.value = true;
     };
+    //2.接收state
+    const store = useStore();
+    const isShow = computed(() => store.state.permissions.isShow);
+    onMounted(() => {
+      console.log("是否登录", isShow.value);
+    });
     return {
       useRoute,
       // emit,
       isDrawer,
       expandMenu,
+      isShow,
     };
   },
 });

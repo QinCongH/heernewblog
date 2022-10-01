@@ -24,7 +24,8 @@ export default defineComponent({
       default: true,
     },
   },
-  setup() {
+  setup(props, context) {
+
     return {
     };
   },

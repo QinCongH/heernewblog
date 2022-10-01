@@ -1,6 +1,8 @@
 <template>
   <div class="side">
-    <introduce></introduce>
+    <div @dblclick="toLogin">
+      <introduce></introduce>
+    </div>
     <clalendar></clalendar>
     <new-article></new-article>
   </div>
@@ -9,15 +11,20 @@
 <script>
 import { defineComponent, ref } from "vue";
 export default defineComponent({
-  setup() {
-    return {};
+  emits:["toLogin"],
+  setup(props, context) {
+    const toLogin = () => {
+      context.emit('toLogin')
+    };
+    return {
+      toLogin,
+    };
   },
   props: {
-    newArchiveList:{
-    type: Array,
-    default: [],
-    }
-
+    newArchiveList: {
+      type: Array,
+      default: [],
+    },
   },
 });
 </script>
