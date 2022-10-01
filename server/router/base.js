@@ -31,7 +31,8 @@ const Notepad = {
 */
 const Login={
     login:'/login',
-    register:'/register'
+    register:'/register',
+    checkToken:'/checkToken'
 }
 module.exports = {
     Article,

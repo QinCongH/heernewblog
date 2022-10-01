@@ -202,9 +202,27 @@ const register = async (req, res) => {
         5.注册
     */
 }
-
+const checkToken=async (req,res)=>{
+    let getToken = req.headers.authorization
+    let checkTokenRes = jwt.verifyToken(getToken)
+    if (checkTokenRes.code == 100) {
+        res.statusCode = 401
+        res.send({
+            msg: '未登录！',
+            success: false,
+            statusCode:401
+        })
+        return false
+    }
+    res.statusCode =200
+    res.send({
+        msg: '已登录！',
+        success: true,
+        statusCode:200
+    })
+}
 module.exports = {
     login,
     register,
-
+    checkToken
 }

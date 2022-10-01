@@ -83,6 +83,7 @@ const updataNotepadAvatar = (req, res) => {
             res.send({
                 msg: '未登录！',
                 success: false,
+                statusCode:401
             })
             return false
         }
@@ -146,6 +147,7 @@ const addNotepad = async (req, res) => {
         res.send({
             msg: '未登录！',
             success: false,
+            statusCode:401
         })
         return false
     }
@@ -209,6 +211,7 @@ const editNotepad = (req, res) => {
         res.send({
             msg: '未登录！',
             success: false,
+            statusCode:401
         })
         return false
     }
@@ -268,6 +271,7 @@ const deleteNotepad = (req, res) => {
             res.send({
                 msg: '未登录！',
                 success: false,
+                statusCode:401
             })
             return false
         }

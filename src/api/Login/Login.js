@@ -14,3 +14,8 @@ export const login = ({
         password
     })
 }
+
+export const checkToken = () => {
+    return axios.get(base.checkToken)
+}
+

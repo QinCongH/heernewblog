@@ -24,7 +24,8 @@ import {
     deleteNotepad
 } from './Notepad/Notepad'
 import {
-    login
+    login,
+    checkToken
 } from './Login/Login'
 import interceptor from './interceptor' //拦截器
 interceptor()
@@ -52,6 +53,7 @@ const api = {
     deleteAllFile,
     deleteFile,
     //--------登录--------
-    login
+    login,
+    checkToken
 }
 export default api

@@ -8,8 +8,9 @@ const { //路径
 } = require('./base')
 const {
     login,
-    register
-}=require('./Login/Login')
+    register,
+    checkToken
+} = require('./Login/Login')
 const { //方法
     getArticle,
     addArticle,
@@ -56,7 +57,7 @@ router.get(Article.deleteArticle, deleteArticle)
 //根据sortid查询文章
 router.get(Article.querySortidArticle, querySortidArticle)
 //根据时间戳查询文章
-router.get(Article.queryTimeArticle,queryTimeArticle)
+router.get(Article.queryTimeArticle, queryTimeArticle)
 /*
 上传
 */
@@ -75,16 +76,17 @@ router.get(Notepad.queryNotePad, queryNotePad)
 //根据id查询笔记本数据
 router.get(Notepad.queryIdNotePad, queryIdNotePad)
 //更新笔记本头像
-router.get(Notepad.updataNotepadAvatar,updataNotepadAvatar)
+router.get(Notepad.updataNotepadAvatar, updataNotepadAvatar)
 //添加记事本
-router.post(Notepad.addNotepad,addNotepad)
+router.post(Notepad.addNotepad, addNotepad)
 //编辑记事本
-router.post(Notepad.editNotepad,editNotepad)
+router.post(Notepad.editNotepad, editNotepad)
 //删除记事本
-router.get(Notepad.deleteNotepad,deleteNotepad)
+router.get(Notepad.deleteNotepad, deleteNotepad)
 /*
 登录
 */
 router.post(Login.login, login)
-router.post(Login.register,register)
+router.post(Login.register, register)
+router.get(Login.checkToken, checkToken)
 module.exports = router

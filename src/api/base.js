@@ -28,6 +28,7 @@ const base = {
     /*
     登录注册
     */
-   login:'/api/login'
+   login:'/api/login',
+   checkToken:'/api/checkToken'
 }
 export default base

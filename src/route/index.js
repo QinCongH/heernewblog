@@ -7,25 +7,28 @@ import {
 } from 'vue-router'
 // 引入routes.ts文件
 import routes from './routes.js'
+//引入api
+import api from '../api'
 const router = createRouter({
   history: createWebHashHistory(), //createWebHashHistory是hash模式
   routes
 });
 
 //前置路由守卫
-router.beforeEach((to,from,next)=>{
+router.beforeEach(async (to, from, next) => {
   //to 目标路由
   //from 来源
   //next 放行
- 
+
   //登陆、注册守卫
-  if(to.meta.hasOwnProperty('cheakIsLogin')){
-      if(localStorage.getItem('token')){
-        next()
-      }else{
-        next('/Login')
-      }
-  }else{
+  if (to.meta.hasOwnProperty('cheakIsLogin')) {
+    let checkTokenRes = await api.checkToken()
+    if (checkTokenRes.status == 200) {  //验证token是否通过,不通过不放行
+      next()
+    } else {
+      next('/Login')
+    }
+  } else {
     next()
   }
 })

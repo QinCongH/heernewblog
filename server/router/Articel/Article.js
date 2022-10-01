@@ -40,6 +40,7 @@ const addArticle = async (req, res) => {
         res.send({
             msg: '未登录！',
             success: false,
+            statusCode:401
         })
         return false
     }
@@ -203,6 +204,7 @@ const editArticle = (req, res) => {
         res.send({
             msg: '未登录！',
             success: false,
+            statusCode:401
         })
         return false
     }
@@ -245,6 +247,7 @@ const deleteArticle = (req, res) => {
         res.send({
             msg: '未登录！',
             success: false,
+            statusCode:401
         })
         return false
     }
