@@ -5,6 +5,8 @@ const connection = require('../../db/connection')
 const {
     processID
 } = require('../../until/processId')
+const jwt = require('../../until/jwt')
+
 /*
 分页查询数据
 */
@@ -71,6 +73,19 @@ const queryIdNotePad = (req, res) => {
 updataNotepadAvatar
 */
 const updataNotepadAvatar = (req, res) => {
+        /*
+        验证token
+    */
+        let getToken = req.headers.authorization
+        let checkTokenRes = jwt.verifyToken(getToken)
+        if (checkTokenRes.code == 100) {
+            res.statusCode = 401
+            res.send({
+                msg: '未登录！',
+                success: false,
+            })
+            return false
+        }
     //检查字段
     if (!req.query.hasOwnProperty('sortid')) {
         res.send({
@@ -120,7 +135,21 @@ const updataNotepadAvatar = (req, res) => {
 添加记事本
 addNotepad
 */
-const addNotepad = (req, res) => {
+const addNotepad = async (req, res) => {
+    /*
+        验证token
+    */
+    let getToken = req.headers.authorization
+    let checkTokenRes = jwt.verifyToken(getToken)
+    if (checkTokenRes.code == 100) {
+        res.statusCode = 401
+        res.send({
+            msg: '未登录！',
+            success: false,
+        })
+        return false
+    }
+
     // 1.得到数据
     if (!req.body.hasOwnProperty('data')) {
         res.send({
@@ -170,6 +199,19 @@ const addNotepad = (req, res) => {
 editNotepad
 */
 const editNotepad = (req, res) => {
+    /*
+        验证token
+    */
+    let getToken = req.headers.authorization
+    let checkTokenRes = jwt.verifyToken(getToken)
+    if (checkTokenRes.code == 100) {
+        res.statusCode = 401
+        res.send({
+            msg: '未登录！',
+            success: false,
+        })
+        return false
+    }
     if (!req.body.hasOwnProperty('data')) {
         res.send({
             msg: '请检查字段'
@@ -216,6 +258,19 @@ const editNotepad = (req, res) => {
 deleteNotepad
 */
 const deleteNotepad = (req, res) => {
+        /*
+        验证token
+    */
+        let getToken = req.headers.authorization
+        let checkTokenRes = jwt.verifyToken(getToken)
+        if (checkTokenRes.code == 100) {
+            res.statusCode = 401
+            res.send({
+                msg: '未登录！',
+                success: false,
+            })
+            return false
+        }
     let sortid = req.query.sortid
     if (!sortid) {
         res.status(500)

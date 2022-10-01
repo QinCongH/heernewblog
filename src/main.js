@@ -10,6 +10,7 @@ import App from './App.vue'
 import router from './route/index'
 import dayjs from 'dayjs' //全局使用dayJs
 import api from './api/index'
+import store from './store' //引入vuex的store
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 const app = createApp(App)
@@ -18,4 +19,5 @@ nextTick(() => {
     app.config.globalProperties.$api = api //全局挂载
 })
 app.use(router, less).mount('#app')
+app.use(store)
 app.component("MdEditor", MdEditor);

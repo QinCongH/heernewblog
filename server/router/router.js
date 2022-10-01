@@ -6,6 +6,10 @@ const { //路径
     Notepad,
     Login
 } = require('./base')
+const {
+    login,
+    register
+}=require('./Login/Login')
 const { //方法
     getArticle,
     addArticle,
@@ -31,10 +35,7 @@ const {
     editNotepad,
     deleteNotepad
 } = require('./Notepad/Notepad')
-const {
-    login,
-    register
-}=require('./Login/Login')
+
 /**
  文章管理
  */

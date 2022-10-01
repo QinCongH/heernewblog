@@ -5,6 +5,7 @@ const connection = require('../../db/connection')
 const {
     processID
 } = require('../../until/processId')
+const jwt = require('../../until/jwt')
 /*获取文章数据*/
 const getArticle = async (req, res) => {
     //建立查询语句
@@ -29,6 +30,19 @@ const getArticle = async (req, res) => {
 添加文章
 */
 const addArticle = async (req, res) => {
+    /*
+        验证token
+    */
+    let getToken = req.headers.authorization
+    let checkTokenRes = jwt.verifyToken(getToken)
+    if (checkTokenRes.code == 100) {
+        res.statusCode = 401
+        res.send({
+            msg: '未登录！',
+            success: false,
+        })
+        return false
+    }
     // 1.得到数据
     let {
         addArticleList
@@ -179,6 +193,19 @@ const queryNewArticles = (req, res) => {
 更新文章
 */
 const editArticle = (req, res) => {
+    /*
+        验证token
+    */
+    let getToken = req.headers.authorization
+    let checkTokenRes = jwt.verifyToken(getToken)
+    if (checkTokenRes.code == 100) {
+        res.statusCode = 401
+        res.send({
+            msg: '未登录！',
+            success: false,
+        })
+        return false
+    }
     // 1.得到数据
     let {
         editArticleList
@@ -208,6 +235,19 @@ const editArticle = (req, res) => {
 删除文章
 */
 const deleteArticle = (req, res) => {
+    /*
+        验证token
+    */
+    let getToken = req.headers.authorization
+    let checkTokenRes = jwt.verifyToken(getToken)
+    if (checkTokenRes.code == 100) {
+        res.statusCode = 401
+        res.send({
+            msg: '未登录！',
+            success: false,
+        })
+        return false
+    }
     let aid = req.query.aid
     if (!aid) {
         res.status(500)
@@ -265,7 +305,7 @@ const querySortidArticle = (req, res) => {
 分页查询时间递减的文章
 queryTimeArticle
 */
-const queryTimeArticle=async (req,res)=>{
+const queryTimeArticle = async (req, res) => {
     //1.查询文章总count
     function getCountData() {
         return new Promise((resolve, reject) => {

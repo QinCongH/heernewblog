@@ -1,9 +1,13 @@
 const fs = require('fs');
 const path = require('path')
+const jwt = require('../../until/jwt')
 /*
 1.上传单个文件
 */
 const uploadPicture = (req, res, next) => {
+         /*
+        验证token
+    */
     //接收值：req.files,req.files
     //线上的也就是服务器中的图片的绝对地址
     res.send({

@@ -9,7 +9,9 @@ const interceptor = () => {
     /*1.添加请求拦截器*/
     axios.interceptors.request.use(config => {
         // 在发送请求前做什么
-        console.log('发请求了')
+        if(localStorage.getItem('token')){
+            config.headers.common['Authorization']=localStorage.getItem('token')  //请求头携带token
+        }
         return config
     }, error => {
         // 对请求错误做些什么

@@ -65,7 +65,9 @@ const login = async (req, res) => {
         let isRegisterRes = await isRegister()
         if (!isRegisterRes.length) {
             res.statusCode = 500
-            res.send('用户未注册!')
+            res.send({
+                msg: '用户未注册!'
+            })
             return false
         }
         //3密码，邮箱比对
@@ -76,9 +78,11 @@ const login = async (req, res) => {
                 email,
                 expir: 864000 //十天
             })
+            res.statusCode = 200
             res.send({
                 token,
-                msg:'登录成功!'
+                msg:'登录成功!',
+                status:200
             })
         } else {
             res.statusCode = 500
@@ -198,7 +202,9 @@ const register = async (req, res) => {
         5.注册
     */
 }
+
 module.exports = {
     login,
-    register
+    register,
+
 }

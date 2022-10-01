@@ -69,7 +69,8 @@ const routes = [{
         name: 'TianJiaWenZhang',
         component: AddArchive,
         meta: {
-            title: '写文章'
+            title: '写文章',
+            cheakIsLogin:true
         }
     },
     {

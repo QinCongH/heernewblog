@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import { truncate } from "lodash";
 import {
   defineComponent,
   ref,
@@ -50,10 +49,13 @@ import {
   onMounted,
   reactive,
 } from "vue";
+import { onBeforeRouteLeave, useRouter, useRoute } from "vue-router";
 export default defineComponent({
   setup() {
     //配置文件
     const { proxy } = getCurrentInstance();
+    const route = useRoute();
+    const router = useRouter();
     // 处理登录
     const email = ref("");
     const password = ref("");
@@ -90,13 +92,14 @@ export default defineComponent({
           password: password.value,
         });
         if (loginRes) {
-          loginRes.data;
-          localStorage.setItem("token", loginRes.data.token);
-          sendMsg(loginRes.data.msg);
-          console.log("loginRes", loginRes.data);
+          if(loginRes.status==200){
+            localStorage.setItem("token", loginRes.data.token);
+            sendMsg(loginRes.data.msg);
+            router.replace('/')
+          }
         }
       } catch (error) {
-        sendMsg("邮箱或者密码错误qwq");
+        sendMsg(error.response.data.msg);
         throw error;
       }
       console.log(email.value, password.value);
