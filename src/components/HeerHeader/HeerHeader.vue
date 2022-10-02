@@ -41,8 +41,8 @@
         </ul>
       </div>
       <div class="right flex-h align-center justify-center w-15">
-        <div @click="$emit('changeSwithTheme', !switchTheme)">
-          <div v-if="!switchTheme">
+        <div @click="changeSwithTheme">
+          <div v-if="!isDark">
             <svg
               t="1657367921654"
               class="icon"
@@ -147,7 +147,7 @@
         <div v-show="isShow" class="mg-l-15">
           <router-link to="/AddArchive">
             <svg
-              v-if="!switchTheme"
+              v-if="!isDark"
               t="1657415474596"
               class="icon"
               viewBox="0 0 1024 1024"
@@ -221,17 +221,9 @@ import {
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 export default defineComponent({
-  props: {
-    switchTheme: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ["changeSwithTheme"],
   setup(props, context) {
     //接收父组件
     const instance = getCurrentInstance();
-    // const emit = defineEmits(["changeSwithTheme"]); //注册emit
     onMounted(() => {});
     //1. 打开抽屉
     const isDrawer = ref(false);
@@ -246,15 +238,21 @@ export default defineComponent({
     //2.接收state
     const store = useStore();
     const isShow = computed(() => store.state.permissions.isShow);
+    const isDark = computed(() => store.state.theme.isDark);
     onMounted(() => {
       console.log("是否登录", isShow.value);
     });
+    const changeSwithTheme=()=>{
+      store.dispatch("theme/changeTheme",isDark.value);
+      console.log(isDark.value)
+    }
     return {
       useRoute,
-      // emit,
       isDrawer,
       expandMenu,
       isShow,
+      isDark,
+      changeSwithTheme
     };
   },
 });

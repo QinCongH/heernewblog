@@ -95,7 +95,6 @@ export default defineComponent({
         });
         if (loginRes) {
           if(loginRes.status==200){
-          
             store.dispatch('permissions/getToken', loginRes.data.token) //发送token给vuex
             sendMsg(loginRes.data.msg);
             router.replace('/')

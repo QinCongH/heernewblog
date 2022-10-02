@@ -2,15 +2,15 @@
   <ul class="timeline">
     <!-- Item 1 -->
     <li v-for="(item, index) in timeLineList" :key="index">
-      <div :class="index % 2 == 0 ? 'direction-r' : 'direction-l'">
-        <div class="flag-wrapper">
+      <div  :class="index % 2 == 0 ? 'direction-r' : 'direction-l'">
+        <div class="flag-wrapper" :class="isDark?'dark-style':''">
           <span class="hexa"></span>
           <span class="flag">{{ item.interpret }}</span>
           <span class="time-wrapper"
             ><span class="time">{{ item.time }}</span></span
           >
         </div>
-        <div class="desc" v-for="(val, idx) in item.titleList" :key="idx">
+        <div :class="isDark?'dark-style':''" class="desc" v-for="(val, idx) in item.titleList" :key="idx">
           {{ val }}
         </div>
       </div>
@@ -55,8 +55,10 @@ import {
   onMounted,
   watch,
   defineEmits,
-  toRefs
+  toRefs,
+  computed
 } from "vue";
+import { useStore } from "vuex";
 export default defineComponent({
   props:{
     timeLineList:{
@@ -65,9 +67,11 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const store=useStore()
+    const isDark = computed(() => store.state.theme.isDark);
     const { timeLineList } = toRefs(props);
     console.log(timeLineList)
-    return { timeLineList};
+    return { timeLineList,isDark};
   },
 });
 </script>
@@ -216,7 +220,9 @@ export default defineComponent({
   text-align: center;
   position: relative;
 }
-
+.dark-style{
+  color: #222 !important
+}
 .flag {
   position: relative;
   display: inline;
@@ -283,7 +289,7 @@ export default defineComponent({
   position: relative;
   margin: 1em 0 0 0;
   padding: 1em;
-  background: rgb(254, 254, 254);
+  background: #f8f8f8;
   -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);

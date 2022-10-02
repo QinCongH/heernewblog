@@ -345,9 +345,7 @@ export default defineComponent({
     .is-hover {
       > div {
         &:nth-child(1) {
-          width: 90px;
-          height: 90px;
-          transition: 0.3s ease;
+     
           &:hover {
             transform: rotateY(180deg);
             > img {
@@ -358,24 +356,7 @@ export default defineComponent({
               opacity: 0;
             }
           }
-          .text {
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            z-index: -1;
-            background-color: #8e8e8e33;
-            border-radius: 10px;
-            text-align: center;
-            line-height: 90px;
-            transform: rotateY(180deg);
-            color: #fff;
-          }
-          img {
-            width: 100%;
-            height: inherit;
-            border-radius: 10px;
-          }
+   
         }
       }
     }

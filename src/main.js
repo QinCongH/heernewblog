@@ -21,3 +21,9 @@ nextTick(() => {
 app.use(router, less).mount('#app')
 app.use(store)
 app.component("MdEditor", MdEditor);
+ //vuex持久化
+const persistence=()=>{
+    store.dispatch("permissions/getToken", localStorage.getItem("token"));
+    // store.dispatch("theme/setTheme", localStorage.getItem("token"));
+}
+persistence()

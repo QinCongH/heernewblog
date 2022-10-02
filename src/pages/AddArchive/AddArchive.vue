@@ -2,26 +2,31 @@
   <div class="add-archive h-100 flex-v w-90">
     <div class="breadcrumb pd-bt-10 border-b-eee">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/HomePage' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="javascript:;">写笔记</a></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/HomePage' }">
+        <span  :style="{color:isDark?'#fff':'#222'}">
+        首页
+        </span>
+        </el-breadcrumb-item>
+        <el-breadcrumb-item><a href="javascript:;" :style="{color:isDark?'#fff':'#222'}">写笔记</a></el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="add-content flex-1 mg-t-15">
       <div class="add-header">
         <input
           type="text"
+          :style="{background:isDark?'#2c2c2c':'#fff',color:isDark?'#fff':'#222'}"
           class="w-100 border-b-eee pd-b-5 text-bold font-25"
           placeholder="标题"
           v-model="contentTitle"
         />
       </div>
-      <div class="mg-t-15 h-80">
+      <div class="mg-t-15 h-80" :class="isDark?'dark':''">
         <!-- :pageFullScreen="true"         previewOnly -->
         <md-editor
           @on-html-changed="getHtmlValue"
           @on-upload-img="onUploadImg"
           @on-save="onSaveData"
-          theme="light"
+          :theme="isDark?'dark':'light'"
           :toolbars="toolbarList"
           v-model="value"
         >
@@ -31,7 +36,7 @@
         <!-- 是否置顶 -->
         <div class="is-top flex-h align-center">
           <div>
-            <p class="white-space font-13">
+            <p class="white-space font-13"  :style="{color:isDark?'#fff':'#222'}">
               {{ isTop ? "置顶" : "默认排序" }}
             </p>
           </div>
@@ -46,7 +51,7 @@
         <!-- 是否显示 -->
         <div class="is-show flex-h align-center mg-l-10">
           <div>
-            <p class="white-space font-13">
+            <p class="white-space font-13"  :style="{color:isDark?'#fff':'#222'}">
               {{ isShow ? "隐藏" : "默认显示" }}
             </p>
           </div>
@@ -64,25 +69,28 @@
             default-first-option
             :reserve-keyword="false"
             placeholder="选择记事本"
+            :style="{background:isDark?'#2c2c2c':'#fff',color:isDark?'#fff':'#222'}"
           >
             <el-option
               v-for="item in notePadeNameList"
               :key="item.sortid"
               :label="item.name"
               :value="item.sortid"
+              :style="{background:isDark?'#2c2c2c':'#fff',color:isDark?'#fff':'#222'}"
             />
           </el-select>
         </div>
         <div class="createNotepad mg-l-10">
-          <el-button @click="dialogTableVisible = true">创建新本</el-button>
+          <el-button  :style="{background:isDark?'#2c2c2c':'#fff',color:isDark?'#fff':'#222'}" @click="dialogTableVisible = true">创建新本</el-button>
         </div>
         <div class="saveNote mg-l-10">
           <el-button @click="onSaveData(value)"
+          :style="{background:isDark?'#2c2c2c':'#fff',color:isDark?'#fff':'#222'}"
             >{{ isEdit ? "更新" : "添加" }}笔记</el-button
           >
         </div>
         <div v-show="isEdit" class="deleteNote mg-l-10">
-          <el-button @click="onDeleteData()">删除笔记</el-button>
+          <el-button  :style="{background:isDark?'#2c2c2c':'#fff',color:isDark?'#fff':'#222'}" @click="onDeleteData()">删除笔记</el-button>
         </div>
       </div>
     </div>
@@ -93,13 +101,18 @@
       @closeDialog="closeDialog"
       :dialogTableVisible="dialogTableVisible"
     ></add-notepad-dialog>
+    <teleport to="#app">
+      <div :class="isDark?'bright-theme':''">
+        
+      </div>
+    </teleport>
   </div>
 </template>
 
 <script>
-import { getCurrentInstance, ref, defineComponent, reactive, onMounted, h } from "vue";
+import { getCurrentInstance, ref, defineComponent, reactive, onMounted, h ,computed} from "vue";
 import { onBeforeRouteLeave, useRouter, useRoute } from "vue-router";
-
+import {useStore} from 'vuex'
 import MarkdownIt from "markdown-it";
 export default defineComponent({
 
@@ -107,6 +120,7 @@ export default defineComponent({
     const router = useRouter();
     const { proxy } = getCurrentInstance();
     const md = new MarkdownIt();
+    const store = useStore();
     const delImgList = ref([]); //点击删除时使用
     const delNotePad = reactive({
       path: "",
@@ -442,6 +456,9 @@ export default defineComponent({
         loadData();
       }
     };
+
+    
+const isDark = computed(() =>store.state.theme.isDark);
     return {
       value,
       toolbarList,
@@ -468,11 +485,16 @@ export default defineComponent({
       dialogTableVisible,
       closeDialog,
       delNotePad,
+      isDark
     };
   },
 });
 </script>
-
+<style lang="less">
+  /deep/.el-select-dropdown__list{
+  padding:0px !important;
+}
+</style>
 <style lang="less" scoped>
 .add-archive {
   height: 100vh;
@@ -483,4 +505,23 @@ export default defineComponent({
     height: 100%;
   }
 }
+.dark{
+  /deep/.md-content{
+    color:#fff;
+  }
+  /deep/.md-toolbar{
+    color:#fff;
+  }
+}
+.bright-theme{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: #121212e3;
+    z-index: -1;
+    bottom: 0;
+}
+
 </style>

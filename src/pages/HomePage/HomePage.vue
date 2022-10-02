@@ -68,9 +68,9 @@
   </div>
 </template>
 <script>
-import { defineComponent, ref, provide, getCurrentInstance,computed } from "vue";
+import { defineComponent, ref, provide,onMounted, getCurrentInstance,computed } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
+import {useStore} from 'vuex'
 import MarkdownIt from "markdown-it";
 export default defineComponent({
   setup() {
@@ -99,7 +99,6 @@ export default defineComponent({
       let notePadeNameRes = await proxy.$api.queryNotePadeName();
       if (notePadeNameRes) {
         notePadeNameList.value = notePadeNameRes.data.data;
-        console.log(notePadeNameList.value);
       }
       pagArticleList.value.forEach((el) => {
         notePadeNameList.value.forEach((val) => {
@@ -129,7 +128,6 @@ export default defineComponent({
     3.日期格式化
     */
     const dayjs = proxy.$day;
-    console.log(dayjs());
     /*
     页面跳转
     */
@@ -162,6 +160,9 @@ export default defineComponent({
     跳转页面
     */
     //2.接收state
+    /*
+    1.permissions
+    */
     const store = useStore();
     const isShow = computed(() => store.state.permissions.isShow);
     const toLogin = () => {
@@ -169,6 +170,7 @@ export default defineComponent({
         router.push("/Login");
       }
     };
+ 
     return {
       pageSize,
       page,
