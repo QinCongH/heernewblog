@@ -28,8 +28,9 @@ const interceptor = () => {
     }, error => {
         // 对响应错误做处理      
         console.log("响应错误", error)
+        console.log(router)
         if (error.response.status == 401) { //未登录
-            router.replace('/Login')
+            localStorage.clear('token')
         }
         return Promise.reject(error);
     });

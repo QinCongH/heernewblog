@@ -33,7 +33,7 @@ const theme = {
         }
     },
     state: {
-        isDark: localStorage.getItem("isDark")=='false'?false:true
+        isDark: localStorage.getItem("isDark")=='true'?true:false
     }
 }
 
