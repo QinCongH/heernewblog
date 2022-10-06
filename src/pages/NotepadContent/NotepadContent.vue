@@ -3,7 +3,7 @@
     <el-row :gutter="20">
       <el-col :md="17">
         <div class="content">
-          <div class="top flex-h" v-if="queryIdNotePadList.head_portrait">
+          <div class="top flex-h" v-show="queryIdNotePadList.head_portrait">
             <!-- <img v-if="imageUrl" :src="imageUrl" class="avatar" /> -->
             <el-upload
               :disabled="!isShow"
@@ -49,7 +49,7 @@
               <div class="flex-h">
                 <h1>{{ queryIdNotePadList.name }}</h1>
                 <svg
-                  v-if="isShow"
+                  v-show="isShow"
                   @click="dialogTableVisible = true"
                   t="1662262321535"
                   class="icon mg-l-15"

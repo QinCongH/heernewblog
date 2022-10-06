@@ -1,32 +1,35 @@
 <template>
   <div class="notepad w-90 mg-t-15">
-    <el-row :gutter="20">
-      <el-col :md="17">
-        <div class="content">
-          <el-row :gutter="20">
-            <div class="top w-100">
-              <div
-                v-for="v in queryNotePadList"
-                :key="v.sortid"
-                class="notepad-content w-100 mg-t-30"
-                @click="toPage(v.sortid)"
-              >
-                <img
-                  ref="imgWidth"
-                  class="border-10 block"
-                  :src="v.head_portrait"
-                  alt=""
-                />
-                <p class="text-center mg-t-10">{{ v.name }}</p>
+    <div class="content">
+      <el-row :gutter="20">
+        <el-col :md="17">
+          <div class="content">
+            <el-row :gutter="20">
+              <div class="top w-100">
+                <div
+                  v-for="v in queryNotePadList"
+                  :key="v.sortid"
+                  class="notepad-content w-100 mg-t-30"
+                  @click="toPage(v.sortid)"
+                >
+                  <img
+                    ref="imgWidth"
+                    class="border-10 block"
+                    :src="v.head_portrait"
+                    alt=""
+                  />
+                  <p class="text-center mg-t-10">{{ v.name }}</p>
+                </div>
               </div>
-            </div>
-          </el-row>
-        </div>
-      </el-col>
-      <el-col :md="7">
-        <side></side>
-      </el-col>
-    </el-row>
+            </el-row>
+          </div>
+        </el-col>
+        <el-col :md="7">
+          <side></side>
+        </el-col>
+      </el-row>
+    </div>
+
   </div>
 </template>
 
@@ -46,7 +49,7 @@ export default defineComponent({
     const imgHeight = ref("");
     const { proxy } = getCurrentInstance();
     const queryNotePadList = ref([]);
-    const router= useRouter()
+    const router = useRouter();
     const loadData = async () => {
       try {
         let queryNotePadRes = await proxy.$api.queryNotePad();
@@ -74,7 +77,7 @@ export default defineComponent({
       imgHeight,
       loadData,
       queryNotePadList,
-      toPage
+      toPage,
     };
   },
 });

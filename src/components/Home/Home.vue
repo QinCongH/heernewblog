@@ -9,7 +9,7 @@ import "element-plus/es/components/message-box/style/css";
 theme
     */
 const store = useStore();
-const isDark = computed(() =>store.state.theme.isDark);
+const isDark = computed(() => store.state.theme.isDark);
 onMounted(() => {
   store.dispatch("theme/setTheme", isDark.value);
 });
@@ -28,13 +28,33 @@ onMounted(() => {
       <router-view></router-view>
     </div>
     <Backtop></Backtop>
+    <teleport to="#app">
+      <div :class="isDark?'bright-theme':''">
+        
+      </div>
+    </teleport>
   </div>
 </template>
 
 <style lang="less" scoped>
 .container {
   transition: background 0.6s ease;
+  // position: absolute;
+  // left: 0;
+  // bottom: 0;
+  // top: 0;
+  // right: 0;
   // width: 100%;
+}
+.bright-theme{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: #121212e3;
+    z-index: -1;
+    bottom: 0;
 }
 .bg-night {
   /deep/.active::after {
@@ -91,13 +111,13 @@ onMounted(() => {
   /deep/.add-header input::-webkit-input-placeholder {
     color: #fff;
   }
-  /deep/.note dl{
+  /deep/.note dl {
     background: #f7f7f70a;
   }
   /deep/.article {
     background: #f7f7f70a;
   }
-  /deep/.introduce{
+  /deep/.introduce {
     background: #f7f7f70a;
   }
 }

@@ -34,7 +34,7 @@
                       </h2>
                       <div class="line"></div>
                     </dt>
-                    <dd class="note-view" v-if="item.content">
+                    <dd class="note-view" v-show="item.content">
                       <p v-html="toText(md.render(item.content))"></p>
                     </dd>
                     <dd class="flex-h mg-t-15 justify-between">

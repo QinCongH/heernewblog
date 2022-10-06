@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
     Backtop: typeof import('./components/Backtop/Backtop.vue')['default']
     Breadcrumb: typeof import('./components/Breadcrumb/Breadcrumb.vue')['default']
     Clalendar: typeof import('./components/Clalendar/Clalendar.vue')['default']
+    ContactIcon: typeof import('./components/ContactIcon/ContactIcon.vue')['default']
     Cover: typeof import('./components/Cover/Cover.vue')['default']
     Drag: typeof import('./components/Drag/Drag.vue')['default']
     Drawer: typeof import('./components/Drawer/Drawer.vue')['default']
