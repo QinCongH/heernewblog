@@ -97,7 +97,7 @@
           </div>
           <div class="line"></div>
 
-          <div class="center mg-t-15">
+          <div  class="center mg-t-15">
             <el-row :gutter="30">
               <el-col
                 :md="12"
@@ -150,6 +150,9 @@
                 </div>
               </el-col>
             </el-row>
+          </div>
+          <div v-show="!querySortidArticleList.length">
+            <el-empty :image-size="200" />
           </div>
         </div>
       </el-col>

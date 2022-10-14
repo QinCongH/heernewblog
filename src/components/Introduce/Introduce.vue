@@ -3,13 +3,13 @@
     <div class="introduce-main text-center">
       <div class="pic flex-h justify-center">
         <img
-          src="https://images.unsplash.com/photo-1657403538510-1b324c4c1c8d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=762&q=80"
+          :src="avatar"
           alt=""
           class="border-50"
         />
       </div>
       <div class="myself mg-t-15">
-        <p>web前端开发</p>
+        <p>{{introName}}</p>
       </div>
       <div class="contact" v-show="isContact">
         <div :title="iconList.wx" @click="copyText(iconList.wx)">
@@ -112,6 +112,14 @@ export default defineComponent({
     isContact: {
       type: Boolean,
       default: false,
+    },
+    avatar:{
+      type:String,
+      default:"https://images.unsplash.com/photo-1657403538510-1b324c4c1c8d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=762&q=80"
+    },
+    introName:{
+      type:String,
+      default:"web前端开发"
     },
   },
   setup(props, context) {

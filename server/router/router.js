@@ -4,7 +4,8 @@ const { //路径
     Article,
     Upload,
     Notepad,
-    Login
+    Login,
+    Disposition
 } = require('./base')
 const {
     login,
@@ -36,7 +37,9 @@ const {
     editNotepad,
     deleteNotepad
 } = require('./Notepad/Notepad')
-
+const {
+    queryDisposition
+} = require('./Disposition/Disposition')
 /**
  文章管理
  */
@@ -89,4 +92,8 @@ router.get(Notepad.deleteNotepad, deleteNotepad)
 router.post(Login.login, login)
 router.post(Login.register, register)
 router.get(Login.checkToken, checkToken)
+/*
+配置个人信息
+*/
+router.get(Disposition.queryDisposition, queryDisposition)
 module.exports = router

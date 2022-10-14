@@ -2,22 +2,26 @@
   <div class="about" :class="isDark ? 'is-dark' : ''">
     <div class="content">
       <div class="header">
-        <introduce> </introduce>
+        <introduce :avatar="dispositionObj.data.avatar" :introName="dispositionObj.data.name"> </introduce>
         <div>
-          <p>有些路，只能一个人走</p>
+          <!--  -->
+          <p>{{dispositionObj.data.motto||'-'}}</p>
         </div>
       </div>
       <div class="about-me">
         <h3>关于本站</h3>
-        <p>sdsadsadsadsaddsafsdfsdfsadfsdfsdfs</p>
+        <!--  -->
+        <p>{{dispositionObj.data.about||'-'}}</p>
       </div>
       <div class="about-me">
         <h3>我的兴趣</h3>
-        <p>sdsadsadsadsaddsafsdfsdfsadfsdfsdfs</p>
+        <!--  -->
+        <p>{{dispositionObj.data.interest||'-'}}</p>
       </div>
       <div class="about-me">
         <h3>我的技能</h3>
-        <p>sdsadsadsadsaddsafsdfsdfsadfsdfsdfs</p>
+        <!-- -->
+        <p>{{dispositionObj.data.skill||'-'}} </p>
       </div>
       <div class="about-me">
         <h3>联系我</h3>
@@ -45,14 +49,24 @@ export default defineComponent({
     const { proxy } = getCurrentInstance();
     const store = useStore();
     const isDark = computed(() => store.state.theme.isDark);
-    onMounted(() => {
-      proxy.$api.getArticle().then((res) => {
-        console.log(res);
+    const dispositionObj=reactive({
+      data:{}
+    })
+ const loadData=async () =>{
+      let dispositionRes = await proxy.$api.queryDisposition({
+       name:"禾耳"
       });
-      console.log(proxy.$api);
+      console.log("dispositionRes", dispositionRes.data,dispositionObj);
+      if (dispositionRes) {
+        dispositionObj.data=dispositionRes.data[0]
+      }
+    }
+    onMounted(() => {
+      loadData();
     });
     return {
       isDark,
+      dispositionObj,
     };
   },
 });
@@ -70,7 +84,7 @@ export default defineComponent({
   background: url("https://api.dujin.org/bing/1920.php") no-repeat;
   background-size: cover;
   .content {
-    color:#fff;
+    color: #fff;
     .header {
       /deep/.introduce {
         box-shadow: unset;

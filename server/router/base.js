@@ -34,9 +34,15 @@ const Login={
     register:'/register',
     checkToken:'/checkToken'
 }
+
+/*配置个人信息*/
+const Disposition={
+    queryDisposition:'/queryDisposition'
+}
 module.exports = {
     Article,
     Upload,
     Notepad,
-    Login
+    Login,
+    Disposition
 }

@@ -27,6 +27,9 @@ import {
     login,
     checkToken
 } from './Login/Login'
+import {
+    queryDisposition
+} from './Disposition/Disposition'
 import interceptor from './interceptor' //拦截器
 interceptor()
 const api = {
@@ -54,6 +57,8 @@ const api = {
     deleteFile,
     //--------登录--------
     login,
-    checkToken
+    checkToken,
+    //------个人配置-------
+    queryDisposition
 }
 export default api

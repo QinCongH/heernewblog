@@ -6,29 +6,33 @@ const base = {
     addArticle: '/api/addArticle',
     queryPagArticle: '/api/queryPagArticle',
     queryIdArticle: '/api/queryIdArticle',
-    queryNewArticles:'/api/queryNewArticles',
-    editArticle:'/api/editArticle',
-    deleteArticle:'/api/deleteArticle',
-    querySortidArticle:'/api/querySortidArticle',
-    queryTimeArticle:'/api/queryTimeArticle',
+    queryNewArticles: '/api/queryNewArticles',
+    editArticle: '/api/editArticle',
+    deleteArticle: '/api/deleteArticle',
+    querySortidArticle: '/api/querySortidArticle',
+    queryTimeArticle: '/api/queryTimeArticle',
     /*
         上传
     */
     uploadPicture: '/api/uploadPicture',
     deleteAllFile: '/api/deleteAllFile',
-    deleteFile:'/api/deleteFile',
+    deleteFile: '/api/deleteFile',
     /* 记事本*/
     queryNotePadeName: '/api/queryNotePadeName',
-    queryNotePad:'/api/queryNotePad',
-    queryIdNotePad:'/api/queryIdNotePad',
-    updataNotepadAvatar:'/api/updataNotepadAvatar',
-    addNotepad:'/api/addNotepad',
-    editNotepad:'/api/editNotepad',
-    deleteNotepad:'/api/deleteNotepad',
+    queryNotePad: '/api/queryNotePad',
+    queryIdNotePad: '/api/queryIdNotePad',
+    updataNotepadAvatar: '/api/updataNotepadAvatar',
+    addNotepad: '/api/addNotepad',
+    editNotepad: '/api/editNotepad',
+    deleteNotepad: '/api/deleteNotepad',
     /*
     登录注册
     */
-   login:'/api/login',
-   checkToken:'/api/checkToken'
+    login: '/api/login',
+    checkToken: '/api/checkToken',
+    /*
+    个人配置
+    */
+    queryDisposition: '/api/queryDisposition'
 }
 export default base
