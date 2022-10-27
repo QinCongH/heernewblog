@@ -41,6 +41,8 @@ import {
   getCurrentInstance,
   onMounted,
   reactive,
+  provide,
+  computed
 } from "vue";
 import { onBeforeRouteLeave, useRouter, useRoute } from "vue-router";
 export default defineComponent({
@@ -49,6 +51,9 @@ export default defineComponent({
     const imgHeight = ref("");
     const { proxy } = getCurrentInstance();
     const queryNotePadList = ref([]);
+    const dispositionObj=reactive({
+      data:{}
+    })
     const router = useRouter();
     const loadData = async () => {
       try {
@@ -57,10 +62,19 @@ export default defineComponent({
           console.log("queryNotePadeRes", queryNotePadRes);
         }
         queryNotePadList.value = queryNotePadRes.data.data;
+        let dispositionRes = await proxy.$api.queryDisposition({
+           name:"禾耳"
+         });
+      if(dispositionRes){
+        dispositionObj.data=dispositionRes.data[0]
+      }
+       
       } catch (e) {
         console.error(e);
       }
     };
+      //  发送值
+      provide('avatarData',computed(()=>{return {avatar:dispositionObj.data.avatar,name:dispositionObj.data.name}}) )
     onMounted(() => {
       loadData();
     });

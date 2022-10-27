@@ -191,6 +191,9 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const sortid = ref("");
+    const dispositionObj=reactive({
+      data:{}
+    })
     sortid.value = route.query._id;
     console.log("sortid.value", sortid.value);
     const dayjs = proxy.$day;
@@ -207,9 +210,14 @@ export default defineComponent({
         let queryIdNotePad = proxy.$api.queryIdNotePad({
           sortid: sortid.value,
         });
-        let [querySortidArticleRes, queryIdNotePadRes] = await Promise.all([
+        //获取头像
+        let getDisposition = proxy.$api.queryDisposition({
+           name:"禾耳"
+         });
+        let [querySortidArticleRes, queryIdNotePadRes,dispositionRes] = await Promise.all([
           querySortidArticle,
           queryIdNotePad,
+          getDisposition
         ]);
         if (querySortidArticleRes) {
           querySortidArticleList.value = querySortidArticleRes.data.params.reverse();
@@ -217,11 +225,17 @@ export default defineComponent({
         if (queryIdNotePadRes) {
           queryIdNotePadList.value = queryIdNotePadRes.data[0];
         }
+
+        
+      if(dispositionRes){
+        dispositionObj.data=dispositionRes.data[0]
+      }
         console.log("queryIdNotePadRes", queryIdNotePadRes);
       } catch (error) {
         console.error(error);
       }
     };
+    
     const toPage = (id) => {
       router.push({
         path: "/ViewArticles",
@@ -267,9 +281,9 @@ export default defineComponent({
         console.error(error);
       }
     };
-    onMounted(() => {
       loadData();
-    });
+      //  发送值
+      provide('avatarData',computed(()=>{return {avatar:dispositionObj.data.avatar,name:dispositionObj.data.name}}) )
     /*
     创建记事本
     */
@@ -298,6 +312,7 @@ export default defineComponent({
       delNotePad,
       sortid,
       isShow,
+      dispositionObj
     };
   },
 });

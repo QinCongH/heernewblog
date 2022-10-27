@@ -4,11 +4,11 @@
       <el-col :md="17">
         <div class="content">
           <!-- 轮播图 -->
-          <div class="swiper">
+          <div class="swiper" v-if="carouselList.length">
             <el-carousel height="262px" :interval="10000" indicator-position="outside">
-              <el-carousel-item v-for="item in 4" :key="item">
+              <el-carousel-item v-for="item in carouselList" :key="item">
                 <img
-                  src="https://images.unsplash.com/photo-1657403538510-1b324c4c1c8d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=762&q=80"
+                  :src="item"
                   alt=""
                 />
               </el-carousel-item>
@@ -62,13 +62,13 @@
         </div>
       </el-col>
       <el-col :md="7">
-        <side @toLogin="toLogin"></side>
+        <side  @toLogin="toLogin"></side>
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
-import { defineComponent, ref, provide,onMounted, getCurrentInstance,computed } from "vue";
+import { defineComponent, ref,reactive, provide,onMounted, getCurrentInstance,computed } from "vue";
 import { useRouter } from "vue-router";
 import {useStore} from 'vuex'
 import MarkdownIt from "markdown-it";
@@ -83,7 +83,10 @@ export default defineComponent({
     const total = ref(0);
     const pagArticleList = ref([]);
     const notePadeNameList = ref([]);
-
+    const dispositionObj=reactive({
+        data:{}
+      })
+      const carouselList=ref([])
     const md = new MarkdownIt();
     const loadMore = async () => {
       //分页数据
@@ -107,15 +110,26 @@ export default defineComponent({
           }
         });
       });
-    };
-
-    const loadData = async () => {
-      try {
-        await loadMore();
-      } catch (error) {
-        console.log(error);
+      //轮播图与头像数据
+      
+      let dispositionRes = await proxy.$api.queryDisposition({
+       name:"禾耳"
+      });
+      if(dispositionRes){
+        dispositionObj.data=dispositionRes.data[0]
+        carouselList.value=dispositionObj.data.carousel.split(',')
       }
-    };
+         };
+      
+        //  发送值
+         provide('avatarData',computed(()=>{return {avatar:dispositionObj.data.avatar,name:dispositionObj.data.name}}) )
+        const loadData = async () => {
+          try {
+            await loadMore();
+          } catch (error) {
+            console.log(error);
+          }
+        };
     loadData();
     /*
     2.分页
@@ -186,6 +200,8 @@ export default defineComponent({
       toText,
       toLogin,
       isShow,
+      dispositionObj,
+      carouselList
     };
   },
 });

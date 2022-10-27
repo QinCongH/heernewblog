@@ -1,6 +1,6 @@
 <template>
   <div @dblclick="toLogin">
-    <introduce :isShadow="false"></introduce>
+    <introduce :isShadow="false"  :avatar="dispositionObj.data.avatar" :introName="dispositionObj.data.name"></introduce>
   </div>
   <div class="nav h-100 center">
     <ul class="flex-v align-center justify-between h-30 mg-t-30">
@@ -38,13 +38,18 @@
 </template>
 
 <script>
-import { ref, defineComponent, defineEmits, toRefs,computed } from "vue";
+import { ref, defineComponent, defineEmits,reactive, toRefs,computed,getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
+
 export default defineComponent({
   props: {},
   setup(props, context) {
     const router = useRouter();
+    const { proxy } = getCurrentInstance();
+    const dispositionObj=reactive({
+      data:{}
+    })
     //2.接收state
     const store = useStore();
     const isShow = computed(() => store.state.permissions.isShow);
@@ -53,9 +58,19 @@ export default defineComponent({
         router.push("/Login");
       }
     };
+    const loadData=async ()=>{
+      let dispositionRes = await proxy.$api.queryDisposition({
+           name:"禾耳"
+         });
+        if(dispositionRes){
+        dispositionObj.data=dispositionRes.data[0]
+         }
+    }
+    loadData()
     return {
       useRoute,
       toLogin,
+      dispositionObj
     };
   },
 });

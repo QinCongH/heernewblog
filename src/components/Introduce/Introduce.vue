@@ -2,14 +2,12 @@
   <div :class="isShadow ? 'box-shadow-1' : ''" class="introduce pd-bt-15">
     <div class="introduce-main text-center">
       <div class="pic flex-h justify-center">
-        <img
-          :src="avatar"
-          alt=""
-          class="border-50"
-        />
+        <el-image style="border-radius:50%;width: 66px; height: 66px" :src="getAvatarUrl"  :lazy="true">
+        
+        </el-image>
       </div>
       <div class="myself mg-t-15">
-        <p>{{introName}}</p>
+        <p>{{getIntroName}}</p>
       </div>
       <div class="contact" v-show="isContact">
         <div :title="iconList.wx" @click="copyText(iconList.wx)">
@@ -100,7 +98,7 @@
 </template>
 
 <script>
-import { ref, defineComponent, defineEmits, computed, toRefs, reactive ,onMounted} from "vue";
+import { ref, defineComponent, defineEmits, computed, toRefs, reactive ,onMounted,inject} from "vue";
 import { useStore } from "vuex";
 import copyText from "../../common/util/copyText";
 export default defineComponent({
@@ -132,13 +130,28 @@ export default defineComponent({
       github: "https://github.com/QinCongH",
     });
     const isDark = computed(() => store.state.theme.isDark);
-    onMounted(()=>{
- 
-    })
+    const avatarData=inject('avatarData')
+    const getAvatarUrl=computed(() =>{
+      if(avatarData){
+          return avatarData.value.avatar
+      }else{
+          return props.avatar
+      }
+    });
+    const getIntroName=computed(() =>{
+    if(avatarData){
+     return avatarData.value.name
+    }else{
+      return props.introName
+    }
+    });
     return {
       iconList,
       copyText,
       isDark,
+      avatarData,
+      getAvatarUrl,
+      getIntroName
     };
   },
 });

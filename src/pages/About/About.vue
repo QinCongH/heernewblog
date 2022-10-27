@@ -81,6 +81,7 @@ export default defineComponent({
   left: 0;
   right: 0;
   transition: 0.3s ease;
+  background:skyblue;
   background: url("https://api.dujin.org/bing/1920.php") no-repeat;
   background-size: cover;
   .content {
