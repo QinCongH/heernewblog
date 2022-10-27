@@ -1,5 +1,5 @@
 <template>
-  <div class="notepad w-90 mg-t-15">
+  <div class="notepad w-90">
     <div class="content">
       <el-row :gutter="20">
         <el-col :md="17">
@@ -99,6 +99,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .notepad {
+  height: calc(100vh - 50px);
   .top {
     display: flex;
     flex-wrap: wrap;

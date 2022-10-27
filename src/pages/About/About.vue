@@ -109,6 +109,7 @@ export default defineComponent({
       align-items: center;
     }
     .about-me {
+      padding: 0px 5%;
       text-align: center;
       margin-bottom: 25px;
       p {

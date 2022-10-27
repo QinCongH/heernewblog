@@ -7,10 +7,11 @@
           <div class="swiper" v-if="carouselList.length">
             <el-carousel height="262px" :interval="10000" indicator-position="outside">
               <el-carousel-item v-for="item in carouselList" :key="item">
-                <img
-                  :src="item"
-                  alt=""
-                />
+                <div class="pos-real" :style="{backgroundImage:`url('${item}')`}">
+                  <div class="layer">
+                    <p>加油!!</p>
+                  </div>
+                </div>
               </el-carousel-item>
             </el-carousel>
           </div>
@@ -39,7 +40,7 @@
                     </dd>
                     <dd class="flex-h mg-t-15 justify-between">
                       <p>{{ item.name }}</p>
-                      <p>
+                      <p class="white-space">
                         {{ dayjs(item.addtime).format("YYYY-MM-DD HH:mm") }}
                       </p>
                     </dd>
@@ -62,15 +63,23 @@
         </div>
       </el-col>
       <el-col :md="7">
-        <side  @toLogin="toLogin"></side>
+        <side @toLogin="toLogin"></side>
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
-import { defineComponent, ref,reactive, provide,onMounted, getCurrentInstance,computed } from "vue";
+import {
+  defineComponent,
+  ref,
+  reactive,
+  provide,
+  onMounted,
+  getCurrentInstance,
+  computed,
+} from "vue";
 import { useRouter } from "vue-router";
-import {useStore} from 'vuex'
+import { useStore } from "vuex";
 import MarkdownIt from "markdown-it";
 export default defineComponent({
   setup() {
@@ -83,10 +92,10 @@ export default defineComponent({
     const total = ref(0);
     const pagArticleList = ref([]);
     const notePadeNameList = ref([]);
-    const dispositionObj=reactive({
-        data:{}
-      })
-      const carouselList=ref([])
+    const dispositionObj = reactive({
+      data: {},
+    });
+    const carouselList = ref([]);
     const md = new MarkdownIt();
     const loadMore = async () => {
       //分页数据
@@ -111,25 +120,30 @@ export default defineComponent({
         });
       });
       //轮播图与头像数据
-      
+
       let dispositionRes = await proxy.$api.queryDisposition({
-       name:"禾耳"
+        name: "禾耳",
       });
-      if(dispositionRes){
-        dispositionObj.data=dispositionRes.data[0]
-        carouselList.value=dispositionObj.data.carousel.split(',')
+      if (dispositionRes) {
+        dispositionObj.data = dispositionRes.data[0];
+        carouselList.value = dispositionObj.data.carousel.split(",");
       }
-         };
-      
-        //  发送值
-         provide('avatarData',computed(()=>{return {avatar:dispositionObj.data.avatar,name:dispositionObj.data.name}}) )
-        const loadData = async () => {
-          try {
-            await loadMore();
-          } catch (error) {
-            console.log(error);
-          }
-        };
+    };
+
+    //  发送值
+    provide(
+      "avatarData",
+      computed(() => {
+        return { avatar: dispositionObj.data.avatar, name: dispositionObj.data.name };
+      })
+    );
+    const loadData = async () => {
+      try {
+        await loadMore();
+      } catch (error) {
+        console.log(error);
+      }
+    };
     loadData();
     /*
     2.分页
@@ -184,7 +198,7 @@ export default defineComponent({
         router.push("/Login");
       }
     };
- 
+
     return {
       pageSize,
       page,
@@ -201,13 +215,38 @@ export default defineComponent({
       toLogin,
       isShow,
       dispositionObj,
-      carouselList
+      carouselList,
     };
   },
 });
 </script>
 
 <style lang="less" scoped>
+/deep/.el-carousel__item {
+  > div {
+    width: 100%;
+    height: inherit;
+    background: url(/api/public/image/file-1664595334263.jpg) no-repeat;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  .layer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 21%;
+    background: #22222270;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    p {
+      color: #fff;
+    }
+  }
+}
 .note-main {
   .note {
     height: 240px;
@@ -252,6 +291,9 @@ export default defineComponent({
       /deep/img {
         // display: none;
       }
+    }
+    .note-view ~ dd {
+      padding: 0px 10px 10px;
     }
     .line {
       width: 90%;

@@ -118,7 +118,7 @@ onMounted(() => {
     background: #f7f7f70a;
   }
   /deep/.introduce {
-    background: #f7f7f70a;
+    // background: #f7f7f70a;
   }
 }
 .bg-day {
