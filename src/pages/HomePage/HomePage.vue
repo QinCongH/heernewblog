@@ -6,10 +6,10 @@
           <!-- 轮播图 -->
           <div class="swiper" v-if="carouselList.length">
             <el-carousel height="262px" :interval="10000" indicator-position="outside">
-              <el-carousel-item v-for="item in carouselList" :key="item">
-                <div class="pos-real" :style="{backgroundImage:`url('${item}')`}">
+              <el-carousel-item v-for="(item, index) in carouselList" :key="item">
+                <div class="pos-real" :style="{ backgroundImage: `url('${item}')` }">
                   <div class="layer">
-                    <p>加油!!</p>
+                    <p v-text="redomSentence(index)"></p>
                   </div>
                 </div>
               </el-carousel-item>
@@ -198,7 +198,17 @@ export default defineComponent({
         router.push("/Login");
       }
     };
-
+    //获取随机语句
+    const redomSentence = (i) => {
+      let sentenceArr = [
+        "好好吃饭，好好睡觉。",
+        "不辜负生活，不迷失方向。",
+        "放轻松，就当漫游地球。",
+        "把温柔碾碎放入生活的缝隙中。",
+        "决定好啦，要暗暗努力。",
+      ];
+      return sentenceArr[i];
+    };
     return {
       pageSize,
       page,
@@ -216,6 +226,7 @@ export default defineComponent({
       isShow,
       dispositionObj,
       carouselList,
+      redomSentence,
     };
   },
 });

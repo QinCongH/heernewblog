@@ -96,9 +96,14 @@
             </div>
           </div>
           <div class="line"></div>
-
-          <div  class="center mg-t-15">
-            <el-row :gutter="30">
+          <!-- <img
+                      class="w-100"
+                      :src="'http://source.unsplash.com/random/' + index + '?scenery'"
+                      alt=""
+                    /> -->
+          <!-- /api/public/image/data.0-1660372730018.png -->
+          <div class="center mg-t-15">
+            <!-- <el-row :gutter="30">
               <el-col
                 :md="12"
                 :xs="24"
@@ -108,12 +113,6 @@
               >
                 <div @click="toPage(item.aid)" class="w-100 mg-b-30">
                   <div class="notepad-view pos-real">
-                    <!-- <img
-                      class="w-100"
-                      :src="'http://source.unsplash.com/random/' + index + '?scenery'"
-                      alt=""
-                    /> -->
-                    <!-- /api/public/image/data.0-1660372730018.png -->
                     <img
                       class="w-100"
                       src="/api/public/image/data.0-1660372730018.png"
@@ -146,6 +145,33 @@
                         <div>{{ item.click_count }}</div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </el-col>
+            </el-row> -->
+
+            <el-row :gutter="30">
+              <el-col
+                :md="12"
+                :sm="12"
+                :xs="24"
+                v-for="(item, index) in querySortidArticleList"
+                :key="item.aid"
+              >
+                <div class="artical-content pd-10 box-shadow-1">
+                  <div class="top" @click="toPage(item.aid)">
+                    <h2>
+                      {{ item.title }}
+                    </h2>
+                  </div>
+                  <div class="center">
+                    <p v-text="toText(md.render(item.content))">
+                    </p>
+                  </div>
+                  <div class="bottom">
+                    <p>{{ dayjs(item.addtime).format("YYYY-MM-DD HH:mm") }}</p>
+                    <p>
+                      {{ item.click_count }}</p>
                   </div>
                 </div>
               </el-col>
@@ -182,6 +208,7 @@ import {
 import { useStore } from "vuex";
 import { onBeforeRouteLeave, useRouter, useRoute } from "vue-router";
 import { Plus } from "@element-plus/icons-vue";
+import MarkdownIt from "markdown-it";
 export default defineComponent({
   components: { Plus },
   setup() {
@@ -191,12 +218,13 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const sortid = ref("");
-    const dispositionObj=reactive({
-      data:{}
-    })
+    const dispositionObj = reactive({
+      data: {},
+    });
     sortid.value = route.query._id;
     console.log("sortid.value", sortid.value);
     const dayjs = proxy.$day;
+    const md = new MarkdownIt();
     //2.接收state
     const store = useStore();
     const isShow = computed(() => store.state.permissions.isShow);
@@ -212,13 +240,13 @@ export default defineComponent({
         });
         //获取头像
         let getDisposition = proxy.$api.queryDisposition({
-           name:"禾耳"
-         });
-        let [querySortidArticleRes, queryIdNotePadRes,dispositionRes] = await Promise.all([
-          querySortidArticle,
-          queryIdNotePad,
-          getDisposition
-        ]);
+          name: "禾耳",
+        });
+        let [
+          querySortidArticleRes,
+          queryIdNotePadRes,
+          dispositionRes,
+        ] = await Promise.all([querySortidArticle, queryIdNotePad, getDisposition]);
         if (querySortidArticleRes) {
           querySortidArticleList.value = querySortidArticleRes.data.params.reverse();
         }
@@ -226,16 +254,15 @@ export default defineComponent({
           queryIdNotePadList.value = queryIdNotePadRes.data[0];
         }
 
-        
-      if(dispositionRes){
-        dispositionObj.data=dispositionRes.data[0]
-      }
+        if (dispositionRes) {
+          dispositionObj.data = dispositionRes.data[0];
+        }
         console.log("queryIdNotePadRes", queryIdNotePadRes);
       } catch (error) {
         console.error(error);
       }
     };
-    
+
     const toPage = (id) => {
       router.push({
         path: "/ViewArticles",
@@ -281,9 +308,14 @@ export default defineComponent({
         console.error(error);
       }
     };
-      loadData();
-      //  发送值
-      provide('avatarData',computed(()=>{return {avatar:dispositionObj.data.avatar,name:dispositionObj.data.name}}) )
+    loadData();
+    //  发送值
+    provide(
+      "avatarData",
+      computed(() => {
+        return { avatar: dispositionObj.data.avatar, name: dispositionObj.data.name };
+      })
+    );
     /*
     创建记事本
     */
@@ -300,6 +332,15 @@ export default defineComponent({
         loadData();
       }
     };
+    const toText = (html) => {
+      //将html代码转换未纯文本
+      return html
+        .replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi, "")
+        .replace(/<[^>]+?>/g, "")
+        .replace(/\s+/g, " ")
+        .replace(/ /g, " ")
+        .replace(/>/g, " ");
+    };
     return {
       dayjs,
       querySortidArticleList,
@@ -312,7 +353,9 @@ export default defineComponent({
       delNotePad,
       sortid,
       isShow,
-      dispositionObj
+      dispositionObj,
+      toText,
+      md
     };
   },
 });
@@ -363,7 +406,6 @@ export default defineComponent({
     .is-hover {
       > div {
         &:nth-child(1) {
-     
           &:hover {
             transform: rotateY(180deg);
             > img {
@@ -374,7 +416,6 @@ export default defineComponent({
               opacity: 0;
             }
           }
-   
         }
       }
     }
@@ -470,5 +511,61 @@ export default defineComponent({
   padding-bottom: 3px;
   background: #e6e6e6;
   margin-top: 15px;
+}
+.artical-content {
+  margin-bottom: 30px;
+  border-left: 5px solid #03a87c;
+  .top {
+    h2 {
+      cursor: pointer;
+      font-weight: bold;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      //当p标签中有数字使多行显示失效时：
+      word-wrap: break-word;
+      word-break: break-all;
+      &:hover {
+        transition: all 0.2s;
+        color: #03a87c !important;
+      }
+    }
+  }
+  .center {
+    margin: 12px 0px 10px;
+    p {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      //当p标签中有数字使多行显示失效时：
+      word-wrap: break-word;
+      word-break: break-all;
+    }
+  }
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    color: #6c757d;
+    font-weight: 400;
+    p {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      //当p标签中有数字使多行显示失效时：
+      word-wrap: break-word;
+      word-break: break-all;
+      &:nth-of-type(1) {
+        font-size: 14px;
+        margin-bottom: 2px;
+      }
+      &:nth-of-type(2) {
+        font-size: 12px;
+      }
+    }
+  }
 }
 </style>
