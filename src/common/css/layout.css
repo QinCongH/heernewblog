@@ -1,0 +1,104 @@
+/* 更大设备 */
+@media screen and (min-width: 1281px) {
+    .notepad-content img {
+        height: 213px;
+    }
+    .photoDrawer .el-drawer{
+        width: 25% !important;
+    }
+}
+
+/* 笔记本或PC */
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+    .notepad-content {
+        width: 25% !important;
+    }
+
+    .masonry {
+        columns: 3 !important;
+        column-gap: 20px;
+    }
+    .photoDrawer .el-drawer{
+        width: 25% !important;
+    }
+}
+
+/* ##平板电脑/Ipad竖屏 */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .notepad-content img {
+        width: 140px !important;
+        height: 140px !important;
+    }
+
+    .masonry {
+        columns: 3 !important;
+        column-gap: 20px;
+    }
+    .photoDrawer{
+        display: block !important;
+      }
+      .notepad-main .center .notepad-view img{
+        height: 22vh !important;
+      }
+}
+
+/* 多数竖屏的智能手机 */
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .heer-header .center {
+        display: none;
+    }
+
+    .side .introduce {
+        display: none;
+    }
+
+    .masonry {
+        columns: 1 !important;
+    }
+
+    .el-drawer__body {
+        overflow: hidden !important;
+    }
+    .notepad-content {
+        width: 33.3333% !important;
+
+
+    }
+    .notepad-content img {
+        width: 100px !important;
+        height: 100px !important;
+    }
+
+    .md-content {
+        flex-direction: column;
+    }
+
+    .md ::-webkit-scrollbar {
+        width: 1px !important;
+    }
+
+    #md-editor-v3-preview-wrapper {
+        border-top: 2px solid #ececec;
+    }
+    .photoDrawer{
+        display: block !important;
+      }
+      .notepad-main .center .notepad-view img{
+        height: none !important;
+      }
+}
+
+/* 公共 */
+@media screen and (min-width: 320px) and (max-width: 1023px) {
+
+    .noShow,.notepad .clalendar,.notepad .article {
+        display: none;
+      }
+      .catalogue-content{
+          height: 90vh;
+          overflow-y: scroll;
+      }
+      .notepad-main .el-dialog{
+        width: 80% !important;
+      }
+}

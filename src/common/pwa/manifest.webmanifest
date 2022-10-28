@@ -1,0 +1,19 @@
+{
+    "background_color": "#282c34",
+    "description": "禾耳",
+    "display": "fullscreen",
+    "icons": [{
+        "src": "../../assets/image/logo-192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "../../assets/image/logo-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "name": "禾耳",
+    "short_name": "禾耳",
+    "start_url": "/"        
+  }
