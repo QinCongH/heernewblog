@@ -19,7 +19,7 @@
           </li>
           <li>
             <router-link active-class="active" to="/notepad">
-              <p>记事本</p>
+              <p>笔记</p>
             </router-link>
           </li>
           <li>
