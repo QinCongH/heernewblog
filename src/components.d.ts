@@ -7,6 +7,14 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AddNotepadDialog: typeof import('./components/AddNotepadDialog/AddNotepadDialog.vue')['default']
+    Backtop: typeof import('./components/Backtop/Backtop.vue')['default']
+    Breadcrumb: typeof import('./components/Breadcrumb/Breadcrumb.vue')['default']
+    Clalendar: typeof import('./components/Clalendar/Clalendar.vue')['default']
+    ContactIcon: typeof import('./components/ContactIcon/ContactIcon.vue')['default']
+    Cover: typeof import('./components/Cover/Cover.vue')['default']
+    Drag: typeof import('./components/Drag/Drag.vue')['default']
+    Drawer: typeof import('./components/Drawer/Drawer.vue')['default']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -29,8 +37,17 @@ declare module '@vue/runtime-core' {
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    FlowLayout: typeof import('./components/FlowLayout/FlowLayout.vue')['default']
+    HeerHeader: typeof import('./components/HeerHeader/HeerHeader.vue')['default']
+    Home: typeof import('./components/Home/Home.vue')['default']
+    Introduce: typeof import('./components/Introduce/Introduce.vue')['default']
+    MsgAlert: typeof import('./components/MsgAlert/MsgAlert.vue')['default']
+    MsgConfirm: typeof import('./components/MsgC/MsgConfirm.vue')['default']
+    NewArticle: typeof import('./components/NewArticle/NewArticle.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Side: typeof import('./components/Side/Side.vue')['default']
+    TimeLine: typeof import('./components/TimeLine/TimeLine.vue')['default']
   }
 
 }
