@@ -40,7 +40,7 @@ const addArticle = async (req, res) => {
         res.send({
             msg: '未登录！',
             success: false,
-            statusCode:401
+            statusCode: 401
         })
         return false
     }
@@ -52,7 +52,7 @@ const addArticle = async (req, res) => {
         let aid = processID()
         let author = "禾耳"
         let increaseSql = `INSERT INTO heer_article (id,addtime,is_show,is_top,title,sortid,click_count,content,aid,author) VALUES (0,?,?,?,?,?,?,?,?,?)`
-        let addSqlParams = [addArticleList.addtime, Number(addArticleList.is_show), Number(addArticleList.is_top), addArticleList.title, addArticleList.sortid, addArticleList.click_count, addArticleList.content, aid, author]
+        let addSqlParams = [addArticleList.addtime, Number(addArticleList.is_show), Number(addArticleList.is_top), addArticleList.title, addArticleList.sortid, addArticleList.click_count+'', addArticleList.content, aid, author]
         connection.query(increaseSql, addSqlParams, (err, results, fields) => {
             if (err) {
                 res.send({
@@ -204,7 +204,7 @@ const editArticle = (req, res) => {
         res.send({
             msg: '未登录！',
             success: false,
-            statusCode:401
+            statusCode: 401
         })
         return false
     }
@@ -247,7 +247,7 @@ const deleteArticle = (req, res) => {
         res.send({
             msg: '未登录！',
             success: false,
-            statusCode:401
+            statusCode: 401
         })
         return false
     }
@@ -369,6 +369,56 @@ const queryTimeArticle = async (req, res) => {
         })
     }
 }
+
+/*
+添加点击量
+*/
+const addClickCount = async (req, res) => {
+    /*
+    思路：
+    1.根据aid得到当前clickCount
+    2.修改click
+    */
+
+    const getClickCount = (aid) => {
+        return new Promise((resolve, reject) => {
+            let querySql = `select click_count from heer_article where aid='${aid}'`
+            connection.query(querySql, (err, results, fields) => {
+                if (err) {
+                    reject(err)
+                }
+                let resul = JSON.parse(JSON.stringify(results))
+                resolve(resul[0])
+            })
+        })
+    }
+    const editClickCount = (count, aid) => {
+        return new Promise((resolve, reject) => {
+            let updataSql = 'UPDATE heer_article SET click_count=? WHERE aid = ?'
+            let updataSqlParams = [count, aid]
+            connection.query(updataSql, updataSqlParams, (err, results, fields) => {
+                if (err) {
+                    reject(err)
+                }
+                let sendData = {}
+                sendData.data = results
+                sendData.msg = 'ok'
+                resolve(sendData)
+            })
+        })
+    }
+    try {
+        const aid = req.query.aid
+        let getClickCountRes = await getClickCount(aid)
+        let click_count = parseInt(getClickCountRes.click_count)+1
+        let editClickCountRes = await editClickCount(click_count + '', aid)
+        res.send(editClickCountRes)
+    } catch (error) {
+        res.send(error)
+    }
+
+
+}
 module.exports = {
     getArticle,
     addArticle,
@@ -378,5 +428,6 @@ module.exports = {
     editArticle,
     deleteArticle,
     querySortidArticle,
-    queryTimeArticle
+    queryTimeArticle,
+    addClickCount
 }

@@ -7,7 +7,8 @@ import {
     editArticle,
     deleteArticle,
     querySortidArticle,
-    queryTimeArticle
+    queryTimeArticle,
+    addClickCount
 } from './Article/Article';
 import {
     uploadFiles,
@@ -43,6 +44,7 @@ const api = {
     deleteArticle,
     querySortidArticle,
     queryTimeArticle,
+    addClickCount,
     // ----------获取记事本数据-------------------
     queryNotePadeName,
     queryNotePad,

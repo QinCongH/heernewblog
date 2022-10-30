@@ -21,7 +21,8 @@ const { //方法
     editArticle,
     deleteArticle,
     querySortidArticle,
-    queryTimeArticle
+    queryTimeArticle,
+    addClickCount
 } = require('./Articel/Article')
 const {
     uploadPicture,
@@ -61,6 +62,8 @@ router.get(Article.deleteArticle, deleteArticle)
 router.get(Article.querySortidArticle, querySortidArticle)
 //根据时间戳查询文章
 router.get(Article.queryTimeArticle, queryTimeArticle)
+/*添加点击量 */
+router.get(Article.addClickCount,addClickCount)
 /*
 上传
 */

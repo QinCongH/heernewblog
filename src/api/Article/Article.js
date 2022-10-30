@@ -73,3 +73,12 @@ export const  queryTimeArticle= (params) => {
         params
     })
 } 
+/*
+添加点击量
+*/
+export const  addClickCount= (params) => {
+    return axios.get(base.addClickCount, {
+        params
+    })
+} 
+

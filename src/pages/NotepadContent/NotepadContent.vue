@@ -171,7 +171,12 @@
                   <div class="bottom">
                     <p>{{ dayjs(item.addtime).format("YYYY-MM-DD HH:mm") }}</p>
                     <p>
-                      {{ item.click_count }}</p>
+                      <span>
+                        浏览量
+                      </span>
+                    {{ item.click_count }}
+                      
+                      </p>
                   </div>
                 </div>
               </el-col>

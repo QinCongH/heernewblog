@@ -193,9 +193,17 @@ export default defineComponent({
         console.log(err);
       }
     };
-    onMounted(()=>{
+    onMounted(() => {
       loadData();
-    })
+
+      /*
+    添加点击量
+    */
+      const addClickCount = async () => {
+        let addClickCountRes = await proxy.$api.addClickCount({ aid: route.query._id });
+      };
+      addClickCount();
+    });
 
     /*
    点击目录

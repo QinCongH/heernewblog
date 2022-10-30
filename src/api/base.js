@@ -11,6 +11,7 @@ const base = {
     deleteArticle: '/api/deleteArticle',
     querySortidArticle: '/api/querySortidArticle',
     queryTimeArticle: '/api/queryTimeArticle',
+    addClickCount:'/api/addClickCount',
     /*
         上传
     */

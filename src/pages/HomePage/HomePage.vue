@@ -39,8 +39,8 @@
                       <p v-html="toText(md.render(item.content))"></p>
                     </dd>
                     <dd class="flex-h mg-t-15 justify-between">
-                      <p>{{ item.name }}</p>
-                      <p class="white-space">
+                      <p class="font-13 white-space">{{ item.name }}</p>
+                      <p class="white-space font-13">
                         {{ dayjs(item.addtime).format("YYYY-MM-DD HH:mm") }}
                       </p>
                     </dd>
@@ -259,13 +259,22 @@ export default defineComponent({
   }
 }
 .note-main {
+
   .note {
     height: 240px;
+    cursor: pointer;
     dl {
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
+      dt{
+        &:hover {
+        transition: all 0.2s;
+        color: #03a87c !important;
+      }
+      }
+
       dd {
         align-items: center;
         // p{
@@ -273,6 +282,7 @@ export default defineComponent({
         //   font-size: 10px;
         //   white-space: nowrap;
         // }
+        
         &:nth-of-type(1) {
           height: 56%;
         }
