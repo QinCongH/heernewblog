@@ -99,7 +99,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .notepad {
-  height: calc(100vh - 50px);
+  // height: calc(100vh - 50px);
   .top {
     display: flex;
     flex-wrap: wrap;
